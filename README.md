@@ -1,5 +1,9 @@
 # mekobachelor
 <<<<<<< HEAD
+git come on
+adfasdfas
+asdfasdf
+
 #KR
 =======
 hello
