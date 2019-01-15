@@ -1,6 +1,8 @@
 # Laravel Introduksjon
 
-Under vår bacheloroppgave skal vi utvikle en applikasjon ved hjelp av rammeverket Laravel. Siden kun et på gruppen har erfaring med Laravel så skal vi gå igjennom funksjonalitet som gjør teamet rustet til å utvikle front-end deler av applikasjonen. 
+Under vår bacheloroppgave skal vi utvikle en applikasjon ved hjelp av rammeverket Laravel. 
+Siden kun en på gruppen har erfaring med Laravel så skal vi gå igjennom funksjonalitet som
+ gjør teamet rustet til å utvikle front-end deler av applikasjonen. 
 
 ### Starte prosjektet lokalt
 Vi har allerede installert og konfigruert prosjektet i felleskap. For å starte det på din lokale maskin,
