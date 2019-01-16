@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="cc66cf6f-689c-4bb8-a151-f664ebde1463" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/resources/views/drive.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/resources/views/drive.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/resources/views/proto.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/resources/views/proto.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -32,13 +34,13 @@
           <entry key="example" value="1" />
           <entry key="gitignore" value="3" />
           <entry key="md" value="3" />
-          <entry key="php" value="40" />
+          <entry key="php" value="46" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key=".env file" value="3" />
-          <entry key="Blade" value="33" />
+          <entry key="Blade" value="39" />
           <entry key="CSS" value="3" />
           <entry key="Markdown" value="3" />
           <entry key="PHP" value="7" />
@@ -50,36 +52,45 @@
           <entry key="css" value="46" />
           <entry key="env" value="73" />
           <entry key="md" value="3992" />
-          <entry key="php" value="2192" />
+          <entry key="php" value="3396" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key=".env file" value="73" />
-          <entry key="Blade" value="1889" />
+          <entry key="Blade" value="3076" />
           <entry key="CSS" value="46" />
           <entry key="Markdown" value="3992" />
-          <entry key="PHP" value="303" />
+          <entry key="PHP" value="320" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/routes/web.php">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/resources/views/drivestart.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="36" column="22" selection-start-line="36" selection-start-column="22" selection-end-line="36" selection-end-column="22" />
+            <state relative-caret-position="293">
+              <caret line="150" column="185" selection-start-line="150" selection-start-column="185" selection-end-line="150" selection-end-column="185" />
+              <folding>
+                <element signature="e#516#2510#0#HTML" />
+                <element signature="e#764#785#0#HTML" expanded="true" />
+                <element signature="e#2674#3969#0#HTML" />
+                <element signature="e#3025#3046#0#HTML" expanded="true" />
+                <element signature="e#4381#7002#0#HTML" />
+                <element signature="e#4531#4552#0#HTML" expanded="true" />
+                <element signature="e#6916#6937#0#HTML" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/resources/views/drive.blade.php">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/resources/views/proto.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="412">
-              <caret line="51" column="43" selection-start-line="51" selection-start-column="43" selection-end-line="51" selection-end-column="43" />
+            <state relative-caret-position="255">
+              <caret line="15" column="30" lean-forward="true" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -90,6 +101,8 @@
     <findStrings>
       <find>&lt;a</find>
       <find>card-header</find>
+      <find>bg-secondary</find>
+      <find>setfini</find>
     </findStrings>
     <replaceStrings>
       <replace>&lt;a target=&quot;_blank&quot;</replace>
@@ -115,11 +128,12 @@
         <option value="$PROJECT_DIR$/app/resources/views/boostraptesting.blade.php" />
         <option value="$PROJECT_DIR$/app/resources/views/layouts/newtest.blade.php" />
         <option value="$PROJECT_DIR$/app/resources/views/thomas.blade.php" />
-        <option value="$PROJECT_DIR$/app/resources/views/proto.blade.php" />
         <option value="$PROJECT_DIR$/app/resources/views/components/_protonav.blade.php" />
-        <option value="$PROJECT_DIR$/app/routes/web.php" />
         <option value="$PROJECT_DIR$/app/resources/views/layouts/proto.blade.php" />
+        <option value="$PROJECT_DIR$/app/routes/web.php" />
         <option value="$PROJECT_DIR$/app/resources/views/drive.blade.php" />
+        <option value="$PROJECT_DIR$/app/resources/views/proto.blade.php" />
+        <option value="$PROJECT_DIR$/app/resources/views/drivestart.blade.php" />
       </list>
     </option>
   </component>
@@ -359,18 +373,18 @@
       <workItem from="1547459683500" duration="5705000" />
       <workItem from="1547543718819" duration="2874000" />
       <workItem from="1547649329760" duration="760000" />
-      <workItem from="1547654919799" duration="3944000" />
+      <workItem from="1547654919799" duration="6286000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13283000" />
+    <option name="totallyTimeSpent" value="15625000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="38" y="23" width="1642" height="1027" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2899371" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2899371" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -383,7 +397,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.18231441" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.18231441" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -521,20 +535,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="36" column="22" selection-start-line="36" selection-start-column="22" selection-end-line="36" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/resources/views/proto.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25">
-          <caret line="6" lean-forward="true" selection-end-line="100" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/resources/views/components/_protonav.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
@@ -549,10 +549,40 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="33" column="18" lean-forward="true" selection-start-line="33" selection-start-column="18" selection-end-line="33" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/resources/views/drive.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="412">
-          <caret line="51" column="43" selection-start-line="51" selection-start-column="43" selection-end-line="51" selection-end-column="43" />
+        <state relative-caret-position="140">
+          <caret line="22" column="10" lean-forward="true" selection-start-line="22" selection-start-column="10" selection-end-line="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/resources/views/proto.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="30" lean-forward="true" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/resources/views/drivestart.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="293">
+          <caret line="150" column="185" selection-start-line="150" selection-start-column="185" selection-end-line="150" selection-end-column="185" />
+          <folding>
+            <element signature="e#516#2510#0#HTML" />
+            <element signature="e#764#785#0#HTML" expanded="true" />
+            <element signature="e#2674#3969#0#HTML" />
+            <element signature="e#3025#3046#0#HTML" expanded="true" />
+            <element signature="e#4381#7002#0#HTML" />
+            <element signature="e#4531#4552#0#HTML" expanded="true" />
+            <element signature="e#6916#6937#0#HTML" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

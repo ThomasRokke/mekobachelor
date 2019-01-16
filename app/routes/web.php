@@ -36,3 +36,7 @@ Route::get('/proto', function(){
 Route::get('/drive', function(){
     return view('drive');
 })->name('drive');
+
+Route::get('/drivestart', function(){
+    return view('drivestart');
+})->name('drivestart');
