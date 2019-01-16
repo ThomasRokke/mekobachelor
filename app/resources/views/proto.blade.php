@@ -7,16 +7,16 @@
 
 
 @section('content')
-    <div class="container animated  ">
-        <a class="weatherwidget-io" href="https://forecast7.com/no/59d9110d75/oslo/" data-label_1="OSLO" >OSLO</a>
+    <div class="container  outer-wrapper " style="display: none">
+        <a class="weatherwidget-io animated bounceInDown"   href="https://forecast7.com/no/59d9110d75/oslo/" data-label_1="OSLO" >OSLO</a>
 
 
         <div class="jumbotron" style="background-color:white">
-            <p class="lead text-center typed-size"> <span id="typed"></span></p>
+            <p id="typed-ani" class="lead text-center typed-size"> <span id="typed"></span></p>
             <input type="hidden" id="name" value="Thomas">
            <hr class="my-4">
-           <p class="lead text-center">Du skal kjøre rute <strong>15</strong> klokken <strong>10:00</strong></p>
-            <a class="btn btn-primary btn-lg btn-block" href="{{ route('drive') }}" role="button">Se kjøreliste</a>
+           <p class="lead text-center animated fadeIn delay-1s">Du skal kjøre rute <strong>15</strong> klokken <strong>10:00</strong></p>
+            <a id="pulse-btn" class="btn btn-primary btn-lg btn-block animated flipInX delay-1s" style="display: none" href="{{ route('drive') }}" role="button">Se kjøreliste</a>
         </div>
 
 
@@ -36,6 +36,7 @@
     <script>
         $( document ).ready(function() {
 
+
             $(".timeline-Tweet").removeData("click-to-open-target");
         });
     </script>
@@ -43,20 +44,59 @@
     <script type="text/javascript">
 
 
-        var name = document.getElementById('name').value;
-
-
-        var options = {
-            strings: ["God dag, "+name+"."],
-            typeSpeed: 25,
-            backSpeed: 15,
-            backDelay: 1000,
-            startDelay: 2000,
-            showCursor: true,
-            loop: false
+        // js prototype
+        if (typeof(Number.prototype.isBetween) === "undefined") {
+            Number.prototype.isBetween = function(min, max, notBoundaries) {
+                var between = false;
+                if (notBoundaries) {
+                    if ((this < max) && (this > min)) between = true;
+                } else {
+                    if ((this <= max) && (this >= min)) between = true;
+                }
+                return between;
+            }
         }
 
-        var typed = new Typed("#typed", options);
+
+        var name = document.getElementById('name').value;
+
+        $(function() {
+            let d = new Date();
+            let hour =  d.getHours();
+            let welcomeTxt = 'God dag';
+
+            try {
+                if (hour.isBetween(6, 10)) {
+                    welcomeTxt = "God morgen!";
+                }
+                else if(hour.isBetween(11, 17))   {
+                    welcomeTxt = "God dag";
+                }
+                else if(hour.isBetween(18, 24)){
+                    welcomeTxt = "God kveld";
+                }
+                else{
+                    welcomeTxt = "God natt";
+                }
+
+            } catch (e) {
+                console.log(e.message());
+            }
+
+            var options = {
+                strings: [welcomeTxt+", "+name+".^2000"],
+                typeSpeed: 25,
+                backSpeed: 15,
+                backDelay: 1000,
+                startDelay: 2000,
+                showCursor: true,
+                loop: false
+            }
+
+            var typed = new Typed("#typed", options);
+        });
+
+
     </script>
 
     <script>
@@ -88,6 +128,14 @@
 
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+    <script type="text/javascript">
+        $(window).on('load', function () {
+            $(".outer-wrapper").show("slow");
 
+            $(".weatherwidget-io").addClass("animated","bounceInDown");
+            $("#pulse-btn").show("slow");
+
+        });
+    </script>
 
 @endsection

@@ -21,7 +21,7 @@
         <div class="col-xs-12">
             <h3 class="text-center">Rute <strong>15</strong> klokken <strong>10:00</strong></h3>
 
-            <div class="btn btn-danger btn-block btn-lg" onclick="alert('kjøring har blitt stopped')">STOPP KJØRING</div>
+            <div class="btn btn-danger btn-block btn-lg" onclick="confirm('Ønsker du å avslutte ruten? Du kan IKKE angre!')">STOPP KJØRING</div>
             <hr>
 
             <div id="accordion" class="animated bounceInLeft">

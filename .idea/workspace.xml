@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cc66cf6f-689c-4bb8-a151-f664ebde1463" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/app/public/css/proto.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/public/css/proto.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/resources/views/components/_protonav.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/resources/views/components/_protonav.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/resources/views/drive.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/resources/views/drive.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/resources/views/drivestart.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/resources/views/drivestart.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/resources/views/proto.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/resources/views/proto.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,20 +31,20 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="css" value="6" />
+          <entry key="css" value="7" />
           <entry key="env" value="2" />
           <entry key="example" value="1" />
           <entry key="gitignore" value="3" />
           <entry key="js" value="2" />
           <entry key="md" value="3" />
-          <entry key="php" value="62" />
+          <entry key="php" value="66" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key=".env file" value="3" />
-          <entry key="Blade" value="54" />
-          <entry key="CSS" value="6" />
+          <entry key="Blade" value="58" />
+          <entry key="CSS" value="7" />
           <entry key="JavaScript" value="2" />
           <entry key="Markdown" value="3" />
           <entry key="PHP" value="8" />
@@ -50,17 +53,17 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="css" value="186" />
+          <entry key="css" value="225" />
           <entry key="env" value="73" />
           <entry key="md" value="3992" />
-          <entry key="php" value="4160" />
+          <entry key="php" value="4802" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key=".env file" value="73" />
-          <entry key="Blade" value="3768" />
-          <entry key="CSS" value="186" />
+          <entry key="Blade" value="4410" />
+          <entry key="CSS" value="225" />
           <entry key="Markdown" value="3992" />
           <entry key="PHP" value="392" />
         </counts>
@@ -69,20 +72,15 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/resources/views/drivestart.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="451">
-              <caret line="218" column="140" lean-forward="true" selection-start-line="218" selection-start-column="74" selection-end-line="218" selection-end-column="140" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/resources/views/drive.blade.php">
+        <entry file="file://$PROJECT_DIR$/app/resources/views/proto.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="581">
-              <caret line="229" column="74" selection-start-line="229" selection-start-column="74" selection-end-line="229" selection-end-column="74" />
+            <state relative-caret-position="640">
+              <caret line="132" column="45" selection-start-line="132" selection-start-column="45" selection-end-line="132" selection-end-column="45" />
+              <folding>
+                <element signature="e#135#156#0#HTML" expanded="true" />
+                <element signature="e#764#785#0#HTML" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -98,10 +96,12 @@
       <find>px</find>
       <find>se kjøre</find>
       <find>se kjør</find>
+      <find>md</find>
     </findStrings>
     <replaceStrings>
       <replace>&lt;a target=&quot;_blank&quot;</replace>
       <replace>card-header text-center</replace>
+      <replace>=</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -123,17 +123,17 @@
         <option value="$PROJECT_DIR$/app/resources/views/boostraptesting.blade.php" />
         <option value="$PROJECT_DIR$/app/resources/views/layouts/newtest.blade.php" />
         <option value="$PROJECT_DIR$/app/resources/views/thomas.blade.php" />
-        <option value="$PROJECT_DIR$/app/resources/views/components/_protonav.blade.php" />
         <option value="$PROJECT_DIR$/app/public/css/animatedcss.css" />
         <option value="$PROJECT_DIR$/app/resources/views/layouts/proto.blade.php" />
         <option value="$PROJECT_DIR$/app/resources/js/proto-twitter.js" />
-        <option value="$PROJECT_DIR$/app/public/css/proto.css" />
         <option value="$PROJECT_DIR$/app/routes/web.php" />
         <option value="$PROJECT_DIR$/app/resources/js/CustomGoogleMapMarker.js" />
         <option value="$PROJECT_DIR$/app/resources/views/map.blade.php" />
-        <option value="$PROJECT_DIR$/app/resources/views/proto.blade.php" />
-        <option value="$PROJECT_DIR$/app/resources/views/drivestart.blade.php" />
         <option value="$PROJECT_DIR$/app/resources/views/drive.blade.php" />
+        <option value="$PROJECT_DIR$/app/resources/views/components/_protonav.blade.php" />
+        <option value="$PROJECT_DIR$/app/public/css/proto.css" />
+        <option value="$PROJECT_DIR$/app/resources/views/drivestart.blade.php" />
+        <option value="$PROJECT_DIR$/app/resources/views/proto.blade.php" />
       </list>
     </option>
   </component>
@@ -381,12 +381,12 @@
       <workItem from="1547543718819" duration="2874000" />
       <workItem from="1547649329760" duration="760000" />
       <workItem from="1547654919799" duration="6806000" />
-      <workItem from="1547664125335" duration="7270000" />
+      <workItem from="1547664125335" duration="10098000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="23415000" />
+    <option name="totallyTimeSpent" value="26243000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="38" y="23" width="1642" height="1027" extended-state="0" />
@@ -529,13 +529,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/resources/views/components/_protonav.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="27" column="6" lean-forward="true" selection-start-line="27" selection-start-column="6" selection-end-line="27" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/public/css/animatedcss.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="244">
@@ -571,13 +564,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/resources/views/proto.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="29" column="19" lean-forward="true" selection-start-line="29" selection-start-column="19" selection-end-line="29" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/resources/views/map.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
@@ -596,13 +582,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/public/css/proto.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/resources/views/layouts/proto.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="196">
@@ -610,17 +589,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/resources/views/drivestart.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/resources/views/drive.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="451">
-          <caret line="218" column="140" lean-forward="true" selection-start-line="218" selection-start-column="74" selection-end-line="218" selection-end-column="140" />
+        <state relative-caret-position="63">
+          <caret line="164" column="3" lean-forward="true" selection-start-line="164" selection-start-column="3" selection-end-line="164" selection-end-column="3" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/resources/views/drive.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/resources/views/components/_protonav.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="581">
-          <caret line="229" column="74" selection-start-line="229" selection-start-column="74" selection-end-line="229" selection-end-column="74" />
+        <state relative-caret-position="255">
+          <caret line="15" column="73" selection-start-line="15" selection-start-column="73" selection-end-line="15" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/public/css/proto.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="23" selection-start-line="20" selection-start-column="23" selection-end-line="20" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/resources/views/drivestart.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" column="121" selection-start-line="23" selection-start-column="121" selection-end-line="23" selection-end-column="121" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/resources/views/proto.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="640">
+          <caret line="132" column="45" selection-start-line="132" selection-start-column="45" selection-end-line="132" selection-end-column="45" />
+          <folding>
+            <element signature="e#135#156#0#HTML" expanded="true" />
+            <element signature="e#764#785#0#HTML" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container">
 
 
@@ -13,7 +13,7 @@
                     <a class="nav-link" href="{{ route('proto') }}">Hjem <span class="sr-only">(current)</span></a>
                 </li>
 
-                <li class="nav-item {{ Request::segment(1) === 'drive' ? 'active' : null }}">
+                <li class="nav-item {{ (Request::segment(1) === 'drive'||(Request::segment(1) === 'drivestart')) ? 'active' : null }}">
                     <a class="nav-link" href="{{ route('drive') }}">Kjøring <span class="sr-only">(current)</span></a>
                 </li>
 
