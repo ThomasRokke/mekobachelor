@@ -211,23 +211,23 @@
                 document.getElementById('map'));
 
             // The marker, positioned at Uluru
-            var marker = new google.maps.Marker({position: from1, map: map, icon: 'http://maps.google.com/mapfiles/kml/paddle/3.png'});
+            var marker = new google.maps.Marker({position: from1, map: map});
             loc = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
             bounds.extend(loc);
 
 
-            var marker2 = new google.maps.Marker({position: too1, map: map, icon: 'http://maps.google.com/mapfiles/kml/paddle/2.png'});
+            var marker2 = new google.maps.Marker({position: too1, map: map});
 
             loc2 = new google.maps.LatLng(marker2.position.lat(), marker2.position.lng());
             bounds.extend(loc2);
 
             // The marker, positioned at Uluru
-            var marker3 = new google.maps.Marker({position: from2, map: map, icon: 'http://maps.google.com/mapfiles/kml/paddle/4.png'});
+            var marker3 = new google.maps.Marker({position: from2, map: map});
             loc3= new google.maps.LatLng(marker.position.lat(), marker3.position.lng());
             bounds.extend(loc3);
 
 
-            var marker4 = new google.maps.Marker({position: too2, map: map, icon: 'http://maps.google.com/mapfiles/kml/paddle/1.png'});
+            var marker4 = new google.maps.Marker({position: too2, map: map});
 
             loc4 = new google.maps.LatLng(marker2.position.lat(), marker4.position.lng());
             bounds.extend(loc4);
