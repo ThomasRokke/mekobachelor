@@ -40,3 +40,7 @@ Route::get('/drive', function(){
 Route::get('/drivestart', function(){
     return view('drivestart');
 })->name('drivestart');
+
+Route::get('/map', function(){
+   return view('map');
+})->name('map');
