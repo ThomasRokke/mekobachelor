@@ -27,3 +27,12 @@ Route::get('/thomas', function(){
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::get('/proto', function(){
+   return view('proto');
+})->name('proto');
+
+Route::get('/drive', function(){
+    return view('drive');
+})->name('drive');
