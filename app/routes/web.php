@@ -19,6 +19,11 @@ Route::get('/boot', function(){
    return view('boostraptesting');
 });
 
+//Thomas Laraveltest
+Route::get('/thomas', function(){
+   return view('thomas');
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
