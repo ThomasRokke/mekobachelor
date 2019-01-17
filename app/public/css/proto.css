@@ -20,3 +20,15 @@ input[type=checkbox] {
 #map{
     border-radius: 15px;
 }
+
+#trafficIframe{
+    height: 400px;
+    width: 100%;
+
+}
+
+
+
+.opacityToggle{
+    opacity: 0;
+}

@@ -186,15 +186,30 @@
         <div id="map" style="width: 100%; height: 400px;">
         </div>
 
+        <div style="margin-top:10px" id="show-and-hide-traffic-btn" class="btn btn-outline-secondary btn-block" onclick="showTrafficMap()">Vis trafikkinformasjon</div>
+
+        <p id="demo"></p>
+
+        <div id="trafficmap" class=" traffic opacityToggle">
+
+        </div>
+
+
     </div>
 
 @endsection
 
 @section('scripts')
 
+
+
+
+
+
     <script>
 
-
+        var map;
+        var bounds;
         // Initialize and add the map
         function initMap() {
 
@@ -211,7 +226,7 @@
             bounds  = new google.maps.LatLngBounds();
 
             // The map, centered at Uluru
-            var map = new google.maps.Map(
+             map = new google.maps.Map(
                 document.getElementById('map'));
 
 
@@ -228,20 +243,48 @@
 
             // The marker, positioned at Uluru
             var marker3 = new google.maps.Marker({position: from2, map: map, icon: 'http://maps.google.com/mapfiles/kml/paddle/wht-stars.png'});
-            loc3= new google.maps.LatLng(marker.position.lat(), marker3.position.lng());
+            loc3= new google.maps.LatLng(marker3.position.lat(), marker3.position.lng());
             bounds.extend(loc3);
 
 
             var marker4 = new google.maps.Marker({position: too2, map: map, icon: 'http://maps.google.com/mapfiles/kml/paddle/wht-stars.png'});
 
-            loc4 = new google.maps.LatLng(marker2.position.lat(), marker4.position.lng());
+            loc4 = new google.maps.LatLng(marker4.position.lat(), marker4.position.lng());
             bounds.extend(loc4);
 
 
             map.fitBounds(bounds);
             map.panToBounds(bounds);
+
+
+
+
+
         }
+
+        function addMarker(location) {
+            marker = new google.maps.Marker({
+                position: location,
+                map: map,
+                icon: "http://maps.google.com/mapfiles/kml/pal4/icon54.png"
+            });
+        }
+
+        // Testing the addMarker function
+        function TestMarker(lat, lng) {
+            CentralPark = new google.maps.LatLng(lat, lng);
+            addMarker(CentralPark);
+        }
+
+
+
+
     </script>
+
+    <script>
+
+    </script>
+
     <!--Load the API from the specified URL
     * The async attribute allows the browser to render the page while the API loads
     * The key parameter will contain your own API key (which is not needed for this tutorial)
@@ -249,6 +292,74 @@
     -->
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbs_N37A9PUe80-qtBc4EzC4_GJ_0PJKs&callback=initMap">
+    </script>
+
+    <script>
+        //var x = document.getElementById("demo");
+
+
+        var trafficInit = false;
+        var firstInit = false;
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.watchPosition(showPosition);
+            } else {
+                //x.innerHTML = "Geolocation is not supported by this browser.";
+                console.log('geolocation is not supported by this browser');
+            }
+        }
+
+        function trafficMap(lat, lng){
+            console.log('traffic-map');
+            if(!trafficInit){
+                //alert('traffic map');
+
+
+                //init statens vegvesen map
+                //https://www.vegvesen.no/trafikkbeta?lat=63.96423&long=10.97340&zoom=3&listView=false
+                $('#trafficmap').html('<iframe src="https://www.vegvesen.no/trafikkbeta?lat='+lat+'&long='+lng+'&zoom=11&listView=false" allow="geolocation" frameborder="0" scrolling="no" id="trafficIframe"></iframe>');
+
+            }
+            trafficInit = true;
+        }
+
+
+
+        function showPosition(position) {
+
+
+            TestMarker(position.coords.latitude, position.coords.longitude);
+
+
+            //run traffic condition maps
+            trafficMap(position.coords.latitude, position.coords.longitude);
+
+
+
+        }
+
+        function showTrafficMap(){
+
+
+        var trafficmap = $("#trafficmap");
+
+        var trafficBtn = $("#show-and-hide-traffic-btn");
+        trafficmap.toggleClass('opacityToggle');
+        trafficBtn.toggleClass("btn-outline-secondary  btn-secondary ");
+
+            if(trafficmap.hasClass('opacityToggle')){
+                trafficBtn.html("Vis Trafikk");
+            }else{
+                trafficBtn.html("Skjul trafikk");
+            }
+
+        }
+
+
+
+
+        getLocation();
     </script>
 
     <script>
