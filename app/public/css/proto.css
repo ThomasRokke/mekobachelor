@@ -1,0 +1,34 @@
+.weatherwidget-io{
+
+}
+
+
+input[type=checkbox] {
+    transform: scale(1.5);
+
+}
+
+.form-check{
+    padding: 0 15px 10px 15px;
+}
+
+.typed-size{
+    font-size: 2em;
+}
+
+
+#map{
+    border-radius: 15px;
+}
+
+#trafficIframe{
+    height: 400px;
+    width: 100%;
+
+}
+
+
+
+.opacityToggle{
+    opacity: 0;
+}
