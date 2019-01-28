@@ -20,13 +20,25 @@
 @section('content')
     <div class="container">
 
-        <div class="row">
-            <div class="col-md-12">
-                <h1 class="text-center">Hei, {{ \Illuminate\Support\Facades\Auth::user()->name }}</h1>
-                <h1 class="text-center">Du er på route-endkm</h1>
-                <p class="lead"> @role('User') Du har rollen user! @endrole </p>
+        <p class="lead">Kmstand start: 5615631</p>
+        <form method="POST" action="https://testing123.frb.io/setkmstateend?id=3">
+            <input type="hidden" name="_token" value="3ahIBRM2hZtOu1l1clWRiFXpCRCFR5j5RL9F0R1R">            <div class="form-row">
+
+                <div class="col-md-4 mb-3">
+                    <label for="validationDefaultUsername" class="label-old">Kilometerstand.</label>
+                    <div class="input-group">
+                        <!-- TODO: Add functionality to set minimum and maximum length. -->
+                        <input type="tel" name="kmend" min="5615631" max="5615831" value="5615" class="form-control input-old" id="validationDefaultUsername" autocomplete="off" placeholder="12312312" required="" oninvalid="this.setCustomValidity('Fyll inn riktig kilometstand.')" oninput="this.setCustomValidity('')">
+                    </div>
+                </div>
+
             </div>
-        </div>
+            <button class="btn btn-danger btn-block btn-old" onclick="confirm('Ønsker du å avslutte ruten? Du kan IKKE angre!')" type="submit">Avslutt rute <i class="fa fa-check-square"></i></button>
+        </form>
+
+
+
+        <a href="https://testing123.frb.io/drivestart" class="btn btn-primary btn-block btn-old margin-top-15"><i class="fa fa-arrow-left"></i> Tilbake til rute </a>
 
     </div>
 
