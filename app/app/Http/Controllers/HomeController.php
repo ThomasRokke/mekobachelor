@@ -34,4 +34,9 @@ class HomeController extends Controller
     public function getRoutePreview(){
         return view('transport.route-preview');
     }
+
+    public  function getRouteEndKm(){
+        return view('transport.route-endkm');
+    }
 }
+

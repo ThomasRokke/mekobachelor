@@ -51,4 +51,6 @@ Route::get('/transport/home', 'HomeController@getTransportHome')->name('transpor
 //route-preview
 Route::get('/transport/route-preview', 'HomeController@getRoutePreview')->name('transport.route-preview');
 
+Route::get('/transport/route-endkm', 'HomeController@getRouteEndKm')->name('transport.route-endkm');
+
 //end Transport routes
