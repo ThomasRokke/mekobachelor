@@ -48,7 +48,12 @@ Route::get('/map', function(){
 //Transport routes.
 //home
 Route::get('/transport/home', 'HomeController@getTransportHome')->name('transport.home');
+
 //route-preview
 Route::get('/transport/route-preview', 'HomeController@getRoutePreview')->name('transport.route-preview');
+
+//route-startkm
+Route::get('/transport/route-startkm', 'HomeController@getRouteStartKm') ->name('transport.route-startkm');
+
 
 //end Transport routes
