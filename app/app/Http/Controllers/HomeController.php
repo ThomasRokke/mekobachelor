@@ -30,4 +30,8 @@ class HomeController extends Controller
     public function getTransportHome(){
         return view('transport.home');
     }
+
+    public function getRoutePreview(){
+        return view('transport.route-preview');
+    }
 }

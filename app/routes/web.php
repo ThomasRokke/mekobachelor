@@ -45,5 +45,10 @@ Route::get('/map', function(){
    return view('map');
 })->name('map');
 
-//Transport route.
+//Transport routes.
+//home
 Route::get('/transport/home', 'HomeController@getTransportHome')->name('transport.home');
+//route-preview
+Route::get('/transport/route-preview', 'HomeController@getRoutePreview')->name('transport.route-preview');
+
+//end Transport routes

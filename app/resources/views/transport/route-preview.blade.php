@@ -1,3 +1,4 @@
+
 @extends('layouts.main')
 
 @section('header-resources')
@@ -22,6 +23,7 @@
         <div class="row">
             <div class="col-md-12">
                 <h1 class="text-center">Hei, {{ \Illuminate\Support\Facades\Auth::user()->name }}</h1>
+                <h1 class="text-center">Du er på route-preview</h1>
                 <p class="lead"> @role('User') Du har rollen user! @endrole </p>
             </div>
         </div>
