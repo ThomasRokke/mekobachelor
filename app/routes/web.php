@@ -46,18 +46,20 @@ Route::get('/map', function(){
 })->name('map');
 
 //Transport routes.
+
 //home
 Route::get('/transport/home', 'HomeController@getTransportHome')->name('transport.home');
 
 //route-preview
 Route::get('/transport/route-preview', 'HomeController@getRoutePreview')->name('transport.route-preview');
 
-<<<<<<< HEAD
 //route-startkm
 Route::get('/transport/route-startkm', 'HomeController@getRouteStartKm') ->name('transport.route-startkm');
 
-=======
+//Route-endKm
 Route::get('/transport/route-endkm', 'HomeController@getRouteEndKm')->name('transport.route-endkm');
->>>>>>> f9fcb075bc1cba89b031a29a7f04abb7aac2002d
+
+//route-drive
+Route::get('/transport/route-drive', 'HomeController@getRouteDrive')->name('transport.route.drive');
 
 //end Transport routes

@@ -45,5 +45,9 @@ class HomeController extends Controller
         return view('transport.route-endkm');
 
     }
+
+    public function getRouteDrive(){
+        return view('transport.route-drive');
+    }
 }
 
