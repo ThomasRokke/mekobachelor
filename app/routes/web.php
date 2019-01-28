@@ -60,6 +60,6 @@ Route::get('/transport/route-startkm', 'HomeController@getRouteStartKm') ->name(
 Route::get('/transport/route-endkm', 'HomeController@getRouteEndKm')->name('transport.route-endkm');
 
 //route-drive
-Route::get('/transport/route-drive', 'HomeController@getRouteDrive')->name('transport.route.drive');
+Route::get('/transport/route-drive', 'HomeController@getRouteDrive')->name('transport.route-drive');
 
 //end Transport routes
