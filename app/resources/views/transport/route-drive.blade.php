@@ -20,14 +20,14 @@
 @section('content')
 
     <div class="container">
-        <div class="col-xs-12 old-marign-top">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 old-marign-top">
 
             <input type="hidden" id="amount" value="8">
 
             <h3 class="text-center">Rute <strong>11</strong> klokken  <strong>12:00:00</strong></h3>
 
 
-            <a href="{{ route('transport.route-endkm') }}" class="btn btn-danger btn-block  btn-lg   btn-old">STOPP KJØRING</a>
+            <a href="{{ route('transport.route-endkm') }}" class="btn btn-danger btn-block  btn-lg   btn-old">STOPP KJØRING  <i class="fa fa-clock"></i></a>
             <hr>
             <div class="progress">
                 <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 87.5%" aria-valuenow="8" aria-valuemin="0" aria-valuemax="100"></div>
@@ -44,7 +44,7 @@
 
 
                             <button onclick="//confirm('Sikker på at du ønsker å angre?')" class="btn" type="submit">
-                                <i id="icon-1-undo" class="fa fa-undo fa-2x align-middle text-danger"></i>
+                                <i id="icon-1-undo" class="fa fa-undo fa-2x align-middle  text-white"></i>
                             </button>
                             <a class="collapsed card-link card-collapse-link btn text-white " data-toggle="collapse" href="#collapse20">
                                 Hausmanns Auto
@@ -75,14 +75,14 @@
                     </div>
                 </form>
                 <form method="get" action="#">
-                    <input type="hidden" name="_token" value="3ahIBRM2hZtOu1l1clWRiFXpCRCFR5j5RL9F0R1R">
+                    
                     <input type="hidden" name="id" value="15">
                     <div id="wrapper-1" class="card text-white bg-success">
                         <div class="card-header d-flex justify-content-between align-items-centerd-flex justify-content-between align-items-center ">
 
 
                             <button onclick="//confirm('Sikker på at du ønsker å angre?')" class="btn" type="submit">
-                                <i id="icon-1-undo" class="fa fa-undo fa-2x align-middle text-danger"></i>
+                                <i id="icon-1-undo" class="fa fa-undo fa-2x align-middle  text-white"></i>
                             </button>
                             <a class="collapsed card-link card-collapse-link btn text-white " data-toggle="collapse" href="#collapse15">
                                 Stovnerbrua Service Senter As
@@ -116,7 +116,7 @@
 
 
                             <button onclick="//confirm('Sikker på at du ønsker å angre?')" class="btn" type="submit">
-                                <i id="icon-1-undo" class="fa fa-undo fa-2x align-middle text-danger"></i>
+                                <i id="icon-1-undo" class="fa fa-undo fa-2x align-middle  text-white"></i>
                             </button>
                             <a class="collapsed card-link card-collapse-link btn text-white " data-toggle="collapse" href="#collapse19">
                                 Kvickstop Strømmen
@@ -150,7 +150,7 @@
 
 
                             <button onclick="//confirm('Sikker på at du ønsker å angre?')" class="btn" type="submit">
-                                <i id="icon-1-undo" class="fa fa-undo fa-2x align-middle text-danger"></i>
+                                <i id="icon-1-undo" class="fa fa-undo fa-2x align-middle  text-white"></i>
                             </button>
                             <a class="collapsed card-link card-collapse-link btn text-white " data-toggle="collapse" href="#collapse17">
                                 Melby Auto Avd skjetten
@@ -184,7 +184,7 @@
 
 
                             <button onclick="//confirm('Sikker på at du ønsker å angre?')" class="btn" type="submit">
-                                <i id="icon-1-undo" class="fa fa-undo fa-2x align-middle text-danger"></i>
+                                <i id="icon-1-undo" class="fa fa-undo fa-2x align-middle  text-white"></i>
                             </button>
                             <a class="collapsed card-link card-collapse-link btn text-white " data-toggle="collapse" href="#collapse18">
                                 Strømmen vgs
@@ -255,7 +255,7 @@
 
 
                             <button onclick="//confirm('Sikker på at du ønsker å angre?')" class="btn" type="submit">
-                                <i id="icon-1-undo" class="fa fa-undo fa-2x align-middle text-danger"></i>
+                                <i id="icon-1-undo" class="fa fa-undo fa-2x align-middle  text-white"></i>
                             </button>
                             <a class="collapsed card-link card-collapse-link btn text-white " data-toggle="collapse" href="#collapse16">
                                 Mekonomen As Avd Lillestrøm
@@ -289,7 +289,7 @@
 
 
                             <button onclick="//confirm('Sikker på at du ønsker å angre?')" class="btn" type="submit">
-                                <i id="icon-1-undo" class="fa fa-undo fa-2x align-middle text-danger"></i>
+                                <i id="icon-1-undo" class="fa fa-undo fa-2x align-middle  text-white"></i>
                             </button>
                             <a class="collapsed card-link card-collapse-link btn text-white " data-toggle="collapse" href="#collapse21">
                                 Mekonomen Bjørkelangen

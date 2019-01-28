@@ -1,3 +1,62 @@
 .hello-world{
     color:red !important;
 }
+
+
+/*
+    Mekonomen color scheme.
+*/
+.meko-color-text{
+    color: #fff100 !important;
+}
+
+.meko-color-bg{
+    background-color: #1d2021 !important;
+}
+
+.btn-outline-meko {
+    color: #fff100;
+    background-color: #1d2021;
+    border-color: #fff100;
+}
+
+.btn-outline-meko:hover {
+    color: #1d2021;
+    background-color: #fff100;
+    border-color: #dfd100;
+}
+
+.border-meko{
+    border-color: #fff100;
+}
+
+/*
+    End Mekonomen color scheme.
+*/
+
+/*
+    Start route-drive / route-preview styles
+*/
+
+.card-collapse-link{
+
+    width: 80%;
+    text-align: left;
+    overflow:hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+}
+
+.route-report-link{
+    width: 60%;
+
+    overflow:hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/*
+    End
+*/

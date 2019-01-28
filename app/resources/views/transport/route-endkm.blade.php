@@ -38,7 +38,7 @@
 
 
 
-        <a href="https://testing123.frb.io/drivestart" class="btn btn-primary btn-block btn-old margin-top-15"><i class="fa fa-arrow-left"></i> Tilbake til rute </a>
+        <a href="https://testing123.frb.io/drivestart" class="btn btn-outline-meko btn-block btn-old margin-top-15"><i class="fa fa-arrow-left"></i> Tilbake til rute </a>
 
     </div>
 

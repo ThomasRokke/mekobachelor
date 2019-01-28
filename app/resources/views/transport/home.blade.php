@@ -26,7 +26,7 @@
 
                 <hr>
 
-                <a href="{{ route('transport.route-startkm') }}" class="btn btn-block btn-primary">Se kjøreliste</a>
+                <a href="{{ route('transport.route-startkm') }}" class="btn btn-block btn-outline-meko">Se kjøreliste</a>
             </div>
         </div>
 

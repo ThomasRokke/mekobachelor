@@ -36,7 +36,7 @@
                 </div>
 
             </div>
-            <button class="btn btn-primary btn-block btn-old" type="submit">Gå videre til kjørelisten <i class="fa fa-arrow-right"></i></button>
+            <button class="btn btn-outline-meko btn-block btn-old" type="submit">Gå videre til kjørelisten <i class="fa fa-arrow-right"></i></button>
         </form>
     </div>
 
