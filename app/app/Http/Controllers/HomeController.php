@@ -38,5 +38,9 @@ class HomeController extends Controller
     public  function getRouteEndKm(){
         return view('transport.route-endkm');
     }
+
+    public function getRouteReport() {
+        return view('transport.route-report');
+    }
 }
 

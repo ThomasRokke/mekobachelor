@@ -50,7 +50,9 @@ Route::get('/map', function(){
 Route::get('/transport/home', 'HomeController@getTransportHome')->name('transport.home');
 //route-preview
 Route::get('/transport/route-preview', 'HomeController@getRoutePreview')->name('transport.route-preview');
-
+//route-endkm
 Route::get('/transport/route-endkm', 'HomeController@getRouteEndKm')->name('transport.route-endkm');
+//route-report
+Route::get('transport/route-report', 'HomeController@getRouteReport')->name('transport.route-report');
 
 //end Transport routes
