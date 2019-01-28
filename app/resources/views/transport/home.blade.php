@@ -22,7 +22,11 @@
         <div class="row">
             <div class="col-md-12">
                 <h1 class="text-center">Hei, {{ \Illuminate\Support\Facades\Auth::user()->name }}</h1>
-                <p class="lead"> @role('User') Du har rollen user! @endrole </p>
+                <p class="lead text-center">Du skal kjøre rute <strong>12</strong> klokken <strong>10:00</strong></p>
+
+                <hr>
+
+                <a href="{{ route('transport.route-startkm') }}" class="btn btn-block btn-primary">Se kjøreliste</a>
             </div>
         </div>
 

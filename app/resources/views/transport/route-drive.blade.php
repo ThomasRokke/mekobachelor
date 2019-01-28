@@ -27,7 +27,7 @@
             <h3 class="text-center">Rute <strong>11</strong> klokken  <strong>12:00:00</strong></h3>
 
 
-            <a href="https://testing123.frb.io/kmstateend?id=3" class="btn btn-danger btn-block  btn-lg   btn-old">STOPP KJØRING</a>
+            <a href="{{ route('transport.route-endkm') }}" class="btn btn-danger btn-block  btn-lg   btn-old">STOPP KJØRING</a>
             <hr>
             <div class="progress">
                 <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 87.5%" aria-valuenow="8" aria-valuemin="0" aria-valuemax="100"></div>
@@ -36,7 +36,7 @@
 
             <div id="accordion" class="animated bounceInLeft">
 
-                <form method="post" action="https://testing123.frb.io/undokdel">
+                <form method="get" action="#">
                     <input type="hidden" name="_token" value="3ahIBRM2hZtOu1l1clWRiFXpCRCFR5j5RL9F0R1R">
                     <input type="hidden" name="id" value="20">
                     <div id="wrapper-1" class="card text-white bg-success">
@@ -74,7 +74,7 @@
                         </div>
                     </div>
                 </form>
-                <form method="post" action="https://testing123.frb.io/undokdel">
+                <form method="get" action="#">
                     <input type="hidden" name="_token" value="3ahIBRM2hZtOu1l1clWRiFXpCRCFR5j5RL9F0R1R">
                     <input type="hidden" name="id" value="15">
                     <div id="wrapper-1" class="card text-white bg-success">
@@ -108,7 +108,7 @@
                         </div>
                     </div>
                 </form>
-                <form method="post" action="https://testing123.frb.io/undokdel">
+                <form method="get" action="#">
                     <input type="hidden" name="_token" value="3ahIBRM2hZtOu1l1clWRiFXpCRCFR5j5RL9F0R1R">
                     <input type="hidden" name="id" value="19">
                     <div id="wrapper-1" class="card text-white bg-success">
@@ -142,7 +142,7 @@
                         </div>
                     </div>
                 </form>
-                <form method="post" action="https://testing123.frb.io/undokdel">
+                <form method="get" action="#">
                     <input type="hidden" name="_token" value="3ahIBRM2hZtOu1l1clWRiFXpCRCFR5j5RL9F0R1R">
                     <input type="hidden" name="id" value="17">
                     <div id="wrapper-1" class="card text-white bg-success">
@@ -176,7 +176,7 @@
                         </div>
                     </div>
                 </form>
-                <form method="post" action="https://testing123.frb.io/undokdel">
+                <form method="get" action="#">
                     <input type="hidden" name="_token" value="3ahIBRM2hZtOu1l1clWRiFXpCRCFR5j5RL9F0R1R">
                     <input type="hidden" name="id" value="18">
                     <div id="wrapper-1" class="card text-white bg-success">
@@ -247,7 +247,7 @@
                         </div>
                     </div>
                 </form>
-                <form method="post" action="https://testing123.frb.io/undokdel">
+                <form method="get" action="#">
                     <input type="hidden" name="_token" value="3ahIBRM2hZtOu1l1clWRiFXpCRCFR5j5RL9F0R1R">
                     <input type="hidden" name="id" value="16">
                     <div id="wrapper-1" class="card text-white bg-success">
@@ -281,7 +281,7 @@
                         </div>
                     </div>
                 </form>
-                <form method="post" action="https://testing123.frb.io/undokdel">
+                <form method="get" action="#">
                     <input type="hidden" name="_token" value="3ahIBRM2hZtOu1l1clWRiFXpCRCFR5j5RL9F0R1R">
                     <input type="hidden" name="id" value="21">
                     <div id="wrapper-1" class="card text-white bg-success">

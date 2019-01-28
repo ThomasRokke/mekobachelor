@@ -23,8 +23,8 @@
 
         </div>
 
-        <form method="POST" action="https://testing123.frb.io/setstartkm">
-            <input type="hidden" name="_token" value="3ahIBRM2hZtOu1l1clWRiFXpCRCFR5j5RL9F0R1R">            <div class="form-row">
+        <form method="get" action="{{ route('transport.route-drive') }}">
+            <div class="form-row">
 
                 <div class="col-md-4 mb-3">
                     <label for="validationDefaultUsername" class="label-old">Kilometerstand</label>
