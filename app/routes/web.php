@@ -53,11 +53,15 @@ Route::get('/transport/home', 'HomeController@getTransportHome')->name('transpor
 //route-preview
 Route::get('/transport/route-preview', 'HomeController@getRoutePreview')->name('transport.route-preview');
 
+//route-endkm
+
 //route-startkm
 Route::get('/transport/route-startkm', 'HomeController@getRouteStartKm') ->name('transport.route-startkm');
 
 //Route-endKm
 Route::get('/transport/route-endkm', 'HomeController@getRouteEndKm')->name('transport.route-endkm');
+//route-report
+Route::get('transport/route-report', 'HomeController@getRouteReport')->name('transport.route-report');
 
 //route-drive
 Route::get('/transport/route-drive', 'HomeController@getRouteDrive')->name('transport.route-drive');

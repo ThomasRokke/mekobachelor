@@ -49,5 +49,9 @@ class HomeController extends Controller
     public function getRouteDrive(){
         return view('transport.route-drive');
     }
+
+    public function getRouteReport() {
+        return view('transport.route-report');
+    }
 }
 
