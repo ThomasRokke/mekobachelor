@@ -44,3 +44,6 @@ Route::get('/drivestart', function(){
 Route::get('/map', function(){
    return view('map');
 })->name('map');
+
+//Transport route.
+Route::get('/transport/home', 'HomeController@getTransportHome')->name('transport.home');
