@@ -49,7 +49,7 @@ Route::get('/map', function(){
 
 
 //home
-Route::get('/home', 'HomeController@getTransportHome')->name('transport.home');
+//Route::get('/home', 'HomeController@getTransportHome')->name('transport.home');
 
 //route-preview
 Route::get('/route-preview', 'HomeController@getRoutePreview')->name('transport.route-preview');
@@ -77,3 +77,13 @@ Route::get('/attachuser/{id}', 'HomeController@attachUser');
 
 //Roles test attaching office role
 Route::get('/attachoffice/{id}', 'HomeController@attachOffice');
+
+/*
+ *  Office roles
+ * */
+
+Route::get('/userroles', 'HomeController@userRoles')->name('office.userroles');
+
+Route::get('/edituser/{id}', 'HomeController@editUser')->name('office.edituser');
+
+Route::post('/storeedituser', 'HomeController@storeEditUser')->name('office.storeedituser');

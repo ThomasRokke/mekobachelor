@@ -9,29 +9,15 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item {{ Request::segment(1) === 'proto' ? 'active' : null }}">
+                <li class="nav-item {{ Route::is('home') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('home') }}">Hjem <span class="sr-only">(current)</span></a>
                 </li>
 
-                <li class="nav-item {{ (Request::segment(1) === 'drive'||(Request::segment(1) === 'drivestart')) ? 'active' : null }}">
-                    <a class="nav-link" href="{{ route('transport.route-preview') }}">Se rute <span class="sr-only">(current)</span></a>
+                <li class="nav-item {{ Route::is('office.userroles') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('office.userroles') }}">Roller <span class="sr-only">(current)</span></a>
                 </li>
 
-                <li class="nav-item {{ (Request::segment(1) === 'drive'||(Request::segment(1) === 'drivestart')) ? 'active' : null }}">
-                    <a class="nav-link" href="{{ route('transport.route-startkm') }}">Start km <span class="sr-only">(current)</span></a>
-                </li>
 
-                <li class="nav-item {{ (Request::segment(1) === 'drive'||(Request::segment(1) === 'drivestart')) ? 'active' : null }}">
-                    <a class="nav-link" href="{{ route('transport.route-drive') }}">Rute <span class="sr-only">(current)</span></a>
-                </li>
-
-                <li class="nav-item {{ (Request::segment(1) === 'drive'||(Request::segment(1) === 'drivestart')) ? 'active' : null }}">
-                    <a class="nav-link" href="{{ route('transport.route-endkm') }}">Slutt km  <span class="sr-only">(current)</span></a>
-                </li>
-
-                <li class="nav-item {{ (Request::segment(1) === 'drive'||(Request::segment(1) === 'drivestart')) ? 'active' : null }}">
-                    <a class="nav-link" href="{{ route('transport.route-report') }}">Rapport  <span class="sr-only">(current)</span></a>
-                </li>
 
 
             </ul>
@@ -55,7 +41,7 @@
                 @else
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }} <span class="caret"></span>
+                            <i class="fa fa-user meko-color-text"></i> {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

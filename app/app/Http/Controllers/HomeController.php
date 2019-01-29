@@ -27,12 +27,14 @@ class HomeController extends Controller
     public function index()
     {
 
+
         $user = Auth::user();
 
         //If the user have the role of admin or office
         if ($user->hasRole(['admin', 'office'])) { // you can pass an id or slug
 
-            return view('home');
+
+            return view('office.home');
         }
         //If the user have the role of User.
         else{
@@ -42,14 +44,74 @@ class HomeController extends Controller
 
     }
 
+    public function userRoles(){
+
+        $users = User::all();
+
+        return view('office.roles')->with(compact('users'));
+    }
+
+    public function editUser($id){
+
+
+        $user = User::find($id);
+        return view('office.edituser')->with(compact('user'));
+    }
+
+    public function storeEditUser(Request $request){
+        //Validate the request. Except that the email should be unique - we check for that later.
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'userid' => ['required'],
+        ]);
+
+
+        //Gets the user object before any changes is being conducted
+        $user = User::find($request->userid);
+
+        //Checks if email is the same as the previous one
+        if($user->email !== $request->email){
+            //If the new email is already in use
+            if (User::where('email', $request->email) !== null) {
+                //Return back with input
+                return redirect()->back()->withInput();
+            }
+        }
+
+        //Unattach all roles
+        $user->detachAllRoles();
+
+        //Attach role provided by request
+        $user->attachRole($request->role);
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+
+        //save the user model
+        $user->save();
+
+        return redirect()->route('office.userroles');
+
+
+
+
+
+
+
+
+
+    }
 
 
     public function attachAdmin($id){
         $user = User::find($id);
 
-
+        $user->detachAllRoles();
         //attach admin role
         $user->attachRole(1);
+
 
         if ($user->hasRole('admin')) { // you can pass an id or slug
             dd('user is now admin');
@@ -59,7 +121,7 @@ class HomeController extends Controller
     public function attachOffice($id){
         $user = User::find($id);
 
-
+        $user->detachAllRoles();
         //attach office role
         $user->attachRole(4);
 
@@ -71,7 +133,7 @@ class HomeController extends Controller
     public function attachUser($id){
         $user = User::find($id);
 
-
+        $user->detachAllRoles();
         //attach admin role
         $user->attachRole(2);
 
