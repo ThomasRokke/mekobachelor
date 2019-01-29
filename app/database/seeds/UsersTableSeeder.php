@@ -16,6 +16,7 @@ class UsersTableSeeder extends Seeder
     {
         $userRole = Role::where('name', '=', 'User')->first();
         $adminRole = Role::where('name', '=', 'Admin')->first();
+        $officeRole = Role::where('name', '=', 'Office')->first();
         $permissions = Permission::all();
 
         /*
@@ -30,6 +31,19 @@ class UsersTableSeeder extends Seeder
             ]);
 
             $newUser->attachRole($adminRole);
+            foreach ($permissions as $permission) {
+                $newUser->attachPermission($permission);
+            }
+        }
+
+        if (User::where('email', '=', 'office@office.com')->first() === null) {
+            $newUser = User::create([
+                'name'     => 'Office',
+                'email'    => 'office@office.com',
+                'password' => bcrypt('password'),
+            ]);
+
+            $newUser->attachRole($officeRole);
             foreach ($permissions as $permission) {
                 $newUser->attachPermission($permission);
             }

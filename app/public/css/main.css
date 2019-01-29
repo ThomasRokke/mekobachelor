@@ -6,6 +6,12 @@
 /*
     Mekonomen color scheme.
 */
+
+.meko-default{
+    color: #fff100;
+    background-color: #212526;
+}
+
 .meko-color-text{
     color: #fff100 !important;
 }
@@ -16,9 +22,10 @@
 
 .btn-outline-meko {
     color: #fff100;
-    background-color: #1d2021;
+    background-color: #212526;
     border-color: #fff100;
 }
+
 
 .btn-outline-meko:hover {
     color: #1d2021;
@@ -28,6 +35,7 @@
 
 .border-meko{
     border-color: #fff100;
+
 }
 
 /*

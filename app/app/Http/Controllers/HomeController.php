@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use jeremykenedy\LaravelRoles\Models\Role;
 
 class HomeController extends Controller
 {
@@ -23,7 +26,58 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+
+        $user = Auth::user();
+
+        //If the user have the role of admin or office
+        if ($user->hasRole(['admin', 'office'])) { // you can pass an id or slug
+
+            return view('home');
+        }
+        //If the user have the role of User.
+        else{
+
+            return view('transport.home');
+        }
+
+    }
+
+
+
+    public function attachAdmin($id){
+        $user = User::find($id);
+
+
+        //attach admin role
+        $user->attachRole(1);
+
+        if ($user->hasRole('admin')) { // you can pass an id or slug
+            dd('user is now admin');
+        }
+    }
+
+    public function attachOffice($id){
+        $user = User::find($id);
+
+
+        //attach office role
+        $user->attachRole(4);
+
+        if ($user->hasRole('office')) { // you can pass an id or slug
+            dd('user is now office role');
+        }
+    }
+
+    public function attachUser($id){
+        $user = User::find($id);
+
+
+        //attach admin role
+        $user->attachRole(2);
+
+        if ($user->hasRole('user')) { // you can pass an id or slug
+            dd('user is now user');
+        }
     }
 
 

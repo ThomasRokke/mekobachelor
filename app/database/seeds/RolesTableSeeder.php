@@ -25,6 +25,14 @@ class RolesTableSeeder extends Seeder
                 'level'       => 5,
             ]);
         }
+        if (Role::where('name', '=', 'Office')->first() === null) {
+            $officeRole = Role::create([
+                'name'        => 'Office',
+                'slug'        => 'office',
+                'description' => 'Office Role',
+                'level'       => 3,
+            ]);
+        }
 
         if (Role::where('name', '=', 'User')->first() === null) {
             $userRole = Role::create([

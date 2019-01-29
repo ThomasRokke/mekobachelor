@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Route::get('/boot', function(){
    return view('boostraptesting');
@@ -25,6 +23,9 @@ Route::get('/thomas', function(){
 });
 
 Auth::routes();
+
+//Force login if you are not before
+Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -45,25 +46,34 @@ Route::get('/map', function(){
    return view('map');
 })->name('map');
 
-//Transport routes.
+
 
 //home
-Route::get('/transport/home', 'HomeController@getTransportHome')->name('transport.home');
+Route::get('/home', 'HomeController@getTransportHome')->name('transport.home');
 
 //route-preview
-Route::get('/transport/route-preview', 'HomeController@getRoutePreview')->name('transport.route-preview');
+Route::get('/route-preview', 'HomeController@getRoutePreview')->name('transport.route-preview');
 
 //route-endkm
 
 //route-startkm
-Route::get('/transport/route-startkm', 'HomeController@getRouteStartKm') ->name('transport.route-startkm');
+Route::get('/route-startkm', 'HomeController@getRouteStartKm') ->name('transport.route-startkm');
 
 //Route-endKm
-Route::get('/transport/route-endkm', 'HomeController@getRouteEndKm')->name('transport.route-endkm');
+Route::get('/route-endkm', 'HomeController@getRouteEndKm')->name('transport.route-endkm');
 //route-report
 Route::get('transport/route-report', 'HomeController@getRouteReport')->name('transport.route-report');
 
 //route-drive
-Route::get('/transport/route-drive', 'HomeController@getRouteDrive')->name('transport.route-drive');
+Route::get('/route-drive', 'HomeController@getRouteDrive')->name('transport.route-drive');
 
 //end Transport routes
+
+//Roles test attaching admin role
+Route::get('/attachadmin/{id}', 'HomeController@attachAdmin');
+
+//Roles test attaching user role
+Route::get('/attachuser/{id}', 'HomeController@attachUser');
+
+//Roles test attaching office role
+Route::get('/attachoffice/{id}', 'HomeController@attachOffice');
