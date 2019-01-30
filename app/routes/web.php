@@ -58,6 +58,7 @@ Route::get('/route-preview', 'HomeController@getRoutePreview')->name('transport.
 
 //route-startkm
 Route::get('/route-startkm', 'HomeController@getRouteStartKm') ->name('transport.route-startkm');
+Route::post('/route-startkm', 'HomeController@setRouteStartKm') ->name('transport.route-setstartkm');
 
 //Route-endKm
 Route::get('/route-endkm', 'HomeController@getRouteEndKm')->name('transport.route-endkm');
@@ -87,3 +88,43 @@ Route::get('/userroles', 'HomeController@userRoles')->name('office.userroles');
 Route::get('/edituser/{id}', 'HomeController@editUser')->name('office.edituser');
 
 Route::post('/storeedituser', 'HomeController@storeEditUser')->name('office.storeedituser');
+
+/*
+ * Workshops
+ * */
+
+Route::get('/workshops', 'HomeController@getWorkshops')->name('office.workshops');
+
+Route::get('/workshops/create', 'HomeController@getCreateWorkshops')->name('office.workshops.create');
+
+Route::post('/workshops/create', 'HomeController@storeCreate')->name('office.storecreate');
+
+//search autocomplete
+Route::get('/autocomplete/{session}/{query}', 'HomeController@searchGoogleAutocomplete');
+//search places api
+Route::get('/searchplacesapi', 'HomeController@searchplacesapi');
+
+
+/*
+ *  Office routes
+ * */
+
+Route::get('/routes', 'HomeController@getRoutes')->name('office.routes');
+
+Route::post('/postroute', 'HomeController@postRoute')->name('office.postroute');
+
+
+//set driver for route
+Route::get('/setdriver', 'HomeController@setDriver')->name('setdriver');
+
+Route::get('/setactive', 'HomeController@setActive')->name('setactive');
+
+Route::get('/setinactive', 'HomeController@setInactive')->name('setinactive');
+
+
+Route::get('/optimize', 'HomeController@optimize')->name('optimize');
+
+
+Route::post('/markdel', 'HomeController@markdelivered')->name('markdelivered');
+Route::post('/undokdel', 'HomeController@undodelivered')->name('undodelivered');
+

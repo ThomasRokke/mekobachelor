@@ -13,8 +13,16 @@
                     <a class="nav-link" href="{{ route('home') }}">Hjem <span class="sr-only">(current)</span></a>
                 </li>
 
+                <li class="nav-item {{ Route::is('office.routes') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('office.routes') }}">Ruter <span class="sr-only">(current)</span></a>
+                </li>
+
                 <li class="nav-item {{ Route::is('office.userroles') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('office.userroles') }}">Roller <span class="sr-only">(current)</span></a>
+                </li>
+
+                <li class="nav-item {{ Route::is('office.workshops') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('office.workshops') }}">Verksteder <span class="sr-only">(current)</span></a>
                 </li>
 
 

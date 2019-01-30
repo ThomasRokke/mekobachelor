@@ -23,7 +23,8 @@
 
         </div>
 
-        <form method="get" action="{{ route('transport.route-drive') }}">
+        <form method="post" action="{{ route('transport.route-setstartkm') }}">
+            @csrf
             <div class="form-row">
 
                 <div class="col-md-4 mb-3">
@@ -31,7 +32,7 @@
                     <div class="input-group">
 
                         <input name="kmstart" type="tel" autofocus="" class="form-control input-old" id="validationDefaultUsername" placeholder="12312312" autocomplete="off" required="" oninvalid="this.setCustomValidity('Fyll inn riktig kilometstand.')" oninput="this.setCustomValidity('')">
-                        <input type="hidden" name="routeid" value="3">
+                        <input type="hidden" name="routeid" value="{{ $route->id }}">
                     </div>
                 </div>
 
