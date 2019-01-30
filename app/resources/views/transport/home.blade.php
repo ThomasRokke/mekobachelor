@@ -22,11 +22,15 @@
         <div class="row">
             <div class="col-md-12">
                 <h1 class="text-center">Hei, {{ \Illuminate\Support\Facades\Auth::user()->name }}</h1>
-                <p class="lead text-center">Du skal kjøre rute <strong>12</strong> klokken <strong>10:00</strong></p>
 
-                <hr>
 
-                <a href="{{ route('transport.route-startkm') }}" class="btn btn-block btn-outline-meko">Se kjøreliste</a>
+                @if(!empty($route))
+                    <p class="lead text-center animated fadeIn">Du skal kjøre rute <strong>{{ $route->route }}</strong> klokken <strong>{{ $route->time }}</strong></p>
+                    <a id="pulse-btn" class="btn btn-outline-meko btn-lg btn-block animated flipInX btn-old"  href="{{ route('transport.route-preview') }}" role="button">Se kjøreliste</a>
+                @else
+                    <p class="lead text-center animated fadeIn">Du har <strong>ingen</strong> aktive ruter.</p>
+                @endif
+
             </div>
         </div>
 

@@ -45,8 +45,8 @@
 
                                 <div class="col-md-6">
                                     <select class="custom-select" id="inputGroupSelect01" name="role">
-                                        <option @if($user->level() === 1) selected @endif  value="2">User</option>
-                                        <option @if($user->level() === 3) selected @endif value="4">Office</option>
+                                        <option @if($user->level() === 1) selected @endif  value="3">User</option>
+                                        <option @if($user->level() === 3) selected @endif value="2">Office</option>
                                         <option @if($user->level() === 5) selected @endif value="1">Admin</option>
                                     </select>
 
