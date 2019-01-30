@@ -9,29 +9,11 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item {{ Request::segment(1) === 'proto' ? 'active' : null }}">
+                <li class="nav-item {{ Route::is('home') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('home') }}">Hjem <span class="sr-only">(current)</span></a>
                 </li>
 
-                <li class="nav-item {{ (Request::segment(1) === 'drive'||(Request::segment(1) === 'drivestart')) ? 'active' : null }}">
-                    <a class="nav-link" href="{{ route('transport.route-preview') }}">Se rute <span class="sr-only">(current)</span></a>
-                </li>
 
-                <li class="nav-item {{ (Request::segment(1) === 'drive'||(Request::segment(1) === 'drivestart')) ? 'active' : null }}">
-                    <a class="nav-link" href="{{ route('transport.route-startkm') }}">Start km <span class="sr-only">(current)</span></a>
-                </li>
-
-                <li class="nav-item {{ (Request::segment(1) === 'drive'||(Request::segment(1) === 'drivestart')) ? 'active' : null }}">
-                    <a class="nav-link" href="{{ route('transport.route-drive') }}">Rute <span class="sr-only">(current)</span></a>
-                </li>
-
-                <li class="nav-item {{ (Request::segment(1) === 'drive'||(Request::segment(1) === 'drivestart')) ? 'active' : null }}">
-                    <a class="nav-link" href="{{ route('transport.route-endkm') }}">Slutt km  <span class="sr-only">(current)</span></a>
-                </li>
-
-                <li class="nav-item {{ (Request::segment(1) === 'drive'||(Request::segment(1) === 'drivestart')) ? 'active' : null }}">
-                    <a class="nav-link" href="{{ route('transport.route-report') }}">Rapport  <span class="sr-only">(current)</span></a>
-                </li>
 
 
             </ul>

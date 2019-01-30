@@ -330,7 +330,7 @@ class HomeController extends Controller
         // TODO: add where this date = bla bla
         $route = Route::find($request->id);
 
-        
+
 
         return view('transport.route-report')->with(compact('route'));
 
