@@ -274,11 +274,8 @@ class HomeController extends Controller
 
         return redirect(route('transport.route-drive'));
     }
-    
-    public  function getRouteEndKm(){
-        return view('transport.route-endkm');
 
-    }
+
 
     public function getRouteDrive(){
         //get all routes with my driver id that is active
@@ -299,8 +296,44 @@ class HomeController extends Controller
 
     }
 
-    public function getRouteReport() {
-        return view('transport.route-report');
+    public  function getRouteEndKm(Request $request){
+        //get all routes with my driver id that is active
+        // TODO: add where this date = bla bla
+        $route = Route::find($request->id);
+
+        return view('transport.route-endkm')->with(compact('route'));
+
+    }
+
+    public function setRouteEndKm(Request $request){
+        $route = Route::find($request->id);
+
+
+        $route->finished = 1;
+        $route->kmend = $request->kmend;
+        $route->active = 0;
+        $route->finished_time = new DateTime('now');
+
+        $route->save();
+
+
+
+        return redirect(route('transport.route-report', ['id' => $route->id]));
+
+
+    }
+
+
+
+    public function getRouteReport(Request $request) {
+        //get all routes with my driver id that is active
+        // TODO: add where this date = bla bla
+        $route = Route::find($request->id);
+
+
+
+        return view('transport.route-report')->with(compact('route'));
+
     }
 
     //Workshops

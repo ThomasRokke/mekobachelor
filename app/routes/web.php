@@ -62,8 +62,12 @@ Route::post('/route-startkm', 'HomeController@setRouteStartKm') ->name('transpor
 
 //Route-endKm
 Route::get('/route-endkm', 'HomeController@getRouteEndKm')->name('transport.route-endkm');
+
+Route::post('/route-endkm', 'HomeController@setRouteEndKm')->name('transport.route-setendkm');
 //route-report
-Route::get('transport/route-report', 'HomeController@getRouteReport')->name('transport.route-report');
+
+
+Route::get('/route-report', 'HomeController@getRouteReport')->name('transport.route-report');
 
 //route-drive
 Route::get('/route-drive', 'HomeController@getRouteDrive')->name('transport.route-drive');
