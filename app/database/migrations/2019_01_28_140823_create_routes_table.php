@@ -26,6 +26,14 @@ class CreateRoutesTable extends Migration
             $table->integer('kmstart')->nullable();
             $table->integer('kmend')->nullable();
             $table->integer('driver_id')->nullable();
+            $table->boolean('optimized')->default(0);
+            $table->time('optimized_time')->nullable();
+            $table->integer('optimized_km')->nullable();
+            $table->time('time_diff')->nullable();
+            $table->integer('km_diff')->nullable();
+            $table->boolean('lunch_break')->default(0);
+            $table->time('lunch_start')->nullable();
+            $table->time('lunch_end')->nullable();
             $table->timestamps();
         });
     }
