@@ -74,8 +74,6 @@ class HomeController extends Controller
             'email' => ['required', 'string', 'email', 'max:255'],
             'userid' => ['required'],
         ]);
-
-
         //Gets the user object before any changes is being conducted
         $user = User::find($request->userid);
 
@@ -102,14 +100,6 @@ class HomeController extends Controller
         $user->save();
 
         return redirect()->route('office.userroles');
-
-
-
-
-
-
-
-
 
     }
 
