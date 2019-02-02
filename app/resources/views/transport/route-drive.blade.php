@@ -222,6 +222,8 @@
             map.fitBounds(bounds);
             map.panToBounds(bounds);
 
+            var trafficLayer = new google.maps.TrafficLayer();
+            trafficLayer.setMap(map);
 
 
 
