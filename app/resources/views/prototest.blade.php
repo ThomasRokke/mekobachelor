@@ -23,7 +23,6 @@
                     .accordion()
                 ;
 
-                $('.test.checkbox').checkbox('attach events', '.toggle.button');
 
 
                 $('select.dropdown')
@@ -83,12 +82,25 @@
             <div class="three fields">
                 <div class="field">
 
-                    <input type="text" placeholder="Kundenummer">
 
+                    <div class="ui corner labeled input">
+                        <input type="text" placeholder="Kundenummer">
+                        <div class="ui corner label">
+                            <i class="asterisk icon red"></i>
+                        </div>
+                    </div>
                 </div>
                 <div class="field">
 
-                    <input type="text" placeholder="Ordrenummer">
+
+
+                    <div class="ui corner labeled input">
+                        <input type="text" placeholder="Ordrenummer">
+                        <div class="ui corner label">
+                            <i class="asterisk icon red"></i>
+                        </div>
+                    </div>
+
 
                 </div>
                 <div class="field">
@@ -103,7 +115,7 @@
                     <i class="dropdown icon"></i>
                     Fler valg
                 </div>
-                <div class="content active">
+                <div class="content">
 
                     <div class="three fields">
                         <div class="field">
@@ -151,7 +163,7 @@
 
                     <div class="three fields">
                         <div class="field">
-                            <div class="ui test toggle checkbox" style="margin-left:30px; !important; margin-top:5px !important;">
+                            <div class="ui test toggle checkbox" style="margin-left:80px; !important; margin-top:5px !important;">
 
 
                                 <input  type="checkbox">
@@ -167,7 +179,14 @@
 
                         <div class="field">
 
-                            <input type="text" placeholder="sum"  disabled>
+                            <div class="ui corner labeled input">
+                                <input type="text" placeholder="sum" id="sum"  disabled>
+                                <div style="display: none"  id="input-required-disabled" class="ui corner label input-label-enabled">
+                                    <i class="asterisk icon red"></i>
+                                </div>
+                            </div>
+
+
 
                         </div>
                     </div>
@@ -182,7 +201,91 @@
     </div>
 
     <div class="ui bottom attached tab segment" data-tab="third">
-        Hente
+        <div class="ui form" >
+            <div class="three fields">
+                <div class="field">
+
+                    <div class="ui search">
+                        <div class="ui left icon input corner labeled">
+                            <input class="prompt" type="text" placeholder="Søk etter verksted">
+                            <i class="wrench icon"></i>
+                            <div class="ui corner label">
+                                <i class="asterisk icon red"></i>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <div class="field">
+
+                    <input type="text" placeholder="Kommentar">
+
+                </div>
+                <div class="field">
+
+                    <!-- Add positive class on valid validation -->
+                    <input class="ui  basic button" type="submit" value="Registrer hentemelding" placeholder="Last Name">
+                </div>
+            </div>
+
+            <div class="ui accordion">
+                <div class="active title">
+                    <i class="dropdown icon"></i>
+                    Fler valg
+                </div>
+                <div class="content ">
+
+                    <div class="three fields">
+                        <div class="field">
+
+                            <select class="ui search dropdown">
+                                <option value="">Velg rute</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+
+
+
+
+                            </select>
+                        </div>
+                        <div class="field">
+
+                            <select class="ui search dropdown">
+                                <option value="">Velg tid</option>
+                                <option value="07:30">07:30</option>
+                                <option value="07:30">08:00</option>
+                                <option value="07:30">09:00</option>
+                                <option value="07:30">12:00</option>
+                                <option value="07:30">14:00</option>
+                                <option value="07:30">17:30</option>
+
+
+
+                            </select>
+                        </div>
+                        <div class="field">
+
+                            <input type="date" placeholder="Dato">
+
+                        </div>
+
+
+
+
+
+                    </div>
+
+
+
+                </div>
+            </div>
+
+        </div>
     </div>
 
     <div class="ui section divider"></div>
@@ -194,10 +297,119 @@
 
 </div>
 
+
+<!-- Modal Kontant-->
+<div class="ui modal">
+    <i class="close icon"></i>
+    <div class="header">
+        # 83213
+    </div>
+    <div class="image content">
+        <div class="ui medium image">
+            <img src="https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX22409286.jpg">
+        </div>
+        <div class="description">
+            <div class="ui header">Her skal jeg lage et oppsett for å flytte ordre osv</div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus magnam quo dolor illum molestias. Odio.</p>
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui black deny button">
+            Avbryt
+        </div>
+        <div class="ui positive right labeled icon button">
+            Jeg forstår
+            <i class="checkmark icon"></i>
+        </div>
+    </div>
+</div>
+
+<!-- End modal -->
+
+
 <script type="text/javascript">
     $(document)
         .ready(function() {
 
+            $('.ui.checkbox')
+                .checkbox()
+                .first().checkbox({
+                onChecked: function() {
+                    console.log('checked');
+                   document.getElementById('sum').disabled = false;
+                  $("#input-required-disabled").show().focus();
+                },
+                onUnchecked: function() {
+                    console.log('unchecked');
+                    document.getElementById('sum').disabled = true;
+                    document.getElementById('sum').value = null;
+                    $("#input-required-disabled").hide();
+                },
+                onEnable: function() {
+                    console.log('onenable');
+                },
+                onDisable: function() {
+                    console.log('ondisable');
+                },
+                onDeterminate: function() {
+                    console.log('ondeterminate');
+                },
+                onIndeterminate: function() {
+                    console.log('onindeterminate');
+                },
+                onChange: function() {
+                    console.log('on change');
+                }
+            })
+            ;
+// bind events to buttons
+            $('.callback.example .button')
+                .on('click', function() {
+                    $('.callback .checkbox').checkbox( $(this).data('method') );
+                })
+            ;
+
+            //Github search api test
+            $('.ui.search')
+                .search({
+                    type          : 'category',
+                    minCharacters : 3,
+                    apiSettings   : {
+                        onResponse: function(githubResponse) {
+                            var
+                                response = {
+                                    results : {}
+                                }
+                            ;
+                            // translate GitHub API response to work with search
+                            $.each(githubResponse.items, function(index, item) {
+                                var
+                                    language   = item.language || 'Unknown',
+                                    maxResults = 8
+                                ;
+                                if(index >= maxResults) {
+                                    return false;
+                                }
+                                // create new language category
+                                if(response.results[language] === undefined) {
+                                    response.results[language] = {
+                                        name    : language,
+                                        results : []
+                                    };
+                                }
+                                // add result to category
+                                response.results[language].results.push({
+                                    title       : item.name,
+                                    description : item.description,
+                                    url         : item.html_url
+                                });
+                            });
+                            return response;
+                        },
+                        url: '//api.github.com/search/repositories?q={query}'
+                    }
+                })
+            ;
         })
     ;
 
