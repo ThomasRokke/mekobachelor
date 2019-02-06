@@ -15,8 +15,20 @@
     <script>
         $(document)
             .ready(function() {
+                $('.menu .item')
+                    .tab()
+                ;
+
+                $('.ui.accordion')
+                    .accordion()
+                ;
+
+                $('.test.checkbox').checkbox('attach events', '.toggle.button');
 
 
+                $('select.dropdown')
+                    .dropdown()
+                ;
             })
         ;
 
@@ -59,23 +71,118 @@
 
 <div class="ui text container">
 
-    <div class="ui form" style="margin-top:30px;">
-        <div class="three fields">
-            <div class="field">
 
-                <input type="text" placeholder="Kundenummer">
 
+    <div class="ui top attached tabular menu" style="margin-top:30px;">
+        <a class="active item" data-tab="first">Ordre</a>
+
+        <a class="item" data-tab="third">Hente</a>
+    </div>
+    <div class="ui bottom attached active tab segment" data-tab="first">
+        <div class="ui form" >
+            <div class="three fields">
+                <div class="field">
+
+                    <input type="text" placeholder="Kundenummer">
+
+                </div>
+                <div class="field">
+
+                    <input type="text" placeholder="Ordrenummer">
+
+                </div>
+                <div class="field">
+
+                    <!-- Add positive class on valid validation -->
+                    <input class="ui  basic button" type="submit" value="Registrer ordre" placeholder="Last Name">
+                </div>
             </div>
-            <div class="field">
 
-                <input type="text" placeholder="Ordrenummer">
+            <div class="ui accordion">
+                <div class="active title">
+                    <i class="dropdown icon"></i>
+                    Fler valg
+                </div>
+                <div class="content active">
 
+                    <div class="three fields">
+                        <div class="field">
+
+                            <select class="ui search dropdown">
+                                <option value="">Velg rute</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+
+
+
+
+                            </select>
+                        </div>
+                        <div class="field">
+
+                            <select class="ui search dropdown">
+                                <option value="">Velg tid</option>
+                                <option value="07:30">07:30</option>
+                                <option value="07:30">08:00</option>
+                                <option value="07:30">09:00</option>
+                                <option value="07:30">12:00</option>
+                                <option value="07:30">14:00</option>
+                                <option value="07:30">17:30</option>
+
+
+
+                            </select>
+                        </div>
+                        <div class="field">
+
+                            <input type="date" placeholder="Dato">
+
+                        </div>
+
+
+
+
+
+                    </div>
+
+
+                    <div class="three fields">
+                        <div class="field">
+                            <div class="ui test toggle checkbox" style="margin-left:30px; !important; margin-top:5px !important;">
+
+
+                                <input  type="checkbox">
+
+
+
+
+                            </div> <div class="ui below pointing label">
+                                Skal det betales med kort eller kontant?
+                            </div>
+
+                        </div>
+
+                        <div class="field">
+
+                            <input type="text" placeholder="sum"  disabled>
+
+                        </div>
+                    </div>
+
+                </div>
             </div>
-            <div class="field">
 
-                <button class="ui positive basic button" type="submit" placeholder="Last Name">Registrer</button>
-            </div>
         </div>
+
+
+
+    </div>
+
+    <div class="ui bottom attached tab segment" data-tab="third">
+        Hente
     </div>
 
     <div class="ui section divider"></div>
@@ -87,6 +194,14 @@
 
 </div>
 
+<script type="text/javascript">
+    $(document)
+        .ready(function() {
+
+        })
+    ;
+
+</script>
 
 
 </body>
