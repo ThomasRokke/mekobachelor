@@ -12,7 +12,7 @@ use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use jeremykenedy\LaravelRoles\Models\Role;
-
+use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
     /**
@@ -26,9 +26,9 @@ class HomeController extends Controller
     }
 
     public function searchWorkshops(Request $request){
-       $workshops = Workshop::where('name', 'ilike', '%' . $request->q . '%');
+       $workshops = DB::table('workshops')->where('name', 'like', '%' . $request->q . '%')->get();
 
-       dd($workshops);
+        return response()->json($workshops);
     }
 
     /**
