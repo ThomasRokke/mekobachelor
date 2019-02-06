@@ -375,14 +375,14 @@
                     type          : 'category',
                     minCharacters : 3,
                     apiSettings   : {
-                        onResponse: function(githubResponse) {
+                        onResponse: function(workshopResponse) {
                             var
                                 response = {
                                     results : {}
                                 }
                             ;
                             // translate GitHub API response to work with search
-                            $.each(githubResponse.items, function(index, item) {
+                            $.each(workshopResponse.items, function(index, item) {
                                 var
                                     language   = item.language || 'Unknown',
                                     maxResults = 8
@@ -406,7 +406,7 @@
                             });
                             return response;
                         },
-                        url: '//api.github.com/search/repositories?q={query}'
+                        url: 'http://localhost:8000/searchworkshops?q={query}'
                     }
                 })
             ;

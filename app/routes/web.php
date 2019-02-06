@@ -16,6 +16,9 @@ Route::get('/prototest', function(){
     return view('prototest');
 });
 
+//Search workshops ajax
+Route::get('/searchworkshops', 'HomeController@searchWorkshops');
+
 
 Route::get('/boot', function(){
    return view('boostraptesting');

@@ -25,6 +25,12 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
+    public function searchWorkshops(Request $request){
+       $workshops = Workshop::where('name', 'ilike', '%' . $request->q . '%');
+
+       dd($workshops);
+    }
+
     /**
      * Show the application dashboard.
      *
