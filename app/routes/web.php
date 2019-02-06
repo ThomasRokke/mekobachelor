@@ -11,6 +11,10 @@
 |
 */
 
+//Prototype kjørekontor midlertidig rute
+Route::get('/prototest', function(){
+    return view('prototest');
+});
 
 
 Route::get('/boot', function(){
