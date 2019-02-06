@@ -12,9 +12,7 @@
 */
 
 //Prototype kjørekontor midlertidig rute
-Route::get('/prototest', function(){
-    return view('prototest');
-});
+Route::get('/prototest', 'HomeController@getPrototest')->name('proto.prototest');
 
 //Search workshops ajax
 Route::get('/searchworkshops', 'HomeController@searchWorkshops');
@@ -124,6 +122,8 @@ Route::get('/routes', 'HomeController@getRoutes')->name('office.routes');
 
 Route::post('/postroute', 'HomeController@postRoute')->name('office.postroute');
 
+//Check if the workshop number exists and what name it has
+Route::get('/getworkshopinfo', 'HomeController@getWorkshopInfo');
 
 //set driver for route
 Route::get('/setdriver', 'HomeController@setDriver')->name('setdriver');

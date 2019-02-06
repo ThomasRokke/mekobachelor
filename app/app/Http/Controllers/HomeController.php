@@ -31,6 +31,14 @@ class HomeController extends Controller
         return response()->json($workshops);
     }
 
+    public function getPrototest(){
+
+        $route = Route::find(1);
+        $drivers = User::all();
+
+        return view('prototest')->with(compact('route', 'drivers'));
+    }
+
     /**
      * Show the application dashboard.
      *
@@ -433,19 +441,34 @@ class HomeController extends Controller
         return view('office.routes')->with(compact('routes', 'users'));
     }
 
+    public function getWorkshopInfo(Request $request){
+
+        $q = $request->q;
+
+        $workshops = Workshop::where('workshop_id', '=', $q)->first();
+
+
+
+        return response()->json($workshops);
+    }
 
     public function postRoute(Request $request){
+
         $request->validate([
             'workshop_id' => 'required|exists:workshops|max:6|min:6',
             'ordernumber' => 'required|unique:orders',
-            'route' => 'required|max:2|min:2'
+            //'route' => 'required|max:2|min:2'
         ]);
 
+
+
+
+        $route = 10;
         $wid = $request->workshop_id;
 
         //TODO: Perform a check if there there is any active route that this stop could be put in.
 
-        $r = Route::firstOrCreate(['date' => '2019/01/01', 'route' => $request->route, 'time' => '12:00']);
+        $r = Route::firstOrCreate(['date' => '2019/01/01', 'route' => $route, 'time' => '12:00']);
 
         $w = Workshop::where('workshop_id', $wid)->first();
 
@@ -461,7 +484,7 @@ class HomeController extends Controller
         $o->save();
 
 
-        return redirect(route('office.routes'));
+        return back();
 
 
     }
