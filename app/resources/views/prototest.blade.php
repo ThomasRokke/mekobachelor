@@ -184,7 +184,7 @@
 
 
 <!-- Nav -->
-<div class="ui fixed  menu">
+<div class="ui fixed inverted  menu">
     <a href="#" class="item open button">
         <i class="sidebar icon"></i>
         Meny
@@ -197,8 +197,8 @@
 
         <div class="left menu">
             <div class="ui left aligned category search item">
-                <div class="ui transparent icon input">
-                    <input class="prompt" type="text" placeholder="Søk etter ordrenummer...">
+                <div class="ui transparent inverted icon input">
+                    <input class="prompt" type="text" placeholder="Søk etter ordrenummer">
                     <i class="search link icon"></i>
                 </div>
                 <div class="results"></div>
@@ -250,7 +250,7 @@
 
                     <div class="ui corner labeled input">
 
-                        <input class="ui" id="kundenummer" type="text" name="workshop_id" placeholder="Kundenummer">
+                        <input class="ui" id="kundenummer" type="text" name="workshop_id" placeholder="Kundenummer" autocomplete="off">
                         <div class="ui corner label">
                             <i class="asterisk icon red"></i>
                         </div>
@@ -1162,29 +1162,29 @@
         <div class="ui center aligned container">
             <div class="ui stackable inverted divided grid">
                 <div class="three wide column">
-                    <h4 class="ui inverted header">Group One</h4>
+                    <h4 class="ui inverted header">Lorem</h4>
                     <div class="ui inverted link list">
                         <a href="#" class="item">Link One</a>
                         <a href="#" class="item">Link Two</a>
                     </div>
                 </div>
                 <div class="three wide column">
-                    <h4 class="ui inverted header">Group Two</h4>
+                    <h4 class="ui inverted header">Lorem</h4>
                     <div class="ui inverted link list">
-                        <a href="#" class="item">Link One</a>
-                        <a href="#" class="item">Link Two</a>
+                        <a href="#" class="item">Lorem</a>
+                        <a href="#" class="item">Lorem</a>
                     </div>
                 </div>
                 <div class="three wide column">
-                    <h4 class="ui inverted header">Group Three</h4>
+                    <h4 class="ui inverted header">Lorem</h4>
                     <div class="ui inverted link list">
-                        <a href="#" class="item">Link One</a>
-                        <a href="#" class="item">Link Two</a>
+                        <a href="#" class="item">Lorem</a>
+                        <a href="#" class="item">Lorem</a>
                     </div>
                 </div>
                 <div class="seven wide column">
                     <h4 class="ui inverted header">Mekodrive</h4>
-                    <p>Som før, bare bedre.</p>
+                    <p>Lorem ipsum dolor sit amet,<br> consectetur adipisicing elit. Natus, quia?</p>
                 </div>
             </div>
             <div class="ui inverted section divider"></div>
@@ -1197,7 +1197,7 @@
             </div>
             <div class="ui inverted section">
                 <div class="ui horizontal inverted small divided link list">
-                    <p class="love">Made with <i class="heart icon"></i>by <a class="item" href="http://klave.no">Sindre Klavestad</a></p>
+                    <p class="love">Made with <i class="heart icon"></i></p>
                 </div>
             </div>
         </div>
