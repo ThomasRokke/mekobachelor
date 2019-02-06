@@ -36,13 +36,21 @@
 
     <style>
 
-        .sidebar .item{
-            color:gray !important;
+        .sidebar .item {
+            color: gray !important;
         }
 
+        .ui.selection.dropdown {
+            border: 1px solid rgba(34, 36, 38, 0.5);
+        }
 
+        .ui.form input:not([type]), .ui.form input[type="date"], .ui.form input[type="datetime-local"], .ui.form input[type="email"], .ui.form input[type="number"], .ui.form input[type="password"], .ui.form input[type="search"], .ui.form input[type="tel"], .ui.form input[type="time"], .ui.form input[type="text"], .ui.form input[type="file"], .ui.form input[type="url"] {
+            border: 1px solid rgba(34, 36, 38, 0.5);
+        }
 
-
+        .ui.basic.button {
+            border: 1px solid rgba(34, 36, 38, 0.5);
+        }
 
     </style>
 
