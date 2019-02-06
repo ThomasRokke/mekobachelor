@@ -374,49 +374,54 @@
 
             $('.ui.search')
                 .search({
+                    type          : 'category',
                     minCharacters : 3,
                     apiSettings   : {
-                        url        : 'http://localhost:8000/searchworkshops?q={query}',
-                        onResponse : function(githubResponse) {
-                            console.log(githubResponse[0].name);
+                        onResponse: function(githubResponse) {
+                            var count = Object.keys(githubResponse).length;
+                            console.log(count);
                             var
                                 response = {
                                     results : {}
                                 }
                             ;
-                            // translate GitHub API response to work with search
-                            $.each(githubResponse.items, function(index, item) {
 
+                            for(var i = 0; i < count; i++){
 
+                                var objectPart = githubResponse[i];
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                response.results.push({
-                                    title       : item.name,
-
-
+                                console.log(objectPart);
+                                var
+                                    language   = 'Verksted',
+                                    maxResults = 8
+                                ;
+                                if(i >= maxResults) {
+                                    alert('false');
+                                    return false;
+                                }
+                                // create new language category
+                                if(response.results[language] === undefined) {
+                                    response.results[language] = {
+                                        name    : language,
+                                        results : []
+                                    };
+                                }
+                                // add result to category
+                                response.results[language].results.push({
+                                    title       : objectPart.name,
+                                    description : objectPart.description,
+                                    url         : objectPart.html_url
                                 });
+                            }
 
-                                console.log(response);
-                            });
 
                             return response;
-                        }
+                        },
+                        url: '//localhost:8000/searchworkshops?q={query}'
                     }
                 })
             ;
+
 
         })
     ;
