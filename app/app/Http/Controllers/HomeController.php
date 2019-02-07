@@ -31,12 +31,34 @@ class HomeController extends Controller
         return response()->json($workshops);
     }
 
-    public function getPrototest(){
+    public function getPrototest(Request $request){
 
-        $route = Route::find(1);
+        if(!empty($request->date)){
+            $date = $request->date;
+        }else{
+            $date = date('Y/m/d');
+        }
+
+        $halvsju = Route::where('date',  $date)->where('time', '07:30:00')->get();
+        $atte = Route::where('date', '=',  $date)->where('time', '=', '08:00:00')->get();
+        $ti = Route::where('date', '=',  $date)->where('time', '=', '10:00:00')->get();
+        $tolv = Route::where('date', '=',  $date)->where('time', '=', '12:00:00')->get();
+        $to = Route::where('date', '=',  $date)->where('time', '=', '14:00:00')->get();
+        $kveld = Route::where('date', '=',  $date)->where('time', '=', '17:30:00')->get();
+
+
+
+
+
+       // dd($halvsju[0]->stops[0]->workshop->name);
+
+        $routes = Route::where('date',  $date)->get();
+
+       // dd($routes);
+
         $drivers = User::all();
 
-        return view('prototest')->with(compact('route', 'drivers'));
+        return view('prototest')->with(compact('routes', 'drivers', 'halvsju', 'atte', 'ti', 'tolv', 'to', 'kveld'));
     }
 
     /**
@@ -457,18 +479,34 @@ class HomeController extends Controller
         $request->validate([
             'workshop_id' => 'required|exists:workshops|max:6|min:6',
             'ordernumber' => 'required|unique:orders',
-            //'route' => 'required|max:2|min:2'
         ]);
 
 
+        if(!empty($request->route)){
+          $route = $request->route;
+        }else{
+            $route = 10;
+        }
+
+        if(!empty($request->date)){
+            $date = $request->date;
+        }else{
+            $date = date('Y/m/d');
+        }
+
+        if(!empty($request->time)){
+            $time = $request->time;
+        }else{
+            $time = "08:00";
+        }
 
 
-        $route = 10;
+
         $wid = $request->workshop_id;
 
         //TODO: Perform a check if there there is any active route that this stop could be put in.
 
-        $r = Route::firstOrCreate(['date' => '2019/01/01', 'route' => $route, 'time' => '12:00']);
+        $r = Route::firstOrCreate(['date' => $date, 'route' => $route, 'time' => $time]);
 
         $w = Workshop::where('workshop_id', $wid)->first();
 
@@ -484,6 +522,11 @@ class HomeController extends Controller
         $o->save();
 
 
+        $sessionString = "Ordren ble lagt til på rute ".$r->route. " klokken ". $r->time. ". Ordrenummeret er: ".$o->ordernumber;
+
+        //dd($sessionString);
+
+        $request->session()->flash('regconfirm', $sessionString);
         return back();
 
 

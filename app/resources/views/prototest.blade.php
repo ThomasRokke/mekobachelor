@@ -18,115 +18,111 @@
             crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.js"></script>
 
-    <script>
+    <script type="text/javascript">
         $(document)
             .ready(function() {
+                //Init tab js
                 $('.menu .item')
-                    .tab()
-                ;
+                    .tab();
 
+                //Init accordion.
                 $('.ui.accordion')
                     .accordion({
-                        animateChildren: false
+                        animateChildren: false //Set to false because
+                    });
+
+                //Make the message box that appear on successfull insert be closable
+                $('.message .close')
+                    .on('click', function() {
+                        $(this)
+                            .closest('.message')
+                            .transition('fade')
+                        ;
                     })
                 ;
 
-
+                //Sidebar with overlay transition. Button is attached even to show the navbar.
                 $('.left.demo.sidebar').first()
                     .sidebar('attach events', '.open.button', 'show')
-                    .sidebar('setting', 'transition', 'overlay')
-                ;
+                    .sidebar('setting', 'transition', 'overlay');
                 $('.open.button')
-                    .removeClass('disabled')
-                ;
+                    .removeClass('disabled');
 
 
 
+                //Init the dropdowns used.
                 $('.ui.dropdown')
-                    .dropdown()
-                ;
+                    .dropdown();
 
                 //Validate forms
                 $('.ui.form.order')
                     .form({
                         fields: {
                             integer: {
-                                identifier  : 'kundenummer',
-                                rules: [
-                                    {
-                                        type   : 'integer[100000..1000000]',
-                                        prompt : 'Kundenummeret må være mellom x og y'
-                                    }
-                                ]
+                                identifier: 'kundenummer',
+                                rules: [{
+                                    type: 'integer[100000..1000000]',
+                                    prompt: 'Kundenummeret må være mellom x og y'
+                                }]
                             },
+                            //Rest of the types grabbed from the documentation.
                             decimal: {
-                                identifier  : 'decimal',
-                                rules: [
-                                    {
-                                        type   : 'decimal',
-                                        prompt : 'Please enter a valid decimal'
-                                    }
-                                ]
+                                identifier: 'decimal',
+                                rules: [{
+                                    type: 'decimal',
+                                    prompt: 'Please enter a valid decimal'
+                                }]
                             },
                             number: {
-                                identifier  : 'number',
-                                rules: [
-                                    {
-                                        type   : 'number',
-                                        prompt : 'Please enter a valid number'
-                                    }
-                                ]
+                                identifier: 'number',
+                                rules: [{
+                                    type: 'number',
+                                    prompt: 'Please enter a valid number'
+                                }]
                             },
                             email: {
-                                identifier  : 'email',
-                                rules: [
-                                    {
-                                        type   : 'email',
-                                        prompt : 'Please enter a valid e-mail'
-                                    }
-                                ]
+                                identifier: 'email',
+                                rules: [{
+                                    type: 'email',
+                                    prompt: 'Please enter a valid e-mail'
+                                }]
                             },
                             url: {
-                                identifier  : 'url',
-                                rules: [
-                                    {
-                                        type   : 'url',
-                                        prompt : 'Please enter a url'
-                                    }
-                                ]
+                                identifier: 'url',
+                                rules: [{
+                                    type: 'url',
+                                    prompt: 'Please enter a url'
+                                }]
                             },
                             regex: {
-                                identifier  : 'kundenummer',
-                                rules: [
-                                    {
-                                        type   : 'regExp[/^[a-z0-9_-]{6,8}$/]',
-                                        prompt : 'Kundenummeret må bestå av mellom 6 til 8 siffer'
-                                    }
-                                ]
+                                identifier: 'kundenummer',
+                                rules: [{
+                                    type: 'regExp[/^[a-z0-9_-]{6,8}$/]',
+                                    prompt: 'Kundenummeret må bestå av mellom 6 til 8 siffer'
+                                }]
                             }
                         }
 
-                    })
-                ;
-                if( $('.ui.form.order').form('is valid', 'ordrenummer')) {
+                    });
+
+                if ($('.ui.form.order').form('is valid', 'ordrenummer')) {
                     // email is valid
                 }
-                if( $('.ui.form.order').form('is valid')) {
+                if ($('.ui.form.order').form('is valid')) {
                     alert('both are valid');
                 }
 
 
-            })
-        ;
+            });
 
-        function editOrder(id){
-            $("#modal-header").text(id);
+        //Is called to open the modal when an order is pressed.
+        function editOrder(id) {
+            $("#modal-header").text(id); //Set the header to id. You can make ur own data passed from onclick by adding more data paramters to the function.
             $('.ui.modal.order')
                 .modal({
-                    blurring: true
+                    blurring: true //What kind of background around the modal
                 })
-                .modal('show')
-            ;
+                .modal('show'); //Show the modal
         }
 
 
@@ -157,6 +153,11 @@
             border: 1px solid rgba(34, 36, 38, 0.5);
         }
 
+        /*
+            Sure we need that kind of selector? It does affect a lot of the elements on the site.
+            Can you make a more narrow selection?
+            - TR
+        */
         .ui.form input:not([type]), .ui.form input[type="date"], .ui.form input[type="datetime-local"], .ui.form input[type="email"], .ui.form input[type="number"], .ui.form input[type="password"], .ui.form input[type="search"], .ui.form input[type="tel"], .ui.form input[type="time"], .ui.form input[type="text"], .ui.form input[type="file"], .ui.form input[type="url"] {
             border: 1px solid rgba(34, 36, 38, 0.5);
         }
@@ -178,13 +179,13 @@
 
 
 
-    <title>Semantic test </title>
+    <title>Kjørekontoret </title>
 </head>
 <body>
 
 
 <!-- Nav -->
-<div class="ui fixed inverted  menu">
+<div class="ui fixed inverted large menu">
     <a href="#" class="item open button">
         <i class="sidebar icon"></i>
         Meny
@@ -230,6 +231,17 @@
 
 <div class="ui text container" style="margin-top:80px;">
 
+
+    @if(session('regconfirm'))
+
+        <div class="ui success message transition">
+            <i class="close icon"></i>
+            <div class="header">
+                {{ Session::get('regconfirm') }}
+            </div>
+
+        </div>
+    @endif
 
 
 
@@ -292,7 +304,7 @@
                     <div class="three fields">
                         <div class="field">
 
-                            <select class="ui search dropdown">
+                            <select name="route" class="ui search dropdown">
                                 <option value="">Velg rute</option>
                                 <option value="10">10</option>
                                 <option value="11">11</option>
@@ -307,14 +319,16 @@
                         </div>
                         <div class="field">
 
-                            <select class="ui search dropdown">
+                            <select name="time" class="ui search dropdown">
                                 <option value="">Velg tid</option>
                                 <option value="07:30">07:30</option>
-                                <option value="07:30">08:00</option>
-                                <option value="07:30">09:00</option>
-                                <option value="07:30">12:00</option>
-                                <option value="07:30">14:00</option>
-                                <option value="07:30">17:30</option>
+                                <option value="08:00">08:00</option>
+                                <option value="09:00">09:00</option>
+                                <option value="10:00">10:00</option>
+                                <option value="12:00">12:00</option>
+                                <option value="13:00">13:00</option>
+                                <option value="14:00">14:00</option>
+                                <option value="17:30">17:30</option>
 
 
 
@@ -322,7 +336,7 @@
                         </div>
                         <div class="field">
 
-                            <input type="date" placeholder="Dato">
+                            <input name="date" type="date" placeholder="Dato">
 
                         </div>
 
@@ -385,7 +399,6 @@
                                 <i class="asterisk icon red"></i>
                             </div>
                         </div>
-
 
                     </div>
 
@@ -467,23 +480,28 @@
 
     <div class="route-wrapper ui accordion">
 
-        <h2 class="title"><i class="ui clock outline icon "></i>08:00</h2>
+        <h2 class="title"><i class="ui clock outline icon "></i>07:30</h2>
 
 
         <div class="content active">
             <div class="ui top  tabular menu">
-                <a class="active item" data-tab="id-10">Rute 10</a>
+
+                <a class="item" data-tab="id-10">Rute 10</a>
                 <a class="item" data-tab="id-11">Rute 11</a>
                 <a class="item" data-tab="id-12">Rute 12</a>
+                <a class="item" data-tab="id-13">Rute 13</a>
+                <a class="item" data-tab="id-14">Rute 14</a>
             </div>
-            <div class="ui bottom attached active tab " data-tab="id-10">
-                <div class="ui attached cards" style="margin:0 !important">
 
-                    @foreach($route->stops as $stop)
-                    <div class="card active" style="width:100%">
-                        <div class="content">
-                            <div class="header">{{ $stop->workshop->name }} <span style="color:grey; font-size:0.8em">{{ $stop->workshop->workshop_id }}</span>
-                                <span class="right floated">
+            @foreach($halvsju as $route)
+                <div class="ui bottom attached tab " data-tab="id-{{ $route->route }}">
+                    <div class="ui attached cards" style="margin:0 !important">
+
+                        @foreach($route->stops as $stop)
+                        <div class="card active" style="width:100%">
+                            <div class="content">
+                                <div class="header">{{ $stop->workshop->name }} <span style="color:grey; font-size:0.8em">{{ $stop->workshop->workshop_id }}</span>
+                                    <span class="right floated">
                               <div class="ui dropdown">
                                 <div class="text">1</div>
                                 <i class="dropdown icon"></i>
@@ -500,279 +518,112 @@
                             </div>
                             </span></div>
 
-                            <!-- Set to active to display -->
-                            <div class="ui list horizontal attached">
-                                @foreach($stop->orders as $order)
-                                <a class="item">
-                                    <div class="content">
-                                        <div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="check circle green icon"></i> {{ $order->ordernumber }}</div>
-                                    </div>
-                                </a>
-                                @endforeach
+                                <!-- Set to active to display -->
+                                <div class="ui list horizontal attached">
 
+                                    @foreach($stop->orders as $order)
+                                    <a class="item">
+                                        <div class="content">
+                                            <div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check circle ' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
+                                        </div>
+                                    </a>
+                                    @endforeach
+
+                                </div>
 
                             </div>
 
                         </div>
-
+                        @endforeach
                     </div>
-                    @endforeach
+                    <div class="ui bottom attached four item menu">
+
+                        @php
+
+                        $routeName = 'proto.prototest';
+                        if($route->started === 1){
+                            $routeName = 'setinactive';
+
+                        }
+                        else{
+                            $routeName = 'setactive';
+                        }
 
 
-                </div>
-                <div class="ui four item menu">
 
-                    <a class="item">
-                        <div class="ui animated fade button basic green" tabindex="0">
-                            <div class="visible content"><i class="ui icon check"></i> Fullført</div>
-                            <div class="hidden content">
-                                Gjør aktiv
-                            </div>
-                        </div>
-                    </a>
-                    <a class="item">
+                        @endphp
+                        <a href="{{ route($routeName, ['route_id' => $route->id]) }}" class="item">
 
-                        <div class="ui dropdown">
-                            <i class="user icon"></i>
-                            <div class="text">{{ $route->driver->name }}</div>
-                            <i class="dropdown icon"></i>
-                            <div class="menu">
-
-                                @foreach($drivers as $d)
-                                <div class="item">
-                                    {{ $d->name }}
+                        @if($route->finished === 1)
+                            <div class="ui animated fade button basic green" tabindex="0">
+                                <div class="visible content"><i class="ui icon check"></i> Fullført</div>
+                                <div class="hidden content">
+                                    Oh yeah
                                 </div>
-                                @endforeach
-
-
                             </div>
-                        </div>
-
-                    </a>
-                    <a class="item">
-
-                        <div class="ui dropdown">
-                            <i class="car icon"></i>
-                            <div class="text">CF54301</div>
-                            <i class="dropdown icon"></i>
-                            <div class="menu">
-
-                                <div class="item">
-                                    DJ32112
+                        @elseif($route->active === 1)
+                            <div class="ui animated fade button basic orange" tabindex="0">
+                                <div class="visible content"><i class="spinner loading icon"></i> Aktiv</div>
+                                <div class="hidden content">
+                                    Brroom..
                                 </div>
-                                <div class="item">
-                                    LS23111
-                                </div>
-
                             </div>
-                        </div>
 
-                    </a>
-                    <a class="item"><i class="clock outline layout icon" ></i> 08:02 - 09:13 </a>
-                </div>
+                            @else
+                            <div class="ui animated fade button basic" tabindex="0">
+                                <div class="visible content"> Inaktiv</div>
+                                <div class="hidden content">
+                                   Gjør aktiv
+                                </div>
+                            </div>
 
-            </div>
-            <div class="ui bottom attached tab " data-tab="id-11">
-                <div class="ui attached cards" style="margin:0 !important">
+                        @endif
 
-                    <div class="card active" style="width:100%">
-                        <div class="content">
-                            <div class="header">Kvickstop strømmen <span style="color:grey; font-size:0.8em">500190</span>
-                                <span class="right floated">
-                              <div class="ui dropdown">
-                                <div class="text">1</div>
+
+
+                        </a>
+                        <a class="item" href="{{ route('setdriver', ['route_id' => $route->id, 'driver_id' => 1]) }}">
+
+                            <div class="ui dropdown">
+                                <i class="user icon"></i>
+                                <div class="text">{{ (!empty($route->driver)) ? $route->driver->name : 'Velg sjåfør (kun deg)' }}</div>
                                 <i class="dropdown icon"></i>
                                 <div class="menu">
 
-                                  <div class="item">
-                                    1
-                                  </div>
-                                  <div class="item">
-                                    2
-                                  </div>
-
-                              </div>
-                            </div>
-                            </span></div>
-
-                            <!-- Set to active to display -->
-                            <div class="ui list horizontal attached">
-                                <a class="item">
-                                    <div class="content">
-                                        <div onclick="editOrder()" class="header"> <i class="check circle green icon"></i> 234234</div>
+                                    @foreach($drivers as $driver)
+                                    <div class="item">
+                                        {{ $driver->name }}
                                     </div>
-                                </a>
-                                <a class="item">
-                                    <div class="content">
-                                        <div onclick="editOrder()" class="header"> <i class="check circle green icon"></i> 234234</div>
-                                    </div>
-                                </a>
-                                <a class="item">
-                                    <div class="content">
-                                        <div onclick="editOrder()" class="header"> <i class="check circle green icon"></i> 234234</div>
-                                    </div>
-                                </a>
+                                    @endforeach
 
+
+                                </div>
                             </div>
 
-                        </div>
+                        </a>
+                        <a class="item">
 
-                    </div>
-
-                </div>
-                <div class="ui bottom attached four item menu">
-
-                    <a class="item">
-                        <div class="ui animated fade button basic green" tabindex="0">
-                            <div class="visible content"><i class="ui icon check"></i> Fullført</div>
-                            <div class="hidden content">
-                                Gjør aktiv
-                            </div>
-                        </div>
-                    </a>
-                    <a class="item">
-
-                        <div class="ui dropdown">
-                            <i class="user icon"></i>
-                            <div class="text">Roy</div>
-                            <i class="dropdown icon"></i>
-                            <div class="menu">
-
-                                <div class="item">
-                                    Thomas Røkke
-                                </div>
-                                <div class="item">
-                                    Hassan
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </a>
-                    <a class="item">
-
-                        <div class="ui dropdown">
-                            <i class="car icon"></i>
-                            <div class="text">CF54301</div>
-                            <i class="dropdown icon"></i>
-                            <div class="menu">
-
-                                <div class="item">
-                                    DJ32112
-                                </div>
-                                <div class="item">
-                                    LS23111
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </a>
-                    <a class="item"><i class="clock outline layout icon" ></i> 08:02 - 09:13 </a>
-                </div>
-            </div>
-            <div class="ui bottom attached tab" data-tab="id-12">
-                <div class="ui attached cards" style="margin:0 !important">
-
-                    <div class="card active" style="width:100%">
-                        <div class="content">
-                            <div class="header">Mekonomen Lillestrøm <span style="color:grey; font-size:0.8em">500190</span>
-                                <span class="right floated">
-                              <div class="ui dropdown">
-                                <div class="text">1</div>
+                            <div class="ui dropdown">
+                                <i class="car icon"></i>
+                                <div class="text">CF54301</div>
                                 <i class="dropdown icon"></i>
                                 <div class="menu">
 
-                                  <div class="item">
-                                    1
-                                  </div>
-                                  <div class="item">
-                                    2
-                                  </div>
-
-                              </div>
-                            </div>
-                            </span></div>
-
-                            <!-- Set to active to display -->
-                            <div class="ui list horizontal attached">
-                                <a class="item">
-                                    <div class="content">
-                                        <div onclick="editOrder()" class="header"> <i class="check circle green icon"></i> 234234</div>
+                                    <div class="item">
+                                        DJ32112
                                     </div>
-                                </a>
-                                <a class="item">
-                                    <div class="content">
-                                        <div onclick="editOrder()" class="header"> <i class="check circle green icon"></i> 234234</div>
+                                    <div class="item">
+                                        LS23111
                                     </div>
-                                </a>
-                                <a class="item">
-                                    <div class="content">
-                                        <div onclick="editOrder()" class="header"> <i class="check circle green icon"></i> 234234</div>
-                                    </div>
-                                </a>
 
+                                </div>
                             </div>
 
-                        </div>
-
+                        </a>
+                        <a class="item"><i class="clock outline layout icon" ></i> {{ ($route->started === 1) ? $route->started_time  : '?' }} - {{ ($route->finished === 1) ? $route->finished_time  : '?' }} </a>
                     </div>
-
                 </div>
-                <div class="ui bottom attached four item menu">
-
-                    <a class="item">
-                        <div class="ui animated fade button basic green" tabindex="0">
-                            <div class="visible content"><i class="ui icon check"></i> Fullført</div>
-                            <div class="hidden content">
-                                Gjør aktiv
-                            </div>
-                        </div>
-                    </a>
-                    <a class="item">
-
-                        <div class="ui dropdown">
-                            <i class="user icon"></i>
-                            <div class="text">Roy</div>
-                            <i class="dropdown icon"></i>
-                            <div class="menu">
-
-                                <div class="item">
-                                    Thomas Røkke
-                                </div>
-                                <div class="item">
-                                    Hassan
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </a>
-                    <a class="item">
-
-                        <div class="ui dropdown">
-                            <i class="car icon"></i>
-                            <div class="text">CF54301</div>
-                            <i class="dropdown icon"></i>
-                            <div class="menu">
-
-                                <div class="item">
-                                    DJ32112
-                                </div>
-                                <div class="item">
-                                    LS23111
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </a>
-                    <a class="item"><i class="clock outline layout icon" ></i> 08:02 - 09:13 </a>
-                </div>
-            </div>
-
-
-
+            @endforeach
 
         </div>
 
@@ -780,6 +631,8 @@
     </div>
 
     <div class="ui section divider"></div>
+
+
 
     <div class="route-wrapper ui accordion">
 
