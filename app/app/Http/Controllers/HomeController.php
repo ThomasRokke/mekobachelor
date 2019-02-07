@@ -70,12 +70,20 @@ class HomeController extends Controller
         return view('office.prototesthome');
     }
 
+    public function getProtoRoles(){
+        return view('office.protoroles');
+    }
+
 
     public function getProtoWorkshops(){
 
         $workshops = Workshop::all();
 
-        return view('officeproto.workshops')->with(compact('workshops'));
+        return view('officeproto.workshops')->with(compact('workshops'));
+    }
+
+    public function getProtoWorkshopCreate(){
+        return view('officeproto.workshopscreate');
     }
 
     /**
@@ -424,7 +432,7 @@ class HomeController extends Controller
         $w->save();
 
         //redirect to the workshop overview
-        return redirect(route('office.workshops'));
+        return redirect(route('proto.protoworkshop'));
     }
 
     public function searchGoogleAutocomplete($session, $query){

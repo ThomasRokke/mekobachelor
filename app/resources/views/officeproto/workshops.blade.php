@@ -157,10 +157,10 @@
 
             <div class="main-content">
 
-                <button class="ui positive basic button right floated small" >
+                <a href="{{ route('proto.protoworkshopcreate') }}" class="ui positive basic button right floated small" >
                     <i class="icon add"></i>
                     Legg til ny
-                </button>
+                </a>
                 <h4 class="ui horizontal divider header clearing">
                     <i class="wrench icon"></i>
                     Verksteder

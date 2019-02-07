@@ -20,6 +20,8 @@
 
     var autocompleteTimeOut;
 
+    var searchIcon;
+
 
     //init function
     const init = function() {
@@ -30,6 +32,8 @@
             fromInput = document.getElementById('from');
 
             fromResults = $('#fromAppend');
+
+            searchIcon = $("#searchIcon");
 
 
             setInterval(function() {
@@ -84,6 +88,7 @@
                     type: 'GET',
                     dataType:'json',
                     success: function(data){
+
 
                         var anyResults = false; //check if any results have been added
                         //check if the results contain anything.
@@ -155,6 +160,8 @@
 
             }else if(value.length > 2){
 
+                searchIcon.addClass('loading');
+
                 console.log(e.target.value);
                 var url = "http://localhost:8000/autocomplete/"+sessiontoken+"/"+e.target.value;
 
@@ -164,6 +171,7 @@
                     dataType:'json',
                     success: function(data){
 
+                        console.log(data);
                         var anyResults = false; //check if any results have been added
                         //check if the results contain anything.
                         if(data['status'] === "OK") {
@@ -207,7 +215,14 @@
 
                                     }
 
-                                    fromResults.append('<a  onclick="chooseFrom('+nameOnclick +","+placeID +","+ isAddress+')" class="list-group-item"><b><i class="fa fa-map-marker"></i> '+data['predictions'][i]['structured_formatting']['main_text']+'</b>, '+data['predictions'][i]['structured_formatting']['secondary_text']+'</a>')
+                                    fromResults.append('<div onclick="chooseFrom('+nameOnclick +","+placeID +","+ isAddress+')" class="item">\n' +
+                                        '                                <i class="large map marker alternate middle aligned icon"></i>\n' +
+                                        '                                <div class="content">\n' +
+                                        '                                    <a class="header">'+data['predictions'][i]['structured_formatting']['main_text']+'</a>\n' +
+                                        '                                    <div class="description">'+data['predictions'][i]['structured_formatting']['secondary_text']+'</div>\n' +
+                                        '                                </div>\n' +
+                                        '                            </div>');
+                                    //fromResults.append('<a  onclick="chooseFrom('+nameOnclick +","+placeID +","+ isAddress+')" class="list-group-item"><b><i class="fa fa-map-marker"></i> '+data['predictions'][i]['structured_formatting']['main_text']+'</b>, '+data['predictions'][i]['structured_formatting']['secondary_text']+'</a>')
 
                                     anyResults = true;
 
@@ -229,6 +244,7 @@
 
                         //display the results
                         fromResults.show();
+                        searchIcon.removeClass('loading');
 
                     }
                 });
@@ -236,6 +252,7 @@
                 fromResults.empty();
                 fromResults.hide();
             }
+
 
 
 
@@ -277,11 +294,11 @@
                     console.log(data);
                     if(isAddress){
 
-                        $('#from').val(resultAddress).prop("readonly", true);
+                        $('#from').val(resultAddress).prop("disabled", true);
                         $('#fromAppend').empty();
                     }else{
 
-                        $('#from').val(resultname).prop("readonly", true);
+                        $('#from').val(resultname).prop("disabled", true);
                         $('#fromAppend').empty();
                     }
 
@@ -290,8 +307,15 @@
                     $('#lat').val(data['result']['geometry']['location']['lat']);
                     $('#lng').val(data['result']['geometry']['location']['lng']);
 
-                    $('#fromAdr').text(resultAddress).show();
-                    $('#fromDelete').show();
+
+                    $('#fromAdr').show();
+                    $('#fromName').empty().text(resultname);
+                    $('#fromAdrFull').empty().text(resultAddress);
+                    $('#latspan').empty().text(data['result']['geometry']['location']['lat']);
+                    $('#lngspan').empty().text(data['result']['geometry']['location']['lng']);
+
+
+
 
 
 
@@ -323,7 +347,7 @@
 
 
     deleteFrom = function(){
-        $('#from').prop("readonly", false).focus();
+        $('#from').prop("disabled", false).focus();
         $('#fromID').empty();
         $('#adr').empty();
         $('#lat').empty();

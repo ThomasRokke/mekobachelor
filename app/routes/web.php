@@ -16,7 +16,10 @@ Route::get('/prototest', 'HomeController@getPrototest')->name('proto.prototest')
 
 Route::get('/protohome', 'HomeController@getPrototestHome')->name('proto.prototesthome');
 
-Route::get('/protoworkshops', 'HomeController@')->name('proto.protoworkshop');
+Route::get('/protoworkshops', 'HomeController@getProtoWorkshops')->name('proto.protoworkshop');
+Route::get('/protoworkshopscreate', 'HomeController@getProtoWorkshopCreate')->name('proto.protoworkshopcreate');
+
+Route::get('/protoroles', 'HomeController@getProtoRoles')->name('proto.protoroles');
 
 //Search workshops ajax
 Route::get('/searchworkshops', 'HomeController@searchWorkshops');

@@ -66,7 +66,7 @@
         <a href="{{ route('proto.protoworkshop') }}" class="item">
             <i class="wrench icon"></i> Verksteder
         </a>
-        <a class="item">
+        <a href="{{ route('proto.protoroles') }}" class="item">
             <i class="users icon"></i> Roller
         </a>
     </div>
@@ -255,5 +255,8 @@
     ;
 
 </script>
+
+
+@yield('bottom-scripts')
 </body>
 </html>
