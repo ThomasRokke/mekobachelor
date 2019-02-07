@@ -24,12 +24,16 @@
                 <h1 class="text-center">Hei, {{ \Illuminate\Support\Facades\Auth::user()->name }}</h1>
 
 
+
                 @if(!empty($route))
-                    <p class="lead text-center animated fadeIn">Du skal kjøre rute <strong>{{ $route->route }}</strong> klokken <strong>{{ $route->time }}</strong></p>
+                    @foreach($route as $r)
+                    <p class="lead text-center animated fadeIn">Du skal kjøre rute <strong>{{ $r->route }}</strong> klokken <strong>{{ $r->time }}</strong></p>
                     <a id="pulse-btn" class="btn btn-outline-meko btn-lg btn-block animated flipInX btn-old"  href="{{ route('transport.route-preview') }}" role="button">Se kjøreliste</a>
+                    @endforeach
                 @else
                     <p class="lead text-center animated fadeIn">Du har <strong>ingen</strong> aktive ruter.</p>
                 @endif
+
 
             </div>
         </div>

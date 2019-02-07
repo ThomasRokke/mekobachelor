@@ -50,6 +50,7 @@ class HomeController extends Controller
 
 
 
+
        // dd($halvsju[0]->stops[0]->workshop->name);
 
         $routes = Route::where('date',  $date)->get();
@@ -58,7 +59,7 @@ class HomeController extends Controller
 
         $drivers = User::all();
 
-        return view('prototest')->with(compact('routes', 'drivers', 'halvsju', 'atte', 'ti', 'tolv', 'to', 'kveld'));
+        return view('prototest')->with(compact('routes', 'drivers', 'halvsju', 'atte', 'ti', 'tolv', 'to', 'kveld', 'date'));
     }
 
     /**
@@ -83,7 +84,9 @@ class HomeController extends Controller
 
             //get all routes with my driver id that is active
             // TODO: add where this date = bla bla
-            $route = Route::where('driver_id', Auth::user()->id)->where('active', 1)->first();
+            $route = Route::where('driver_id', Auth::user()->id)->where('active', 1)->get();
+
+
             return view('transport.home')->with(compact('route'));
         }
 
@@ -477,7 +480,7 @@ class HomeController extends Controller
     public function postRoute(Request $request){
 
         $request->validate([
-            'workshop_id' => 'required|exists:workshops|max:6|min:6',
+            'workshop_id' => 'required|exists:workshops|max:8|min:6',
             'ordernumber' => 'required|unique:orders',
         ]);
 
@@ -496,6 +499,7 @@ class HomeController extends Controller
 
         if(!empty($request->time)){
             $time = $request->time;
+
         }else{
             $time = "08:00";
         }
