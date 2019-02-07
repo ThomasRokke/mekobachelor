@@ -61,7 +61,21 @@ class HomeController extends Controller
 
         $drivers = User::all();
 
-        return view('prototest')->with(compact('routes', 'drivers', 'halvsju', 'atte', 'ti', 'tolv', 'to', 'kveld', 'date', 'orders'));
+        return view('office.prototest')->with(compact('routes', 'drivers', 'halvsju', 'atte', 'ti', 'tolv', 'to', 'kveld', 'date', 'orders'));
+    }
+
+    public function getPrototestHome(){
+
+
+        return view('office.prototesthome');
+    }
+
+
+    public function getProtoWorkshops(){
+
+        $workshops = Workshop::all();
+
+        return view('officeproto.workshops')->with(compact('workshops'));
     }
 
     /**

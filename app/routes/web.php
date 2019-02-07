@@ -14,6 +14,10 @@
 //Prototype kjørekontor midlertidig rute
 Route::get('/prototest', 'HomeController@getPrototest')->name('proto.prototest');
 
+Route::get('/protohome', 'HomeController@getPrototestHome')->name('proto.prototesthome');
+
+Route::get('/protoworkshops', 'HomeController@')->name('proto.protoworkshop');
+
 //Search workshops ajax
 Route::get('/searchworkshops', 'HomeController@searchWorkshops');
 
