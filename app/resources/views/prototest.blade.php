@@ -237,8 +237,37 @@
         <!-- Left rail start -->
         <div class="ui left dividing rail">
             <div class="ui segment">
+                <div class="item">
+                    <h3 class="ui center aligned header">
+                        Nylig registrert
+                    </h3>
+                </div>
+                <div class="ui middle aligned divided list">
+                    @foreach($orders as $order)
+                        <div class="item">
+                            @if($order->delivered === 1)
+                                <i class="check green icon"></i>
+                            @else
+                                <i class="orange cogs icon"></i>
+                            @endif
+
+                                <div class="content">
+                                    <a class="header">{{ $order->stop->workshop->name }}</a><span>{{ $order->ordernumber }}</span>
+                                </div>
+
+
+                        </div>
+                    @endforeach
+
+
+
+                </div>
+
+
 
             </div>
+
+
         </div>
         <!-- Left rail end -->
         <!-- Start main content -->
@@ -1016,7 +1045,9 @@
             <div class="ui segment">
                 <div class="ui list">
                     <div class="item">
-                        <h2 class="centered">Handlinger</h2>
+                        <h3 class="ui center aligned header">
+                            Oppdateringer
+                        </h3>
                     </div>
 
                     <div class="item">

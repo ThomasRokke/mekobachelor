@@ -49,7 +49,9 @@ class HomeController extends Controller
 
 
 
-
+        $orders = Order::paginate(15);
+// $games->results = the 30 you asked for
+// $games->links() = the links to next, previous, etc pages
 
        // dd($halvsju[0]->stops[0]->workshop->name);
 
@@ -59,7 +61,7 @@ class HomeController extends Controller
 
         $drivers = User::all();
 
-        return view('prototest')->with(compact('routes', 'drivers', 'halvsju', 'atte', 'ti', 'tolv', 'to', 'kveld', 'date'));
+        return view('prototest')->with(compact('routes', 'drivers', 'halvsju', 'atte', 'ti', 'tolv', 'to', 'kveld', 'date', 'orders'));
     }
 
     /**
