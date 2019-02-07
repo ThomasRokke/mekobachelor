@@ -200,6 +200,10 @@
         <i class="sidebar icon"></i>
         Meny
     </a>
+    <a href="#" class="item ">
+        <i class=" icon"></i>
+        Rute
+    </a>
     <div class="ui container">
         <div class="header item meko-color-text" style="border-left:none!important">
             Mekodrive
@@ -446,7 +450,7 @@
         <div class="ui section divider"></div>
         @if(!$halvsju->isEmpty())
             <div class="route-wrapper ui accordion">
-                <h2 class="title"><i class="ui clock outline icon "></i>07:30</h2>
+                <h2 class="title"><i class="ui icon caret down"></i> 07:30 <i class="ui clock outline icon "></i></h2>
                 <div class="content active">
                     <div class="ui top  tabular menu">
                         <a class="item" data-tab="id-10">Rute 10</a>
@@ -565,7 +569,7 @@
         @endif
         @if(!$atte->isEmpty())
             <div class="route-wrapper ui accordion">
-                <h2 class="title"><i class="ui clock outline icon "></i>08:00</h2>
+                <h2 class="title"><i class="ui icon caret down"></i> 08:00 <i class="ui clock outline icon "></i></h2>
                 <div class="content active">
                     <div class="ui top  tabular menu">
                         <a class="item" data-tab="id-10-atte">Rute 10</a>
@@ -1222,7 +1226,7 @@
                 </div>
             </div>
             <div class="ui inverted section divider"></div>
-            <img src="https://www.mekonomen.no/Contenthttps://semantic-ui.com/images/mekonomen-logo.svg" class="ui centered image">
+            <img src="https://www.mekonomen.no/Content/images/mekonomen-logo.svg" class="ui centered image">
             <div class="ui horizontal inverted small divided link list">
                 <a class="item" href="#">Sidekart</a>
                 <a class="item" href="#">Kontakt IT</a>
