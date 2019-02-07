@@ -252,7 +252,7 @@
                             @endif
 
                                 <div class="content">
-                                    <a class="header">{{ $order->stop->workshop->name }}</a><span>{{ $order->ordernumber }}</span>
+                                    <a onclick="editOrder({{ $order->ordernumber }})" class="header">{{ $order->stop->workshop->name }}</a><span>{{ $order->ordernumber }}</span>
                                 </div>
 
 
