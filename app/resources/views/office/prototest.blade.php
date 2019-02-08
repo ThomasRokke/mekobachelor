@@ -1020,19 +1020,25 @@
                             <div class="content">
                                 <a class="header">{{ $driver->name }}</a>
 
-                                @if(!empty($driver->route) && $driver->route->active === 0)
+                                @if(!empty($driver->route) && $driver->route->active === 1)
                                     @if($driver->route->started === 0)
                                         <div class="description">Kjører <a><b>rute {{ $driver->route->route }}</b></a></div>
                                         <div class="description">Startet {{ date('H:i',strtotime($driver->route->created_at)) }} <a></a></div>
+                                        <div class="description">
+                                            <div class="ui indicating progress">
+                                                <div class="bar"></div>
+                                                <div class="label">Funding</div>
+                                            </div>
+                                        </div>
 
                                     @else
-                                        <div class="description">Påmeldt <a><b>rute {{ $driver->route->route }}</b></a></div>
+                                        <div class="description">Påmeldt <a><b>rute</b></a></div>
 
                                     @endif
 
                                 @else
 
-                                        <div class="description">Påmeldt <a><b>rute {{ $driver->route->route }}</b></a></div>
+                                        <div class="description">Ikke påmeldt noen ruter</div>
 
 
                                 @endif
