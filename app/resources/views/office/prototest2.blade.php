@@ -555,7 +555,7 @@
                                                             <a class="item">
                                                                 <div class="content">
                                                                     <div onclick="editOrder({{ $order->ordernumber }})" class="header activating element" data-title="Elliot Fu" data-content="Det er viktig at sjåførene "> <i class="icon  {{ ($order->delivered === 1) ? 'green money bill alternate outline icon ' : 'orange money bill alternate outline icon' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
-                                                                    <!--<div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check circle ' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
+                                                                <!--<div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check circle ' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
                                                                    -->
 
                                                                 </div>
@@ -913,11 +913,11 @@
                                                     <div class="ui list horizontal attached">
                                                         @foreach($stop->orders as $order)
                                                             @if(1 === 1)
-                                                            <a class="item">
-                                                                <div class="content">
-                                                                    <a class="ui tag label">New</a>
-                                                                </div>
-                                                            </a>
+                                                                <a class="item">
+                                                                    <div class="content">
+                                                                        <a class="ui tag label">New</a>
+                                                                    </div>
+                                                                </a>
                                                             @else
                                                                 <a class="item">
                                                                     <div class="content">

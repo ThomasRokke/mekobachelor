@@ -64,6 +64,39 @@ class HomeController extends Controller
         return view('office.prototest')->with(compact('routes', 'drivers', 'halvsju', 'atte', 'ti', 'tolv', 'to', 'kveld', 'date', 'orders'));
     }
 
+    public function getPrototest2(Request $request){
+
+        if(!empty($request->date)){
+            $date = $request->date;
+        }else{
+            $date = date('Y/m/d');
+        }
+
+        $halvsju = Route::where('date',  $date)->where('time', '07:30:00')->get();
+        $atte = Route::where('date', '=',  $date)->where('time', '=', '08:00:00')->get();
+        $ti = Route::where('date', '=',  $date)->where('time', '=', '10:00:00')->get();
+        $tolv = Route::where('date', '=',  $date)->where('time', '=', '12:00:00')->get();
+        $to = Route::where('date', '=',  $date)->where('time', '=', '14:00:00')->get();
+        $kveld = Route::where('date', '=',  $date)->where('time', '=', '17:30:00')->get();
+
+
+
+
+        $orders = Order::paginate(15);
+// $games->results = the 30 you asked for
+// $games->links() = the links to next, previous, etc pages
+
+       // dd($halvsju[0]->stops[0]->workshop->name);
+
+        $routes = Route::where('date',  $date)->get();
+
+       // dd($routes);
+
+        $drivers = User::all();
+
+        return view('office.prototest2')->with(compact('routes', 'drivers', 'halvsju', 'atte', 'ti', 'tolv', 'to', 'kveld', 'date', 'orders'));
+    }
+
     public function getPrototestHome(){
 
 

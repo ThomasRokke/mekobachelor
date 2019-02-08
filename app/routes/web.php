@@ -13,6 +13,7 @@
 
 //Prototype kjørekontor midlertidig rute
 Route::get('/prototest', 'HomeController@getPrototest')->name('proto.prototest');
+Route::get('/prototest2', 'HomeController@getPrototest2')->name('proto.prototest2');
 
 Route::get('/protohome', 'HomeController@getPrototestHome')->name('proto.prototesthome');
 
