@@ -30,4 +30,13 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+    /**
+     * Get the stops for the route
+     */
+    public function route()
+    {
+        return $this->belongsTo('App\Route', 'driver_id', 'id');
+    }
 }

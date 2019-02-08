@@ -554,7 +554,7 @@
                                                         @foreach($stop->orders as $order)
                                                             <a class="item">
                                                                 <div class="content">
-                                                                    <div onclick="editOrder({{ $order->ordernumber }})" class="header activating element" data-title="Elliot Fu" data-content="Det er viktig at sjåførene "> <i class="icon  {{ ($order->delivered === 1) ? 'green money bill alternate outline icon ' : 'orange money bill alternate outline icon' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
+                                                                    <div onclick="editOrder({{ $order->ordernumber }})" class="header activating element" data-title="541 kr" data-content="OBS! Dette en kontantordre"> <i class="icon  {{ ($order->delivered === 1) ? 'green money bill alternate outline icon ' : 'orange money bill alternate outline icon' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
                                                                     <!--<div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check circle ' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
                                                                    -->
 
@@ -1010,88 +1010,23 @@
                     <div class="ui list">
                         <div class="item">
                             <h3 class="ui center aligned header">
-                                Oppdateringer
+                                Sjåfører
                             </h3>
                         </div>
 
+                        @foreach($drivers as $driver)
                         <div class="item">
                             <img class="ui avatar image" src="https://semantic-ui.com/images/avatar/small/tom.jpg">
                             <div class="content">
-                                <a class="header">Freddy</a>
+                                <a class="header">{{ $driver->name }} {{ $driver->route }}</a>
+
+                                @if(1 === 1)
                                 <div class="description">Startet <a><b>rute 13</b></a> akkurat nå.</div>
+                                @endif
                             </div>
                         </div>
+                        @endforeach
 
-                        <div class="item">
-                            <img class="ui avatar image" src="https://semantic-ui.com/images/avatar/small/elliot.jpg">
-                            <div class="content">
-                                <a class="header">Hassan</a>
-                                <div class="description">Startet <a><b>rute 12</b></a> - 2 min siden.</div>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <img class="ui avatar image" src="https://semantic-ui.com/images/avatar/small/matt.jpg">
-                            <div class="content">
-                                <a class="header">Roy</a>
-                                <div class="description">Startet <a><b>rute 14</b></a> - 4 min siden.</div>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <img class="ui avatar image" src="https://semantic-ui.com/images/avatar/small/christian.jpg">
-                            <div class="content">
-                                <a class="header">Lars</a>
-                                <div class="description">Startet <a><b>rute 11</b></a> - 6 min siden.</div>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <img class="ui avatar image" src="https://semantic-ui.com/images/avatar/small/tom.jpg">
-                            <div class="content">
-                                <a class="header">Svein</a>
-                                <div class="description">Startet <a><b>rute 10</b></a> - 6 min siden.</div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <img class="ui avatar image" src="https://semantic-ui.com/images/avatar/small/tom.jpg">
-                            <div class="content">
-                                <a class="header">Freddy</a>
-                                <div class="description">Avsluttet <a><b>rute 13</b></a> - 12 min siden</div>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <img class="ui avatar image" src="https://semantic-ui.com/images/avatar/small/elliot.jpg">
-                            <div class="content">
-                                <a class="header">Hassan</a>
-                                <div class="description">Avsluttet <a><b>rute 12</b></a> - 16 min siden.</div>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <img class="ui avatar image" src="https://semantic-ui.com/images/avatar/small/matt.jpg">
-                            <div class="content">
-                                <a class="header">Roy</a>
-                                <div class="description">Avsluttet <a><b>rute 14</b></a> - 24 min siden.</div>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <img class="ui avatar image" src="https://semantic-ui.com/images/avatar/small/christian.jpg">
-                            <div class="content">
-                                <a class="header">Lars</a>
-                                <div class="description">Avsluttet <a><b>rute 11</b></a> - 32 min siden.</div>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <img class="ui avatar image" src="https://semantic-ui.com/images/avatar/small/tom.jpg">
-                            <div class="content">
-                                <a class="header">Svein</a>
-                                <div class="description">Avsluttet <a><b>rute 10</b></a> - 36 min siden.</div>
-                            </div>
-                        </div>
 
 
 

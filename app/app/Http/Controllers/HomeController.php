@@ -50,6 +50,8 @@ class HomeController extends Controller
 
 
         $orders = Order::paginate(15);
+
+
 // $games->results = the 30 you asked for
 // $games->links() = the links to next, previous, etc pages
 
@@ -57,9 +59,12 @@ class HomeController extends Controller
 
         $routes = Route::where('date',  $date)->get();
 
+
        // dd($routes);
 
         $drivers = User::all();
+
+       dd($routes[0]->driver);
 
         return view('office.prototest')->with(compact('routes', 'drivers', 'halvsju', 'atte', 'ti', 'tolv', 'to', 'kveld', 'date', 'orders'));
     }
