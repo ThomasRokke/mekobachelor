@@ -64,7 +64,7 @@ class HomeController extends Controller
 
         $drivers = User::all();
 
-       dd($routes[0]->driver);
+       dd($drivers[0]->route);
 
         return view('office.prototest')->with(compact('routes', 'drivers', 'halvsju', 'atte', 'ti', 'tolv', 'to', 'kveld', 'date', 'orders'));
     }

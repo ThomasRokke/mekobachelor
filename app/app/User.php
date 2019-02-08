@@ -37,6 +37,6 @@ class User extends Authenticatable
      */
     public function route()
     {
-        return $this->belongsTo('App\Route', 'driver_id', 'id');
+        return $this->belongsTo('App\Route', 'id', 'driver_id');
     }
 }
