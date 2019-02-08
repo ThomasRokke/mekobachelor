@@ -40,6 +40,8 @@
                                     $role = 'unkown';
                                }
 
+
+
                             @endphp
                         <tr>
                             <th scope="row">{{ $user->id }}</th>

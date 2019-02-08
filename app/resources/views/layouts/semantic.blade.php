@@ -23,23 +23,19 @@
 
 
 
-
     <title>Kjørekontoret </title>
 </head>
 <body>
 
-<head>
+
     <!-- Nav -->
     <div class="ui fixed inverted large menu">
         <a href="#" class="item open button">
             <i class="sidebar icon"></i>
             Meny
         </a>
-        <a href="#" class="item ">
-            <i class=" icon"></i>
-            Ruter
-        </a>
-        <div class="ui container">
+
+        <div class="ui container text">
             <div class="header item meko-color-text" style="border-left:none!important">
                 Mekodrive
             </div>
@@ -67,18 +63,17 @@
             <i class="wrench icon"></i> Verksteder
         </a>
         <a href="{{ route('proto.protoroles') }}" class="item">
-            <i class="users icon"></i> Roller
+            <i class="users icon"></i> Brukere
         </a>
     </div>
     <!--End sidenav-->
 
-</head>
 
 
-<main>
+<article>
     @yield('content')
 
-</main>
+</article>
 
 
 <footer style="margin-top:100px">

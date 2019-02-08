@@ -71,7 +71,12 @@ class HomeController extends Controller
     }
 
     public function getProtoRoles(){
-        return view('office.protoroles');
+
+        $users = User::all();
+
+        $roles = Role::all();
+
+        return view('officeproto.protoroles')->with(compact('users', 'roles'));
     }
 
 
