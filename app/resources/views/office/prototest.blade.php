@@ -32,6 +32,10 @@
                     .removeClass('disabled');
 
 
+                //Init hover
+                $('.activating.element')
+                    .popup()
+                ;
 
                 //Init the dropdowns used.
                 $('.ui.dropdown')
@@ -550,7 +554,10 @@
                                                         @foreach($stop->orders as $order)
                                                             <a class="item">
                                                                 <div class="content">
-                                                                    <div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check circle ' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
+                                                                    <div onclick="editOrder({{ $order->ordernumber }})" class="header activating element" data-title="Elliot Fu" data-content="Elliot has been a member since July 2012"> <i class="icon  {{ ($order->delivered === 1) ? 'green money bill alternate outline icon ' : 'orange money bill alternate outline icon' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
+                                                                    <!--<div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check circle ' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
+                                                                   -->
+
                                                                 </div>
                                                             </a>
                                                         @endforeach
@@ -908,13 +915,13 @@
                                                             @if(1 === 1)
                                                             <a class="item">
                                                                 <div class="content">
-                                                                    <div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check circle ' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
+                                                                    <a class="ui tag label">New</a>
                                                                 </div>
                                                             </a>
                                                             @else
                                                                 <a class="item">
                                                                     <div class="content">
-                                                                        <div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check circle ' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
+                                                                        <div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon {{ ($order->delivered === 1) ? 'green check circle ' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
                                                                     </div>
                                                                 </a>
 
