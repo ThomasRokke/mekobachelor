@@ -1102,6 +1102,7 @@
             <!-- right rail end -->
         </div>
     </div>
+
     <!-- Modal Kontant-->
     <div class="ui modal">
         <i class="close icon"></i>
@@ -1111,10 +1112,11 @@
         <div class="image content">
             <div class="ui medium image">
                 <img src="https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX22409286.jpg">
+
             </div>
             <div class="description">
-                <div class="ui header">Her skal jeg lage et oppsett for å flytte ordre osv</div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus magnam quo dolor illum molestias. Odio.</p>
+                <div class="ui header">Her skal jeg lage et oppsett test</div>
+                <p>Lorem langggg</p>
             </div>
         </div>
         <div class="actions">
@@ -1128,6 +1130,7 @@
         </div>
     </div>
     <!-- End modal -->
+
     <div class="ui modal order">
         <i class="close icon"></i>
         <div class="header">
@@ -1141,7 +1144,7 @@
                 <img src="https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX22409286.jpg">
             </div>
             <div class="description">
-                <div class="ui header">Her skal jeg lage et oppsett for å flytte ordre osv</div>
+                <div class="ui header">Her ytte ordre osv</div>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus magnam quo dolor illum molestias. Odio.</p>
             </div>
         </div>
