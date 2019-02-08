@@ -905,11 +905,20 @@
                                                     <!-- Set to active to display -->
                                                     <div class="ui list horizontal attached">
                                                         @foreach($stop->orders as $order)
+                                                            @if(1 === 1)
                                                             <a class="item">
                                                                 <div class="content">
                                                                     <div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check circle ' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
                                                                 </div>
                                                             </a>
+                                                            @else
+                                                                <a class="item">
+                                                                    <div class="content">
+                                                                        <div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check circle ' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
+                                                                    </div>
+                                                                </a>
+
+                                                            @endif
                                                         @endforeach
                                                     </div>
                                                 </div>
