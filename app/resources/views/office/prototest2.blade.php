@@ -103,8 +103,11 @@
             });
 
         //Is called to open the modal when an order is pressed.
-        function editOrder(id) {
+        function editOrder(id, ord, knr) {
+
             $("#modal-header").text(id); //Set the header to id. You can make ur own data passed from onclick by adding more data paramters to the function.
+            $("#modal-ord").val(ord); // OrdreNr
+            $("#modal-knr").val(knr); // KundeNr
             $('.ui.modal.order')
                 .modal({
                     blurring: true //What kind of background around the modal
@@ -204,7 +207,7 @@
                                 @endif
 
                                 <div class="content">
-                                    <a onclick="editOrder({{ $order->ordernumber }})" class="header overflow-dots">{{ $order->stop->workshop->name }}</a><span>{{ $order->ordernumber }}</span> <span style="color:gray"><i class="icon clock outline"></i> {{ date('H:i d. M ',strtotime($order->created_at)) }}</span>
+                                    <a onclick="editOrder({{ $order->ordernumber . ',' . $order->ordernumber  }})" class="header overflow-dots">{{ $order->stop->workshop->name }}</a><span>{{ $order->ordernumber }}</span> <span style="color:gray"><i class="icon clock outline"></i> {{ date('H:i d. M ',strtotime($order->created_at)) }}</span>
                                 </div>
 
 
@@ -435,7 +438,7 @@
                                                         @foreach($stop->orders as $order)
                                                             <a class="item">
                                                                 <div class="content">
-                                                                    <div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check circle ' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
+                                                                    <div onclick="editOrder({{ $order->ordernumber . ',' . $order->ordernumber  }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check circle ' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
                                                                 </div>
                                                             </a>
                                                         @endforeach
@@ -547,15 +550,14 @@
                           </div>
                         </div>
                       </div>
-                    </span>
-                                                    </div>
+                    </span></div>
                                                     <!-- Set to active to display -->
                                                     <div class="ui list horizontal attached">
                                                         @foreach($stop->orders as $order)
                                                             <a class="item">
                                                                 <div class="content">
-                                                                    <div onclick="editOrder({{ $order->ordernumber }})" class="header activating element" data-title="Elliot Fu" data-content="Det er viktig at sjåførene "> <i class="icon  {{ ($order->delivered === 1) ? 'green money bill alternate outline icon ' : 'orange money bill alternate outline icon' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
-                                                                <!--<div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check circle ' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
+                                                                    <div onclick="editOrder({{ $order->ordernumber . ',' . $order->ordernumber. ','.$order->workshop_id }})" class="header activating element" data-title="Elliot Fu" data-content="Det er viktig at sjåførene "> <i class="icon  {{ ($order->delivered === 1) ? 'green money bill alternate outline icon ' : 'orange money bill alternate outline icon' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
+                                                                   <!-- <div onclick="editOrder({{ $order->workshop_id . ',' . $order->workshop_id  }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check circle ' : 'orange cogs circle' }}"></i>  {{ $order->workshop_id }} &nbsp;</div>
                                                                    -->
 
                                                                 </div>
@@ -676,7 +678,7 @@
                                                         @foreach($stop->orders as $order)
                                                             <a class="item">
                                                                 <div class="content">
-                                                                    <div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check circle ' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
+                                                                    <div onclick="editOrder({{ $order->ordernumber . ',' . $order->ordernumber  }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check circle ' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
                                                                 </div>
                                                             </a>
                                                         @endforeach
@@ -795,7 +797,7 @@
                                                         @foreach($stop->orders as $order)
                                                             <a class="item">
                                                                 <div class="content">
-                                                                    <div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check circle ' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
+                                                                    <div onclick="editOrder({{ $order->ordernumber . ',' . $order->ordernumber  }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check circle ' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
                                                                 </div>
                                                             </a>
                                                         @endforeach
@@ -921,7 +923,7 @@
                                                             @else
                                                                 <a class="item">
                                                                     <div class="content">
-                                                                        <div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon {{ ($order->delivered === 1) ? 'green check circle ' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
+                                                                        <div onclick="editOrder({{ $order->ordernumber . ',' . $order->ordernumber  }})" class="header"> <i class="icon {{ ($order->delivered === 1) ? 'green check circle ' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
                                                                     </div>
                                                                 </a>
 
@@ -1147,71 +1149,90 @@
                 <div class="ui header">Rediger ordre</div>
 
                 <!-- FORM THING -->
-               
 
-                                <div class="field">
-                                    <input type="text" name="card[expire-year]" maxlength="4" placeholder="Year">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <h4 class="ui dividing header">Receipt</h4>
-                    <div class="field">
-                        <label>Send Receipt To:</label>
-                        <div class="ui fluid multiple search selection dropdown">
-                            <input type="hidden" name="receipt">
-                            <i class="dropdown icon"></i>
-                            <div class="default text">Saved Contacts</div>
-                            <div class="menu">
-                                <div class="item" data-value="jenny" data-text="Jenny">
-                                    <img class="ui mini avatar image" src="/images/avatar/small/jenny.jpg">
-                                    Jenny Hess
-                                </div>
-                                <div class="item" data-value="elliot" data-text="Elliot">
-                                    <img class="ui mini avatar image" src="/images/avatar/small/elliot.jpg">
-                                    Elliot Fu
-                                </div>
-                                <div class="item" data-value="stevie" data-text="Stevie">
-                                    <img class="ui mini avatar image" src="/images/avatar/small/stevie.jpg">
-                                    Stevie Feliciano
-                                </div>
-                                <div class="item" data-value="christian" data-text="Christian">
-                                    <img class="ui mini avatar image" src="/images/avatar/small/christian.jpg">
-                                    Christian
-                                </div>
-                                <div class="item" data-value="matt" data-text="Matt">
-                                    <img class="ui mini avatar image" src="/images/avatar/small/matt.jpg">
-                                    Matt
-                                </div>
-                                <div class="item" data-value="justen" data-text="Justen">
-                                    <img class="ui mini avatar image" src="/images/avatar/small/justen.jpg">
-                                    Justen Kitsune
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ui segment">
+                <form method="POST" action="{{ route('office.postroute') }}" class="ui form order error" >
+                    @csrf
+                    <div class="three fields">
                         <div class="field">
-                            <div class="ui toggle checkbox">
-                                <input type="checkbox" name="gift" tabindex="0" class="hidden">
-                                <label>Do not include a receipt in the package</label>
+                            <div class="ui corner labeled input">
+                                <input class="ui" id="modal-knr" type="text" name="workshop_id" placeholder="kebab" autocomplete="off">
+                                <div class="ui corner label">
+                                    <i class="asterisk icon red"></i>
+                                </div>
+                            </div>
+                            <div style="display: none" id="kundenummer-label" class="ui pointing label">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui corner labeled input">
+                                <input type="text" id="modal-ord" name="ordernumber" placeholder="Ordrenummer">
+                                <div class="ui corner label">
+                                    <i class="asterisk icon red"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="ui accordion order">
+                        <div class="active title">
+                            <i class="dropdown icon"></i>
+                            Fler valg
+                        </div>
+                        <div class="content">
+                            <div class="three fields">
+                                <div class="field">
+                                    <select name="route" class="ui search dropdown">
+                                        <option value="">Velg rute</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                    </select>
+                                </div>
+                                <div class="field">
+                                    <select name="time" class="ui search dropdown">
+                                        <option value="">Velg tid</option>
+                                        <option value="07:30">07:30</option>
+                                        <option value="08:00">08:00</option>
+                                        <option value="09:00">09:00</option>
+                                        <option value="10:00">10:00</option>
+                                        <option value="12:00">12:00</option>
+                                        <option value="13:00">13:00</option>
+                                        <option value="14:00">14:00</option>
+                                        <option value="17:30">17:30</option>
+                                    </select>
+                                </div>
+                                <div class="field">
+                                    <input name="date" type="date" placeholder="Dato">
+                                </div>
+                            </div>
+                            <div class="three fields">
+                                <div class="field">
+                                    <div class="ui test toggle checkbox" style="margin-left:80px; !important; margin-top:5px !important;">
+                                        <input  type="checkbox">
+                                    </div>
+                                    <div class="ui below pointing label">
+                                        Kort/kontant
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui corner labeled input">
+                                        <input type="text" placeholder="sum" id="sum"  disabled>
+                                        <div style="display: none"  id="input-required-disabled" class="ui corner label input-label-enabled">
+                                            <i class="asterisk icon red"></i>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="ui button" tabindex="0">Submit Order</div>
                 </form>
 
-
-                <select class="ui dropdown">
-                    <option value="">RUTE</option>
-                    <option value="3">13</option>
-                    <option value="2">12</option>
-                    <option value="1">11</option>
-                    <option value="0">10</option>
-                </select>
-
+                    <!-- END FORM THING -->
             </div>
         </div>
+
         <div class="actions">
             <div class="ui black deny button">
                 Avbryt
