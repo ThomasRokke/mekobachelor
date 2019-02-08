@@ -1018,10 +1018,23 @@
                         <div class="item">
                             <img class="ui avatar image" src="https://semantic-ui.com/images/avatar/small/tom.jpg">
                             <div class="content">
-                                <a class="header">{{ $driver->name }} {{ $driver->route }}</a>
+                                <a class="header">{{ $driver->name }}</a>
 
-                                @if(1 === 1)
-                                <div class="description">Startet <a><b>rute 13</b></a> akkurat nå.</div>
+                                @if(!empty($driver->route) && $driver->route->active === 0)
+                                    @if($driver->route->started === 0)
+                                        <div class="description">Kjører <a><b>rute {{ $driver->route->route }}</b></a></div>
+                                        <div class="description">Startet {{ date('H:i',strtotime($driver->route->created_at)) }} <a></a></div>
+
+                                    @else
+                                        <div class="description">Påmeldt <a><b>rute {{ $driver->route->route }}</b></a></div>
+
+                                    @endif
+
+                                @else
+
+                                        <div class="description">Påmeldt <a><b>rute {{ $driver->route->route }}</b></a></div>
+
+
                                 @endif
                             </div>
                         </div>
