@@ -49,7 +49,7 @@ class HomeController extends Controller
 
 
 
-        $orders = Order::paginate(15);
+        $orders = Order::paginate(10);
 
 
 // $games->results = the 30 you asked for
@@ -65,8 +65,16 @@ class HomeController extends Controller
         $drivers = User::all();
 
 
+        //If the user is clicking a link on the search workshops functionality.
+        $workshop_id = null;
 
-        return view('office.prototest')->with(compact('routes', 'drivers', 'halvsju', 'atte', 'ti', 'tolv', 'to', 'kveld', 'date', 'orders'));
+        if(!empty($request->workshop_id)){
+            $workshop_id = $request->workshop_id;
+        }
+
+
+
+        return view('office.prototest')->with(compact('routes', 'drivers', 'halvsju', 'atte', 'ti', 'tolv', 'to', 'kveld', 'date', 'orders', 'workshop_id'));
     }
 
     public function getPrototest2(Request $request){
@@ -571,6 +579,15 @@ class HomeController extends Controller
             $time = "08:00";
         }
 
+        if(!empty($request->amount)){
+            $amount = $request->amount;
+            $amountComment = $request->amountcomment;
+
+        }else{
+            $amount = null;
+            $amountComment = null;
+        }
+
 
 
         $wid = $request->workshop_id;
@@ -590,6 +607,8 @@ class HomeController extends Controller
         $o->ordernumber = $request->ordernumber;
         $o->stop_id = $s->id;
         $o->workshop_id = $wid;
+        $o->amount = $amount;
+        $o->amount_comment = $amountComment;
         $o->save();
 
 

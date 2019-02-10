@@ -180,7 +180,7 @@
                     <tbody>
                     @foreach($workshops as $w)
                         <tr>
-                            <td>{{ $w->workshop_id }}</td>
+                            <td><a href="{{ route('proto.prototest', ['workshop_id' => $w->workshop_id]) }}">{{ $w->workshop_id }}</a></td>
                             <td>{{ $w->name }}</td>
                             <td>{{ $w->adr }}</td>
                             <td>{{ $w->lng }}</td>

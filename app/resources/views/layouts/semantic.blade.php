@@ -42,6 +42,13 @@
             <div class="left menu">
                 <div class="ui left aligned category search item">
                     <div class="ui transparent inverted icon input">
+                        <input class="prompt" type="text" placeholder="Søk etter verksteder">
+                        <i class="search link icon"></i>
+                    </div>
+                    <div class="results"></div>
+                </div>
+                <div class="ui left aligned category search item">
+                    <div class="ui transparent inverted icon input">
                         <input class="prompt" type="text" placeholder="Søk etter ordrenummer">
                         <i class="search link icon"></i>
                     </div>
@@ -52,7 +59,7 @@
     </div>
     <!-- End nav -->
     <!-- Sidenav-->
-    <div class="ui left demo inverted  vertical  sidebar labeled icon menu ">
+    <div id="sidenav" class="ui left demo inverted  vertical  sidebar labeled icon menu ">
         <a href="{{ route('proto.prototesthome') }}" class="item">
             <i class="home icon"></i> Hjem
         </a>
@@ -76,7 +83,7 @@
 </article>
 
 
-<footer style="margin-top:100px">
+<footer style="margin-top:300px">
     <div class="ui inverted vertical footer segment">
         <div class="ui center aligned container">
             <div class="ui stackable inverted divided grid">
@@ -131,9 +138,10 @@
                     console.log('down');
                     $(".ui.accordion.order").accordion('open', 0);
                     return false;
-                }else if(e.which == 38){
-                    $(".ui.accordion.order").accordion('close', 0);
-                }
+                }/*else if(e.which == 38){
+
+                   $(".ui.accordion.order").accordion('close', 0);
+              } */
             });
             //Focus on page load
             $("#kundenummer").focus();
@@ -219,7 +227,7 @@
                                     maxResults = 8
                                 ;
                                 if(i >= maxResults) {
-                                    alert('false');
+
                                     return false;
                                 }
                                 // create new language category
