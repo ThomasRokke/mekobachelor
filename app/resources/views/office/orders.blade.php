@@ -169,7 +169,7 @@
 
 
                 <h4 class="ui horizontal divider header clearing">
-                    <i class="format list numbered icon"></i>
+                    <i class="database icon"></i>
                     Datauthenting
                 </h4>
 
@@ -183,20 +183,25 @@
                         <th>Ordernummer</th>
                         <th>Kundenummer</th>
                         <th>Kundenavn</th>
-                        <th>Lat</th>
-                        <th>Lng</th>
-                        <th>Kontant?</th>
-                        <th>Sum</th>
-                        <th>Levert</th>
-
-                        <th>Rute ID</th>
                         <th>Rute</th>
                         <th>Dato</th>
                         <th>Tid</th>
-                        <th>Startet tid</th>
-                        <th>Avsluttet tid</th>
-                        <th>Km</th>
+
+
+                        <th>Kontant?</th>
+                        <th>Sum</th>
+                        <th>Levert</th>
+                        <th>Leveringstid</th>
+                        <th>Rute Km</th>
+
+
+                        <th>Rute Startet tid</th>
+                        <th>Rute Avsluttet tid</th>
+
                         <th>Driver ID</th>
+                        <th>Lat</th>
+                        <th>Lng</th>
+                        <th>Rute ID</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -207,20 +212,27 @@
                             <td>{{ $order->ordernumber }}</td>
                             <td>{{ $order->workshop_id }}</td>
                             <td>{{ $order->stop->workshop->name }}</td>
-                            <td>{{ $order->stop->workshop->lat }}</td>
-                            <td>{{ $order->stop->workshop->lng }}</td>
-                            <td>{{ ($order->amount !== null) ? 1 : 0 }}</td>
-                            <td>{{ $order->amount }}</td>
-                            <td>{{ $order->delivered }}</td>
 
-                            <td>{{ $order->stop->route->id }}</td>
                             <td>{{ $order->stop->route->route }}</td>
                             <td>{{ $order->stop->route->date }}</td>
                             <td>{{ $order->stop->route->time }}</td>
+
+                            <td>{{ ($order->amount !== null) ? 1 : 0 }}</td>
+                            <td>{{ $order->amount }}</td>
+                            <td>{{ $order->delivered }}</td>
+                            <td>{{ $order->stop->deliver_time }}</td>
+                            <td>{{ $order->stop->route->kmend - $order->stop->route->kmstart }}</td>
+
                             <td>{{ $order->stop->route->started_time }}</td>
                             <td>{{ $order->stop->route->finished_time }}</td>
-                            <td>{{ $order->stop->route->kmend - $order->stop->route->kmstart }}</td>
+
                             <td>{{ $order->stop->route->driver_id }}</td>
+
+
+                            <td>{{ $order->stop->workshop->lat }}</td>
+                            <td>{{ $order->stop->workshop->lng }}</td>
+                            <td>{{ $order->stop->route->id }}</td>
+
 
 
                         </tr>

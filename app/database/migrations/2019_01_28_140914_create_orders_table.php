@@ -27,7 +27,7 @@ class CreateOrdersTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
+     *v
      * @return void
      */
     public function down()

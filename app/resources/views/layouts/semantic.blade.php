@@ -60,8 +60,8 @@
     <!-- End nav -->
     <!-- Sidenav-->
     <div id="sidenav" class="ui left demo inverted  vertical  sidebar labeled icon menu ">
-        <a href="{{ route('proto.prototesthome') }}" class="item">
-            <i class="home icon"></i> Hjem
+        <a href="{{ route('getorders') }}" class="item">
+            <i class="database icon"></i> Datauthenting
         </a>
         <a href="{{ route('proto.prototest') }}" class="item active">
             <i class="table layout icon a"></i> Ruter
