@@ -567,12 +567,18 @@ class HomeController extends Controller
             'ordernumber' => 'required|unique:orders',
         ]);
 
-
+        $routeSet = false;
+        //If the user have specified the route
         if(!empty($request->route)){
           $route = $request->route;
+          $routeSet = true;
+          //Else - give the default route specified in the workshop table.
         }else{
-            $route = 10;
+            $workshop = Workshop::where('workshop_id', '=', $request->workshop_id)->first();
+            $route = $workshop->route;
+
         }
+
 
         if(!empty($request->date)){
             $date = $request->date;
@@ -580,11 +586,12 @@ class HomeController extends Controller
             $date = date('Y/m/d');
         }
 
+
+        $timeSet = false;
         if(!empty($request->time)){
             $time = $request->time;
+            $timeSet = true;
 
-        }else{
-            $time = "08:00";
         }
 
         if(!empty($request->amount)){
@@ -595,6 +602,15 @@ class HomeController extends Controller
             $amount = null;
             $amountComment = null;
         }
+
+
+
+        //TODO: If Route is set - If time is set. Make logic.
+        // timeSet & routeSet
+
+
+
+
 
 
 

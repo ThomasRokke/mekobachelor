@@ -62,6 +62,7 @@ Route::get('/map', function(){
 })->name('map');
 
 
+Route::get('/timeseed', 'RouteTimesController@timeseed');
 
 //home
 //Route::get('/home', 'HomeController@getTransportHome')->name('transport.home');
