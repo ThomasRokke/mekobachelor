@@ -22,6 +22,8 @@ Route::get('/protoworkshopscreate', 'HomeController@getProtoWorkshopCreate')->na
 
 Route::get('/protoroles', 'HomeController@getProtoRoles')->name('proto.protoroles');
 
+Route::get('/orders', 'HomeController@getOrders')->name('getorders');
+
 //Search workshops ajax
 Route::get('/searchworkshops', 'HomeController@searchWorkshops');
 

@@ -25,6 +25,13 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
+    public function getOrders(Request $request){
+
+        $orders = Order::all();
+
+        return view('office.orders')->with(compact('orders'));
+    }
+
     public function searchWorkshops(Request $request){
        $workshops = DB::table('workshops')->where('name', 'like', '%' . $request->q . '%')->get();
 
