@@ -199,6 +199,7 @@
                         <th>Rute Avsluttet tid</th>
 
                         <th>Driver ID</th>
+                        <th>Driver</th>
                         <th>Lat</th>
                         <th>Lng</th>
                         <th>Rute ID</th>
@@ -227,6 +228,7 @@
                             <td>{{ $order->stop->route->finished_time }}</td>
 
                             <td>{{ $order->stop->route->driver_id }}</td>
+                            <td>{{ $order->stop->route->driver['name'] }}</td>
 
 
                             <td>{{ $order->stop->workshop->lat }}</td>
@@ -240,23 +242,30 @@
                     </tbody>
                     <tfoot>
                     <tr>
+
                         <th>Ordernummer</th>
                         <th>Kundenummer</th>
                         <th>Kundenavn</th>
-                        <th>Lat</th>
-                        <th>Lng</th>
-                        <th>Kontant?</th>
-                        <th>Sum</th>
-                        <th>Levert</th>
-
-                        <th>Rute ID</th>
                         <th>Rute</th>
                         <th>Dato</th>
                         <th>Tid</th>
-                        <th>Startet tid</th>
-                        <th>Avsluttet tid</th>
-                        <th>Km</th>
+
+
+                        <th>Kontant?</th>
+                        <th>Sum</th>
+                        <th>Levert</th>
+                        <th>Leveringstid</th>
+                        <th>Rute Km</th>
+
+
+                        <th>Rute Startet tid</th>
+                        <th>Rute Avsluttet tid</th>
+
                         <th>Driver ID</th>
+                        <th>Driver</th>
+                        <th>Lat</th>
+                        <th>Lng</th>
+                        <th>Rute ID</th>
                     </tr>
                     </tfoot>
                 </table>
