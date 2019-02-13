@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use App\Route;
+use App\RouteTimes;
 use App\Stop;
 use App\User;
 use App\Workshop;
 use DateTime;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use jeremykenedy\LaravelRoles\Models\Role;
 use Illuminate\Support\Facades\DB;
@@ -567,6 +569,7 @@ class HomeController extends Controller
             'ordernumber' => 'required|unique:orders',
         ]);
 
+        $route = null;
         $routeSet = false;
         //If the user have specified the route
         if(!empty($request->route)){
@@ -577,17 +580,22 @@ class HomeController extends Controller
             $workshop = Workshop::where('workshop_id', '=', $request->workshop_id)->first();
             $route = $workshop->route;
 
+
         }
 
 
+        $date = null;
+        $dateSet = false;
         if(!empty($request->date)){
             $date = $request->date;
+            $dateSet = true;
         }else{
             $date = date('Y/m/d');
         }
 
 
         $timeSet = false;
+        $time = null;
         if(!empty($request->time)){
             $time = $request->time;
             $timeSet = true;
@@ -607,6 +615,60 @@ class HomeController extends Controller
 
         //TODO: If Route is set - If time is set. Make logic.
         // timeSet & routeSet
+
+        if(!$routeSet) {
+
+            //TODO: Set timezone
+            //$timeStamp = Carbon:q:now()->format('H:i:s');
+            $timeStamp = '14:53:00';
+
+
+            $response = RouteTimes::where('route', '=', $route)
+                ->where('from_time', '<=', $timeStamp)
+                ->where('to_time', '>=', $timeStamp)
+                ->first();
+
+
+            if(!empty($response)){
+
+                if(!$timeSet){
+                    $time = $response->time;
+                    $timeSet = true;
+                }
+                if(!$dateSet){
+                    $date = Carbon::now()->format('Y-m-d');
+                    $dateSet = true;
+                }
+                $route = $response->route;
+
+
+            }else{
+
+                    if(!$dateSet){
+                        //Set date to tomorrow
+                        $date = \Carbon\Carbon::tomorrow();
+                        $dateSet = true;
+                    }
+
+                    if(!$timeSet) {
+                        //TODO: Change to $route when we have all routes in the DB. now just 10.
+                        $timeObj = RouteTimes::where('route', '=', 10)
+                            ->orderBy('time', 'ASC')
+                            ->first();
+
+                        $time = $timeObj->time;
+
+                    }
+
+
+
+                }
+        }
+
+
+
+
+
 
 
 
@@ -636,7 +698,7 @@ class HomeController extends Controller
         $o->save();
 
 
-        $sessionString = "Ordren ble lagt til på rute ".$r->route. " klokken ". $r->time. ". Ordrenummeret er: ".$o->ordernumber;
+        $sessionString = "Ordren ble lagt til på rute ".$r->route. " klokken ". $r->time. " den " . date('d M', strtotime($date)) . ". Ordrenummeret er: ".$o->ordernumber;
 
         //dd($sessionString);
 
