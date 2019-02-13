@@ -232,10 +232,15 @@
                             <input placeholder="4001..." name="workshop_id" type="text">
                         </div>
                         <div class="field">
-                            <label>Verkstednavn</label>
+                            <label>Rute</label>
 
-                            <input type="text" name="name" placeholder="Stovnerbrua Servicesenter">
+                            <input type="number" name="route" placeholder="10">
                         </div>
+                    </div>
+                    <div class="field">
+                        <label>Verkstednavn</label>
+
+                        <input type="text" name="name" placeholder="Stovnerbrua Servicesenter">
                     </div>
                     <div class="field">
                         <label>Lokasjon</label>

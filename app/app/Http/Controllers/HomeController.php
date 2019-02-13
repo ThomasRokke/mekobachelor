@@ -481,6 +481,7 @@ class HomeController extends Controller
         $w = new Workshop;
         $w->workshop_id = $request->workshop_id;
         $w->name = $request->name;
+        $w->route = $request->route;
         $w->lat = $request->lat;
         $w->lng = $request->lng;
         $w->adr = $request->adr;

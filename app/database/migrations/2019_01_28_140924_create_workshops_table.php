@@ -16,6 +16,7 @@ class CreateWorkshopsTable extends Migration
         Schema::create('workshops', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('workshop_id');
+            $table->integer('route')->default(10);
             $table->string('name');
             $table->string('adr')->nullable();
             $table->string('lat')->nullable();

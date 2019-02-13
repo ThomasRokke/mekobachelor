@@ -171,6 +171,7 @@
                     <tr>
                         <th>Kundenummer</th>
                         <th>Firmanavn</th>
+                        <th>Rute</th>
                         <th>Adresse</th>
                         <th>Lat</th>
                         <th>Lng</th>
@@ -182,6 +183,7 @@
                         <tr>
                             <td><a href="{{ route('proto.prototest', ['workshop_id' => $w->workshop_id]) }}">{{ $w->workshop_id }}</a></td>
                             <td>{{ $w->name }}</td>
+                            <td>{{ $w->route }}</td>
                             <td>{{ $w->adr }}</td>
                             <td>{{ $w->lng }}</td>
                             <td>{{ $w->lng }}</td>
@@ -193,6 +195,7 @@
                     <tr>
                         <th>Kundenummer</th>
                         <th>Firmanavn</th>
+                        <th>Rute</th>
                         <th>Adresse</th>
                         <th>Lat</th>
                         <th>Lng</th>
