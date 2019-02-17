@@ -42,8 +42,9 @@ class HomeController extends Controller
 
     public function getPrototest(Request $request){
 
-        if(!empty($request->date)){
+        if(!empty($request->date) && $request->date !== "null"){
             $date = $request->date;
+
         }else{
             $date = date('Y/m/d');
         }
@@ -79,6 +80,8 @@ class HomeController extends Controller
 
         if(!empty($request->workshop_id)){
             $workshop_id = $request->workshop_id;
+
+            $request->request->remove('workshop_id');
         }
 
 
@@ -583,6 +586,57 @@ class HomeController extends Controller
 
         }
 
+        $timeStamp = '11:46:00';
+
+
+        //Set the time if it have not yet been specified
+        $timeSet = false;
+        $time = null;
+
+
+        $date = null;
+        $dateSet = false;
+        if(!empty($request->time)){
+            $time = $request->time;
+            $timeSet = true;
+
+
+        }else{
+
+
+            //TODO: Set the timestamp to current time - manually set it for testing purposes.
+
+
+
+            $response = RouteTimes::where('route', '=', $route)
+                ->where('from_time', '<=', $timeStamp)
+                ->where('to_time', '>=', $timeStamp)
+                ->first();
+
+            //If there is any response within the daily timespans.
+            if(!empty($response)){
+                $time = $response->time;
+                $timeSet = true;
+                $date = date('Y/m/d'); // set to todays date
+                $dateSet = true;
+            }else{
+                $timeObj = RouteTimes::where('route', '=', $route)
+                    ->orderBy('time', 'ASC')
+                    ->first();
+
+                $time = $timeObj->time;
+                $timeSet = true;
+
+                $date = \Carbon\Carbon::tomorrow()->format('Y/m/d');
+                $dateSet = true;
+
+            }
+
+        }
+        //time is now set
+
+
+
 
         $date = null;
         $dateSet = false;
@@ -590,17 +644,33 @@ class HomeController extends Controller
             $date = $request->date;
             $dateSet = true;
         }else{
-            $date = date('Y/m/d');
+
+            $newTime = new \Carbon\Carbon($time, 'Europe/London');
+
+            $newTime = $newTime->subMinutes(15);
+
+            $newTime = $newTime->format('H:i');
+
+            $timeLimit = $newTime;
+
+            //If there is any response within the daily timespans.
+            //if(Carbon::now()->lessThan($timeLimit)){
+            if($timeStamp  <= $timeLimit){
+
+                $date = date('Y/m/d'); // set to todays date
+                $dateSet = true;
+
+            }else{
+
+                $date = \Carbon\Carbon::tomorrow()->format('Y/m/d');
+                $dateSet = true;
+
+            }
+
         }
 
 
-        $timeSet = false;
-        $time = null;
-        if(!empty($request->time)){
-            $time = $request->time;
-            $timeSet = true;
 
-        }
 
         if(!empty($request->amount)){
             $amount = $request->amount;
@@ -610,71 +680,6 @@ class HomeController extends Controller
             $amount = null;
             $amountComment = null;
         }
-
-
-
-        //TODO: If Route is set - If time is set. Make logic.
-        // timeSet & routeSet
-
-        if(!$routeSet) {
-
-            //TODO: Set timezone
-            //$timeStamp = Carbon:q:now()->format('H:i:s');
-            $timeStamp = '14:53:00';
-
-
-            $response = RouteTimes::where('route', '=', $route)
-                ->where('from_time', '<=', $timeStamp)
-                ->where('to_time', '>=', $timeStamp)
-                ->first();
-
-
-            if(!empty($response)){
-
-                if(!$timeSet){
-                    $time = $response->time;
-                    $timeSet = true;
-                }
-                if(!$dateSet){
-                    $date = Carbon::now()->format('Y-m-d');
-                    $dateSet = true;
-                }
-                $route = $response->route;
-
-
-            }else{
-
-                    if(!$dateSet){
-                        //Set date to tomorrow
-                        $date = \Carbon\Carbon::tomorrow();
-                        $dateSet = true;
-                    }
-
-                    if(!$timeSet) {
-                        //TODO: Change to $route when we have all routes in the DB. now just 10.
-                        $timeObj = RouteTimes::where('route', '=', 10)
-                            ->orderBy('time', 'ASC')
-                            ->first();
-
-                        $time = $timeObj->time;
-
-                    }
-
-
-
-                }
-        }
-
-
-
-
-
-
-
-
-
-
-
 
         $wid = $request->workshop_id;
 
@@ -703,7 +708,7 @@ class HomeController extends Controller
         //dd($sessionString);
 
         $request->session()->flash('regconfirm', $sessionString);
-        return back();
+        return redirect(route('proto.prototest'));
 
 
     }
