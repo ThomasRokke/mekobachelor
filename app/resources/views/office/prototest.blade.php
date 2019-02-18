@@ -366,14 +366,10 @@
                         @csrf
                         <div class="three fields">
                             <div class="field">
-                                <div class="ui corner labeled input">
-                                    <input class="ui" id="kundenummer"  type="number" max="999999" min="100000"  value="{{ (!empty($workshop_id)) ? $workshop_id : old('workshop_id')}}" name="workshop_id" placeholder="Kundenummer" autocomplete="off">
-                                    <div class="ui corner label">
-                                        <i class="asterisk icon red"></i>
-                                    </div>
-                                </div>
-                                <div style="display: none" id="kundenummer-label" class="ui pointing label">
-                                </div>
+                                <select class="ui search dropdown">
+                                    <option value=""></option>
+
+                                </select>
                             </div>
                             <div class="field">
                                 <div class="ui corner labeled input">
