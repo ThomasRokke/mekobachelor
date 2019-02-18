@@ -111,133 +111,19 @@
 @section('content')
 
     <main style="margin-bottom: 60vh;">
-        <div class="ui text container" style="margin-top:80px;">
-            <div class="ui segment  ">
-                <!-- Left rail start -->
-                <div class="ui left dividing rail">
-                    <div class="ui segment">
-                        <div class="item">
-                            <h3 class="ui center aligned header">
-                                Nylig registrert
-                            </h3>
-                        </div>
-                        <div class="ui middle aligned divided list">
+        <div class="ui container" style="margin-top:80px;">
+           <div class="ui segment">
+               <h1 class="text-center">Stat</h1>
+
+               <iframe width="620" height="515" src="https://charts.qlikcloud.com/5c69921ae1e169000a5141f6/chart.html" frameborder="0"></iframe>
+
+               <iframe width="620" height="515" src="https://charts.qlikcloud.com/5c6993de54e7410010face26/chart.html" frameborder="0"></iframe>
+
+               <iframe width="620" height="515" src="https://charts.qlikcloud.com/5c6993f100e937001176c38d/chart.html" frameborder="0"></iframe>
 
 
 
-
-                        </div>
-
-
-
-                    </div>
-
-
-                </div>
-                <!-- Left rail end -->
-                <!-- Start main content -->
-
-                <div class="main-content">
-                    <h1>Kjørekontor Hjem. Skal det kanskje være samme som rute siden?</h1>
-                </div>
-                <!-- End main content -->
-                <!-- Right rail start -->
-                <div class="ui right dividing rail">
-                    <div class="ui segment">
-                        <div class="ui list">
-                            <div class="item">
-                                <h3 class="ui center aligned header">
-                                    Oppdateringer
-                                </h3>
-                            </div>
-
-                            <div class="item">
-                                <img class="ui avatar image" src="https://semantic-ui.com/images/avatar/small/tom.jpg">
-                                <div class="content">
-                                    <a class="header">Freddy</a>
-                                    <div class="description">Startet <a><b>rute 13</b></a> akkurat nå.</div>
-                                </div>
-                            </div>
-
-                            <div class="item">
-                                <img class="ui avatar image" src="https://semantic-ui.com/images/avatar/small/elliot.jpg">
-                                <div class="content">
-                                    <a class="header">Hassan</a>
-                                    <div class="description">Startet <a><b>rute 12</b></a> - 2 min siden.</div>
-                                </div>
-                            </div>
-
-                            <div class="item">
-                                <img class="ui avatar image" src="https://semantic-ui.com/images/avatar/small/matt.jpg">
-                                <div class="content">
-                                    <a class="header">Roy</a>
-                                    <div class="description">Startet <a><b>rute 14</b></a> - 4 min siden.</div>
-                                </div>
-                            </div>
-
-                            <div class="item">
-                                <img class="ui avatar image" src="https://semantic-ui.com/images/avatar/small/christian.jpg">
-                                <div class="content">
-                                    <a class="header">Lars</a>
-                                    <div class="description">Startet <a><b>rute 11</b></a> - 6 min siden.</div>
-                                </div>
-                            </div>
-
-                            <div class="item">
-                                <img class="ui avatar image" src="https://semantic-ui.com/images/avatar/small/tom.jpg">
-                                <div class="content">
-                                    <a class="header">Svein</a>
-                                    <div class="description">Startet <a><b>rute 10</b></a> - 6 min siden.</div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <img class="ui avatar image" src="https://semantic-ui.com/images/avatar/small/tom.jpg">
-                                <div class="content">
-                                    <a class="header">Freddy</a>
-                                    <div class="description">Avsluttet <a><b>rute 13</b></a> - 12 min siden</div>
-                                </div>
-                            </div>
-
-                            <div class="item">
-                                <img class="ui avatar image" src="https://semantic-ui.com/images/avatar/small/elliot.jpg">
-                                <div class="content">
-                                    <a class="header">Hassan</a>
-                                    <div class="description">Avsluttet <a><b>rute 12</b></a> - 16 min siden.</div>
-                                </div>
-                            </div>
-
-                            <div class="item">
-                                <img class="ui avatar image" src="https://semantic-ui.com/images/avatar/small/matt.jpg">
-                                <div class="content">
-                                    <a class="header">Roy</a>
-                                    <div class="description">Avsluttet <a><b>rute 14</b></a> - 24 min siden.</div>
-                                </div>
-                            </div>
-
-                            <div class="item">
-                                <img class="ui avatar image" src="https://semantic-ui.com/images/avatar/small/christian.jpg">
-                                <div class="content">
-                                    <a class="header">Lars</a>
-                                    <div class="description">Avsluttet <a><b>rute 11</b></a> - 32 min siden.</div>
-                                </div>
-                            </div>
-
-                            <div class="item">
-                                <img class="ui avatar image" src="https://semantic-ui.com/images/avatar/small/tom.jpg">
-                                <div class="content">
-                                    <a class="header">Svein</a>
-                                    <div class="description">Avsluttet <a><b>rute 10</b></a> - 36 min siden.</div>
-                                </div>
-                            </div>
-
-
-
-
-                        </div>
-                    </div>
-                </div>
-                <!-- right rail end -->
-            </div>
+           </div>
         </div>
 
 
