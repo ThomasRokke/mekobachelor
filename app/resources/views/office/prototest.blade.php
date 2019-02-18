@@ -250,6 +250,21 @@
                         </div>
                     </div>
                 @endif
+
+                @if ($errors->any())
+
+                        <div class="ui error message">
+                            <i class="close icon"></i>
+                            <div class="header">
+                                Feilmelding:
+                            </div>
+                            <ul class="list">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                @endif
                 <div class="ui top attached tabular menu">
                     <a class="active item" data-tab="first">Ordre</a>
                     <a class="item" data-tab="third">Hente</a>
@@ -260,7 +275,7 @@
                         <div class="three fields">
                             <div class="field">
                                 <div class="ui corner labeled input">
-                                    <input class="ui" id="kundenummer"  type="text" @if((empty($workshop_id)) ? $workshop_id : '') @endif  value="{{ (!empty($workshop_id)) ? $workshop_id : ''}}" name="workshop_id" placeholder="Kundenummer" autocomplete="off">
+                                    <input class="ui" id="kundenummer"  type="number" max="999999" min="100000"  value="{{ (!empty($workshop_id)) ? $workshop_id : old('workshop_id')}}" name="workshop_id" placeholder="Kundenummer" autocomplete="off">
                                     <div class="ui corner label">
                                         <i class="asterisk icon red"></i>
                                     </div>
@@ -270,7 +285,7 @@
                             </div>
                             <div class="field">
                                 <div class="ui corner labeled input">
-                                    <input type="text" name="ordernumber" @if((!empty($workshop_id)) ? $workshop_id : '') @endif placeholder="Ordrenummer">
+                                    <input type="text" name="ordernumber"  placeholder="Ordrenummer">
                                     <div class="ui corner label">
                                         <i class="asterisk icon red"></i>
                                     </div>
@@ -347,54 +362,66 @@
                     <!-- Form end -->
                 </div>
                 <div class="ui bottom attached tab segment" data-tab="third">
-                    <div class="ui form" >
+                    <form method="POST" action="{{ route('office.postroute') }}" class="ui form order error" >
+                        @csrf
                         <div class="three fields">
                             <div class="field">
-                                <div class="ui search">
-                                    <div class="ui left icon input corner labeled">
-                                        <input class="prompt" type="text" placeholder="Søk etter verksted">
-                                        <i class="wrench icon"></i>
-                                        <div class="ui corner label">
-                                            <i class="asterisk icon red"></i>
-                                        </div>
+                                <div class="ui corner labeled input">
+                                    <input class="ui" id="kundenummer"  type="number" max="999999" min="100000"  value="{{ (!empty($workshop_id)) ? $workshop_id : old('workshop_id')}}" name="workshop_id" placeholder="Kundenummer" autocomplete="off">
+                                    <div class="ui corner label">
+                                        <i class="asterisk icon red"></i>
+                                    </div>
+                                </div>
+                                <div style="display: none" id="kundenummer-label" class="ui pointing label">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui corner labeled input">
+                                    <input type="text" name="ordernumber"  placeholder="Ordrenummer">
+                                    <div class="ui corner label">
+                                        <i class="asterisk icon red"></i>
                                     </div>
                                 </div>
                             </div>
                             <div class="field">
-                                <input type="text" placeholder="Kommentar">
-                            </div>
-                            <div class="field">
                                 <!-- Add positive class on valid validation -->
-                                <input class="ui  basic button" type="submit" value="Registrer hentemelding" placeholder="Last Name">
+                                <input class="ui  basic button positive" type="submit" value="Registrer ordre" placeholder="Last Name">
                             </div>
                         </div>
-                        <div class="three fields">
-                            <div class="field">
-                                <select class="ui search dropdown">
-                                    <option value="">Velg rute</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-                                    <option value="13">13</option>
-                                    <option value="14">14</option>
-                                </select>
+                        <div class="ui  order">
+
+                                <div class="three fields">
+                                    <div class="field">
+                                        <select name="route" class="ui search dropdown">
+                                            <option value="">Velg rute</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                        </select>
+                                    </div>
+                                    <div class="field">
+                                        <select name="time" class="ui search dropdown">
+                                            <option value="">Velg tid</option>
+                                            <option value="07:30">07:30</option>
+                                            <option value="08:00">08:00</option>
+                                            <option value="09:00">09:00</option>
+                                            <option value="10:00">10:00</option>
+                                            <option value="12:00">12:00</option>
+                                            <option value="13:00">13:00</option>
+                                            <option value="14:00">14:00</option>
+                                            <option value="17:30">17:30</option>
+                                        </select>
+                                    </div>
+                                    <div class="field">
+                                        <input name="date" type="date" placeholder="Dato">
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="field">
-                                <select class="ui search dropdown">
-                                    <option value="">Velg tid</option>
-                                    <option value="07:30">07:30</option>
-                                    <option value="07:30">08:00</option>
-                                    <option value="07:30">09:00</option>
-                                    <option value="07:30">12:00</option>
-                                    <option value="07:30">14:00</option>
-                                    <option value="07:30">17:30</option>
-                                </select>
-                            </div>
-                            <div class="field">
-                                <input type="date" placeholder="Dato">
-                            </div>
-                        </div>
-                    </div>
+
+                    </form>
                 </div>
                 <div class="date-group centered">
                     <a href="{{ route('proto.prototest', ['date' => date('Y/m/d', strtotime('-1 day', strtotime($date)))]) }}" class="ui left icon button outline secondary basic">
@@ -481,14 +508,14 @@
                                                         <!-- Set to active to display -->
                                                         <div class="ui list horizontal attached">
                                                             @foreach($stop->orders as $order)
-                                                                <a class="item">
-                                                                    <div class="content">
+                                                                <a class="item" style="border: 1px solid lightgray; border-radius: 5px; margin:5px">
+                                                                    <div class="content" style="padding:5px 10px 5px 10px">
                                                                         @if($order->amount === null)
-                                                                            <div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check square outline' : 'orange cogs circle' }}"></i> {{ $order->ordernumber }} &nbsp;</div>
+                                                                            <div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check square outline' : 'orange cogs circle' }}"></i>{{ $order->ordernumber }} &nbsp; @if($order->kkode === 1)<span style="color:red" class=" activating element" data-title="K-KODE" data-content="Dette er en bestilling.">K</span>@endif</div>
                                                                         <!--<div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check circle ' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
                                                                -->
                                                                         @else
-                                                                            <div onclick="editOrder({{ $order->ordernumber }})" class="header activating element" data-title="OBS! KONTANT" data-content="{{ $order->amount }} kr"> <i class="icon  {{ ($order->delivered === 1) ? 'green money bill alternate outline icon ' : 'orange money bill alternate outline icon' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
+                                                                            <div onclick="editOrder({{ $order->ordernumber }})" class="header activating element" data-title="OBS! KONTANT {{ ($order->kkode === 1) ? 'OG K-KODE!' : '' }}" data-content="{{ $order->amount }} kr"> <i class="icon  {{ ($order->delivered === 1) ? 'green money bill alternate outline icon ' : 'orange money bill alternate outline icon' }}"></i>  {{ $order->ordernumber }} @if($order->kkode === 1)<span style="color:red">K</span>@endif &nbsp;</div>
 
                                                                         @endif
                                                                     </div>
@@ -640,14 +667,14 @@
                                                         <!-- Set to active to display -->
                                                         <div class="ui list horizontal attached">
                                                             @foreach($stop->orders as $order)
-                                                                <a class="item">
-                                                                    <div class="content">
+                                                                <a class="item" style="border: 1px solid lightgray; border-radius: 5px; margin:5px">
+                                                                    <div class="content" style="padding:5px 10px 5px 10px">
                                                                         @if($order->amount === null)
-                                                                            <div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check square outline' : 'orange cogs circle' }}"></i> {{ $order->ordernumber }} &nbsp;</div>
+                                                                            <div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check square outline' : 'orange cogs circle' }}"></i>{{ $order->ordernumber }} &nbsp; @if($order->kkode === 1)<span style="color:red" class=" activating element" data-title="K-KODE" data-content="Dette er en bestilling.">K</span>@endif</div>
                                                                         <!--<div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check circle ' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
                                                                -->
                                                                         @else
-                                                                            <div onclick="editOrder({{ $order->ordernumber }})" class="header activating element" data-title="OBS! KONTANT" data-content="{{ $order->amount }} kr"> <i class="icon  {{ ($order->delivered === 1) ? 'green money bill alternate outline icon ' : 'orange money bill alternate outline icon' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
+                                                                            <div onclick="editOrder({{ $order->ordernumber }})" class="header activating element" data-title="OBS! KONTANT {{ ($order->kkode === 1) ? 'OG K-KODE!' : '' }}" data-content="{{ $order->amount }} kr"> <i class="icon  {{ ($order->delivered === 1) ? 'green money bill alternate outline icon ' : 'orange money bill alternate outline icon' }}"></i>  {{ $order->ordernumber }} @if($order->kkode === 1)<span style="color:red">K</span>@endif &nbsp;</div>
 
                                                                         @endif
                                                                     </div>
@@ -799,14 +826,14 @@
                                                         <!-- Set to active to display -->
                                                         <div class="ui list horizontal attached">
                                                             @foreach($stop->orders as $order)
-                                                                <a class="item">
-                                                                    <div class="content">
+                                                                <a class="item" style="border: 1px solid lightgray; border-radius: 5px; margin:5px">
+                                                                    <div class="content" style="padding:5px 10px 5px 10px">
                                                                         @if($order->amount === null)
-                                                                            <div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check square outline' : 'orange cogs circle' }}"></i> {{ $order->ordernumber }} &nbsp;</div>
+                                                                            <div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check square outline' : 'orange cogs circle' }}"></i>{{ $order->ordernumber }} &nbsp; @if($order->kkode === 1)<span style="color:red" class=" activating element" data-title="K-KODE" data-content="Dette er en bestilling.">K</span>@endif</div>
                                                                         <!--<div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check circle ' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
                                                                -->
                                                                         @else
-                                                                            <div onclick="editOrder({{ $order->ordernumber }})" class="header activating element" data-title="OBS! KONTANT" data-content="{{ $order->amount }} kr"> <i class="icon  {{ ($order->delivered === 1) ? 'green money bill alternate outline icon ' : 'orange money bill alternate outline icon' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
+                                                                            <div onclick="editOrder({{ $order->ordernumber }})" class="header activating element" data-title="OBS! KONTANT {{ ($order->kkode === 1) ? 'OG K-KODE!' : '' }}" data-content="{{ $order->amount }} kr"> <i class="icon  {{ ($order->delivered === 1) ? 'green money bill alternate outline icon ' : 'orange money bill alternate outline icon' }}"></i>  {{ $order->ordernumber }} @if($order->kkode === 1)<span style="color:red">K</span>@endif &nbsp;</div>
 
                                                                         @endif
                                                                     </div>
@@ -958,14 +985,14 @@
                                                         <!-- Set to active to display -->
                                                         <div class="ui list horizontal attached">
                                                             @foreach($stop->orders as $order)
-                                                                <a class="item">
-                                                                    <div class="content">
+                                                                <a class="item" style="border: 1px solid lightgray; border-radius: 5px; margin:5px">
+                                                                    <div class="content" style="padding:5px 10px 5px 10px">
                                                                         @if($order->amount === null)
-                                                                            <div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check square outline' : 'orange cogs circle' }}"></i> {{ $order->ordernumber }} &nbsp;</div>
+                                                                            <div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check square outline' : 'orange cogs circle' }}"></i>{{ $order->ordernumber }} &nbsp; @if($order->kkode === 1)<span style="color:red" class=" activating element" data-title="K-KODE" data-content="Dette er en bestilling.">K</span>@endif</div>
                                                                         <!--<div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check circle ' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
                                                                -->
                                                                         @else
-                                                                            <div onclick="editOrder({{ $order->ordernumber }})" class="header activating element" data-title="OBS! KONTANT" data-content="{{ $order->amount }} kr"> <i class="icon  {{ ($order->delivered === 1) ? 'green money bill alternate outline icon ' : 'orange money bill alternate outline icon' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
+                                                                            <div onclick="editOrder({{ $order->ordernumber }})" class="header activating element" data-title="OBS! KONTANT {{ ($order->kkode === 1) ? 'OG K-KODE!' : '' }}" data-content="{{ $order->amount }} kr"> <i class="icon  {{ ($order->delivered === 1) ? 'green money bill alternate outline icon ' : 'orange money bill alternate outline icon' }}"></i>  {{ $order->ordernumber }} @if($order->kkode === 1)<span style="color:red">K</span>@endif &nbsp;</div>
 
                                                                         @endif
                                                                     </div>
@@ -1117,14 +1144,14 @@
                                                         <!-- Set to active to display -->
                                                         <div class="ui list horizontal attached">
                                                             @foreach($stop->orders as $order)
-                                                                <a class="item">
-                                                                    <div class="content">
+                                                                <a class="item" style="border: 1px solid lightgray; border-radius: 5px; margin:5px">
+                                                                    <div class="content" style="padding:5px 10px 5px 10px">
                                                                         @if($order->amount === null)
-                                                                            <div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check square outline' : 'orange cogs circle' }}"></i> {{ $order->ordernumber }} &nbsp;</div>
+                                                                            <div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check square outline' : 'orange cogs circle' }}"></i>{{ $order->ordernumber }} &nbsp; @if($order->kkode === 1)<span style="color:red" class=" activating element" data-title="K-KODE" data-content="Dette er en bestilling.">K</span>@endif</div>
                                                                         <!--<div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check circle ' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
                                                                -->
                                                                         @else
-                                                                            <div onclick="editOrder({{ $order->ordernumber }})" class="header activating element" data-title="OBS! KONTANT" data-content="{{ $order->amount }} kr"> <i class="icon  {{ ($order->delivered === 1) ? 'green money bill alternate outline icon ' : 'orange money bill alternate outline icon' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
+                                                                            <div onclick="editOrder({{ $order->ordernumber }})" class="header activating element" data-title="OBS! KONTANT {{ ($order->kkode === 1) ? 'OG K-KODE!' : '' }}" data-content="{{ $order->amount }} kr"> <i class="icon  {{ ($order->delivered === 1) ? 'green money bill alternate outline icon ' : 'orange money bill alternate outline icon' }}"></i>  {{ $order->ordernumber }} @if($order->kkode === 1)<span style="color:red">K</span>@endif &nbsp;</div>
 
                                                                         @endif
                                                                     </div>

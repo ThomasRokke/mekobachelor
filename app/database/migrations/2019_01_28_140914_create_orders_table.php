@@ -22,6 +22,8 @@ class CreateOrdersTable extends Migration
             $table->string('amount_comment')->nullable();
             $table->boolean('delivered')->default(0);
             $table->boolean('kkode')->default(0);
+            $table->boolean('pickup')->default(0);
+            $table->string('pickupcomment')->nullable();
             $table->timestamps();
         });
     }
