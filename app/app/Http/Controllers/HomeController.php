@@ -693,6 +693,15 @@ class HomeController extends Controller
 
         $s = Stop::firstOrCreate(['route_id' => $r->id, 'workshop_id' => $wid]);
 
+        $kkodeBolean = 0;
+        //Check if the order is K-Kode - is a boolean.
+        if(!empty($request->kkode)){
+            $kkode= $request->kkode;
+            if($kkode === "on"){
+                $kkodeBolean = 1;
+            }
+        }
+
 
         $o = new Order;
         $o->ordernumber = $request->ordernumber;
@@ -700,6 +709,7 @@ class HomeController extends Controller
         $o->workshop_id = $wid;
         $o->amount = $amount;
         $o->amount_comment = $amountComment;
+        $o->kkode = $kkodeBolean;
         $o->save();
 
 

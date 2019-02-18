@@ -332,6 +332,14 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="field">
+                                        <div class="ui test toggle checkbox" style="margin-left:80px; !important; margin-top:5px !important;">
+                                            <input name="kkode"  type="checkbox">
+                                        </div>
+                                        <div class="ui below pointing label">
+                                            Er den en K-Kode? (Bestilling)
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

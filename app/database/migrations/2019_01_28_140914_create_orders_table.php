@@ -21,6 +21,7 @@ class CreateOrdersTable extends Migration
             $table->string('amount')->nullable();
             $table->string('amount_comment')->nullable();
             $table->boolean('delivered')->default(0);
+            $table->boolean('kkode')->default(0);
             $table->timestamps();
         });
     }
