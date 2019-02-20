@@ -438,7 +438,7 @@ class HomeController extends Controller
 
 
 
-        return redirect(route('transport.route-report', ['id' => $route->id]));
+        return redirect(route('pages.route-report', ['id' => $route->id]));
 
 
     }
@@ -452,7 +452,7 @@ class HomeController extends Controller
 
 
 
-        return view('transport.route-report')->with(compact('route'));
+        return view('pages.route-report')->with(compact('route'));
 
     }
 
