@@ -304,7 +304,7 @@ class HomeController extends Controller
         $route = Route::where('driver_id', Auth::user()->id)->where('active', 1)->first();
 
 
-        return view('transport.route-startkm')->with(compact('route'));
+        return view('pages.route-startkm')->with(compact('route'));
 
     }
 
@@ -421,7 +421,7 @@ class HomeController extends Controller
         // TODO: add where this date = bla bla
         $route = Route::find($request->id);
 
-        return view('transport.route-endkm')->with(compact('route'));
+        return view('pages.route-endkm')->with(compact('route'));
 
     }
 
