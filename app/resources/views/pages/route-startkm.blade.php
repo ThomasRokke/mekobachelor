@@ -84,6 +84,29 @@
         <div class="ui container" style="margin-top:80px;">
             <div class="ui segment">
                 <h1 class="text-center">Velkommen, Navn.</h1>
+
+                <form method="post" action="{{ route('transport.route-setstartkm') }}">
+                    @csrf
+
+                        <div class="ui right labeled input">
+                        <input name="kmstart" autofocus="" id="validationDefaultUsername" type="tel"
+                               autocomplete="off" required="" oninvalid="this.setCustomValidity('Fyll inn riktig kilometstand.')"
+                               oninput="this.setCustomValidity('')" placeholder="eks: 135531">
+
+                            <div class="ui basic label">
+                            Kilometer
+                            </div>
+
+                            <input type="hidden" name="routeid" value="{{ $route->id }}">
+                            <button class="positive ui button" type="submit"> Start</button>
+
+                        </div>
+                </form>
+
+
+
+
+
             </div>
         </div>
     </main>

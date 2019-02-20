@@ -1208,7 +1208,7 @@
                                 </div>
                             </div>
 
-                            <!-- TODO Gjør sånn at checkboks for kontant står på riktig valgt verdi --> 
+                            <!-- TODO Gjør sånn at checkboks for kontant står på riktig valgt verdi -->
                             <div class="three fields">
                                 <div class="field">
                                     <div class="ui test toggle checkbox" style="margin-left:80px; !important; margin-top:5px !important;">
