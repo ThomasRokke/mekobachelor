@@ -106,32 +106,31 @@
 
         }
     </style>
+    <style>
+        .abc {
+            color: yellow!important;
+        }
+    </style>
 @endsection
+
 
 @section('content')
 
     <main style="margin-bottom: 60vh;">
         <div class="ui container" style="margin-top:80px;">
             <div class="ui segment">
-                <h1 class="text-center">Velkommen, Navn.</h1>
+                <h1 class="text-center">Velkommen, {{ \Illuminate\Support\Facades\Auth::user()->name }}.</h1>
 
                 @if(!empty($route))
                     @foreach($route as $r)
                         <p class="lead text-center animated fadeIn">Du skal kjøre rute <strong>{{ $r->route }}</strong> klokken <strong>{{ $r->time }}</strong></p>
-                        <a id="pulse-btn" class="btn btn-outline-meko btn-lg btn-block animated flipInX btn-old"  href="{{ route('transport.route-preview') }}" role="button">Se kjøreliste</a>
+
+                        <a class="abc big ui button ui black button " href="{{ route('transport.route-preview') }}">Se kjøreliste</a>
                     @endforeach
                 @else
                     <p class="lead text-center animated fadeIn">Du har <strong>ingen</strong> aktive ruter.</p>
                 @endif
-
-
-
-
             </div>
         </div>
-
-
-
     </main>
-
 @endsection
