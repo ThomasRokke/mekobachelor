@@ -91,7 +91,7 @@
                     <form method="POST" action="{{ route('transport.route-setendkm', ['id' => $route->id]) }}">
 
                         @csrf
-                        <div class="ui right labeled input">
+                        <div class="fluid ui right labeled input">
 
                                 <input type="tel" name="kmend" min="{{ $route->kmstart }}" max="{{ $route->kmstart + 200 }}"  value="{{ substr($route->kmstart, 0, -3) }}"   class="form-control input-old" id="validationDefaultUsername" autocomplete="off" placeholder="12312312" required oninvalid="this.setCustomValidity('Fyll inn riktig kilometstand.')"
                                            oninput="this.setCustomValidity('')"  />
@@ -100,7 +100,7 @@
                                 Kilometer
                                 </div>
                         </div>
-                        <button class="positive ui button" type="submit" onclick="confirm('Ønsker du å avslutte ruten? Du kan IKKE angre!')"> Avslutt rute</button>
+                        <button class="fluid positive ui button" type="submit" onclick="confirm('Ønsker du å avslutte ruten? Du kan IKKE angre!')"> Avslutt rute</button>
                     </form>
                 </div>
 
