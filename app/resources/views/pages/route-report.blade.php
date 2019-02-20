@@ -79,35 +79,66 @@
         }
     </style>
 @endsection
+
 @section('content')
-    <main style="margin-bottom: 60vh;">
-        <div class="ui container" style="margin-top:80px;">
-            <div class="ui segment">
-                <h1 class="text-center">Velkommen, {{ \Illuminate\Support\Facades\Auth::user()->name }}.</h1>
+    <div class="container">
 
-                <form method="post" action="{{ route('transport.route-setstartkm') }}">
-                    @csrf
+        <div class="col-xs-12">
+            <div class="text-center">
+                <h5 class="card-title">Rute sammendrag</h5>
+                <ul class="list-group">
 
-                        <div class="ui right labeled input">
-                        <input name="kmstart" autofocus="" id="validationDefaultUsername" type="tel"
-                               autocomplete="off" required="" oninvalid="this.setCustomValidity('Fyll inn riktig kilometstand.')"
-                               oninput="this.setCustomValidity('')" placeholder="eks: 135531">
+                    @foreach($route->stops as $stop)
 
-                            <div class="ui basic label">
-                            Kilometer
-                            </div>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
 
-                            <input type="hidden" name="routeid" value="{{ $route->id }}">
-                            <button class="positive ui button" type="submit"> Start</button>
+                            <span class="route-report-link" style="width: 80%; "><strong>{{ $stop->workshop->name }}</strong></span>
+                            <span class="badge badge-success badge-pill"><i class="fa fa-clock"></i> {{ $stop->deliver_time }}</span>
 
-                        </div>
-                </form>
+                        </li>
 
 
 
+                        <ul class="list-group">
+                            @foreach($stop->orders as $order)
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    {{ $order->ordernumber }}
+                                    <span class="badge  badge-pill {{ ($order->delivered === 1) ? 'badge-success ' : 'badge-danger' }}"><i class="fa {{ ($order->delivered === 1) ? 'fa-check ' : 'fa-ban' }}"></i></span>
+                                </li>
+                            @endforeach
 
 
+                        </ul>
+
+
+
+
+                    @endforeach
+
+
+                </ul>
+                <hr>
+                <h6><i class="fa fa-car-side"></i> Du har kjørt {{ $route->kmend - $route->kmstart }} kilometer.</h6>
+                <hr>
+                <h6><i class="fa fa-clock"></i>{{ $route->started_time }} -  <i class="fa fa-clock"></i>{{ $route->finished_time }}
+                </h6>
             </div>
+
+
+
         </div>
-    </main>
+
+        <a class="big ui button ui blue button" href="{{ route('home') }}">Til hjemsiden</a>
+    </div>
+@endsection
+
+@section('scripts')
+
+
+
+
+
+
+
+
 @endsection

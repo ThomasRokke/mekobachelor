@@ -109,7 +109,13 @@
     <style>
         .abc {
             color: yellow!important;
+            width: 100%!important;
         }
+
+        .text-size {
+            font-size: 20px;
+        }
+
     </style>
 @endsection
 
@@ -119,17 +125,21 @@
     <main style="margin-bottom: 60vh;">
         <div class="ui container" style="margin-top:80px;">
             <div class="ui segment">
+
+
                 <h1 class="text-center">Velkommen, {{ \Illuminate\Support\Facades\Auth::user()->name }}.</h1>
+                <div class="ui divider"></div>
+                    @if(!empty($route))
+                        @foreach($route as $r)
+                            <p class="lead text-center animated fadeIn text-size">Du skal kjøre rute <strong>{{ $r->route }}</strong> klokken <strong>{{ $r->time }}</strong></p>
 
-                @if(!empty($route))
-                    @foreach($route as $r)
-                        <p class="lead text-center animated fadeIn">Du skal kjøre rute <strong>{{ $r->route }}</strong> klokken <strong>{{ $r->time }}</strong></p>
+                            <a class="abc big ui button ui black button" href="{{ route('transport.route-preview') }}">Se kjøreliste</a>
+                        @endforeach
+                    @else
+                        <p class="lead text-center animated fadeIn">Du har <strong>ingen</strong> aktive ruter.</p>
+                    @endif
 
-                        <a class="abc big ui button ui black button " href="{{ route('transport.route-preview') }}">Se kjøreliste</a>
-                    @endforeach
-                @else
-                    <p class="lead text-center animated fadeIn">Du har <strong>ingen</strong> aktive ruter.</p>
-                @endif
+
             </div>
         </div>
     </main>

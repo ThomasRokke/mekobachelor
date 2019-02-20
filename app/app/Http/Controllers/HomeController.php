@@ -315,6 +315,8 @@ class HomeController extends Controller
         $stop = Stop::find($request->id);
 
 
+
+
         foreach($stop->orders as $order){
             $ordnr = $order->ordernumber;
 
@@ -438,7 +440,7 @@ class HomeController extends Controller
 
 
 
-        return redirect(route('transport.route-report', ['id' => $route->id]));
+        return redirect(route('pages.route-report', ['id' => $route->id]));
 
 
     }
@@ -452,7 +454,7 @@ class HomeController extends Controller
 
 
 
-        return view('transport.route-report')->with(compact('route'));
+        return view('pages.route-report')->with(compact('route'));
 
     }
 
@@ -591,7 +593,7 @@ class HomeController extends Controller
 
         }
 
-        $timeStamp = '11:33:00';
+        $timeStamp = '07:33:00';
 
 
         //Set the time if it have not yet been specified

@@ -141,15 +141,11 @@
                             <div class="content">
                                 <a class="ui header">{{ $stop->workshop->name }} </a>
                             </div>
-
-
-
                         </div>
 
                         <div class="content">
 
                             @foreach($stop->orders as $order)
-
 
                                 <div class="ui toggle checkbox toggle-spacing">
                                     <input type="checkbox" value="{{ $order->ordernumber }}" checked name="public">
@@ -158,34 +154,12 @@
 
                                 <div class="ui fitted divider"></div>
                             @endforeach
-
-
-
-
-
                         </div>
-
-
-
-
 
                     @endforeach
 
-
-
-
-
                 </div>
-
-
-
-
-
-
-
             </div>
-
-
 
             <div class="ui segment">
                 <div class="animated bounceInUp" id="map" style="width: 100%; height: 400px;">
