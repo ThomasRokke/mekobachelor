@@ -81,7 +81,22 @@
 @endsection
 
 @section('content')
-    <div class="container">
+    <main style="margin-bottom: 60vh;">
+        <div class="ui container" style="margin-top:80px;">
+            <div class="ui segment">
+                <h1 class="ui header">Rute Sammendrag</h1>
+
+                <div class="ui relaxed list">
+                    <div class="item">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="big ui button ui blue button" href="{{ route('home') }}">Til hjemsiden</a>
+        </div>
+    </main>
+    <!--<div class="container">
 
         <div class="col-xs-12">
             <div class="text-center">
@@ -97,8 +112,6 @@
 
                         </li>
 
-
-
                         <ul class="list-group">
                             @foreach($stop->orders as $order)
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -107,14 +120,9 @@
                                 </li>
                             @endforeach
 
-
                         </ul>
 
-
-
-
                     @endforeach
-
 
                 </ul>
                 <hr>
@@ -129,7 +137,7 @@
         </div>
 
         <a class="big ui button ui blue button" href="{{ route('home') }}">Til hjemsiden</a>
-    </div>
+</div>-->
 @endsection
 
 @section('scripts')
