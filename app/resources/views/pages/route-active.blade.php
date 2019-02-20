@@ -121,6 +121,11 @@
         .ui.toggle.checkbox input:checked ~ .box:before, .ui.toggle.checkbox input:checked ~ label:before {
             background-color: #47d036 !important;
         }
+
+        .ui.list .list > .item a.header, .ui.list > .item a.header {
+            cursor: pointer;
+            color: black !important;
+        }
     </style>
 @endsection
 
@@ -170,7 +175,7 @@
 
 
                             <div class="content">
-                                <a class="ui header">{{ $stop->workshop->name }} </a>
+                                <a class="ui header ">{{ $stop->workshop->name }} </a>
                             </div>
 
 
@@ -189,7 +194,7 @@
 
 
                                 <div class="ui toggle checkbox toggle-spacing">
-                                    <input type="checkbox"  value="{{ $order->ordernumber }}" checked name="{{ $order->ordernumber }}">
+                                    <input type="checkbox"  checked name="{{ $order->ordernumber }}">
                                     <label>{{ $order->ordernumber }}</label>
                                 </div>
 
@@ -222,7 +227,7 @@
                                 @endforeach
 
 
-                                <button class="fluid ui button negative">Angre levering  &nbsp;<i class="icon check"></i></button>
+                                <button class="fluid ui button negative">Angre levering  &nbsp;<i class="icon times"></i></button>
 
 
 
