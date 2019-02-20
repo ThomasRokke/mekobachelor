@@ -29,6 +29,8 @@
                 ;
 
 
+                $('#example2').progress();
+
             });
 
         //Is called to open the modal when an order is pressed.
@@ -128,7 +130,14 @@
         <div class="ui container" style="margin-top:80px;">
             <div class="ui segment">
 
-                <a href="{{ route('transport.route-startkm') }}" class="fluid ui button positive">Start kjøring</a>
+                <a href="{{ route('transport.route-startkm') }}" class="fluid ui button negative">Stopp kjøring</a>
+
+                <div class="ui divider"></div>
+
+                <div class="ui green progress" data-percent="80" id="example2">
+                    <div class="bar"></div>
+                    <div class="label">8/10 levert</div>
+                </div>
 
                 <div class="ui divider"></div>
 
