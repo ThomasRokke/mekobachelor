@@ -130,6 +130,8 @@
 
                 <a href="{{ route('transport.route-startkm') }}" class="fluid ui button positive">Start kjøring</a>
 
+                <div class="ui divider"></div>
+
                 <div class="ui middle aligned divided list accordion ">
 
                     @foreach($stops as $stop)
@@ -171,65 +173,23 @@
 
 
 
+
+
                 </div>
 
 
 
-                <!--<div class="container">
-                    <div class="col-xs-12">
-
-                        <h3 class="text-center">Rute <strong>{{ $route->route }}</strong> klokken <strong>{{ $route->time }}</strong></h3>
-
-                        <a href="{{ route('transport.route-startkm') }}" class="btn btn-success btn-block btn-lg btn-old">START KJØRING</a>
-                        <hr>
-
-                        <div id="accordion" class="">
-
-                            @foreach($stops as $stop)
-
-                                <div id="wrapper-1" class="card ">
-                                    <div class="card-header d-flex justify-content-between align-items-centerd-flex justify-content-between align-items-center ">
-
-                                        <a class="collapsed card-link card-collapse-link btn  " style="width:80%" data-toggle="collapse" href="#collapse{{ $stop->workshop->workshop_id }}">
-                                            {{ $stop->workshop->name }}
-                                        </a>
-
-                                        <div class="float-right "><i class="fa fa-file fa-lg align-middle " ></i>
-                                            {{ count($stop->orders) }}</div>
-
-                                    </div>
-                                    <div id="collapse{{ $stop->workshop->workshop_id }}" class="collapse" data-parent="#accordion">
-                                        <div class="card-body">
-
-                                            @foreach($stop->orders as $order)
-
-                                                <div class="custom-control form-control-lg custom-checkbox">
-                                                    <input checked type="checkbox" class="custom-control-input" id="customCheck1">
-                                                    <label class="custom-control-label" for="customCheck1">{{ $order->ordernumber }}</label>
-                                                </div>
-                                            @endforeach
-
-
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                            @endforeach
-
-
-
-                        </div>
-                    </div>
-
-                    <div class="animated bounceInUp" id="map" style="width: 100%; height: 400px;">
-                    </div>
-
-                </div> -->
 
 
 
 
+            </div>
+
+
+
+            <div class="ui segment">
+                <div class="animated bounceInUp" id="map" style="width: 100%; height: 400px;">
+                </div>
 
             </div>
         </div>
