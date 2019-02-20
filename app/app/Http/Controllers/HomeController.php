@@ -412,7 +412,7 @@ class HomeController extends Controller
         }
 
 
-        return view('transport.route-drive')->with(compact('route', 'stops'));
+        return view('pages.route-active')->with(compact('route', 'stops'));
 
     }
 
