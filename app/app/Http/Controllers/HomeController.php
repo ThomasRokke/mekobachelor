@@ -85,8 +85,12 @@ class HomeController extends Controller
         }
 
 
+        //Get henteordre - We get from workshops now, but we will change it later on
+        $workshops = Workshop::all();
+        dd($workshops);
 
-        return view('office.prototest')->with(compact('routes', 'drivers', 'halvsju', 'atte', 'ti', 'tolv', 'to', 'kveld', 'date', 'orders', 'workshop_id'));
+
+        return view('office.prototest')->with(compact('routes', 'drivers', 'halvsju', 'atte', 'ti', 'tolv', 'to', 'kveld', 'date', 'orders', 'workshop_id', 'workshops'));
     }
 
     public function getPrototest2(Request $request){
@@ -548,6 +552,7 @@ class HomeController extends Controller
      *  Office routes
      * */
     public function getRoutes(){
+
 
         $routes = Route::all();
         $users = User::all();

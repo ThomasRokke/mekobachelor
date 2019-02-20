@@ -367,8 +367,9 @@
                         <div class="three fields">
                             <div class="field">
                                 <select class="ui search dropdown">
-                                    <option value=""></option>
-
+                                    @foreach($workshops as $w)
+                                    <option value="">{{ $w->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="field">
