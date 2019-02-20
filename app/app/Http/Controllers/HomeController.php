@@ -292,7 +292,7 @@ class HomeController extends Controller
         }
 
 
-        return view('transport.route-preview')->with(compact('route', 'stops'));
+        return view('pages.route-preview')->with(compact('route', 'stops'));
 
     }
 
