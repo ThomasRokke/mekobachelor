@@ -189,7 +189,7 @@
 
 
                                 <div class="ui toggle checkbox toggle-spacing">
-                                    <input type="checkbox"  value="{{ $order->ordernumber }}" checked name="{{ $order->ordernumber }}">
+                                    <input type="checkbox"  checked name="{{ $order->ordernumber }}">
                                     <label>{{ $order->ordernumber }}</label>
                                 </div>
 

@@ -315,6 +315,8 @@ class HomeController extends Controller
         $stop = Stop::find($request->id);
 
 
+
+
         foreach($stop->orders as $order){
             $ordnr = $order->ordernumber;
 
@@ -591,7 +593,7 @@ class HomeController extends Controller
 
         }
 
-        $timeStamp = '11:33:00';
+        $timeStamp = '07:33:00';
 
 
         //Set the time if it have not yet been specified
