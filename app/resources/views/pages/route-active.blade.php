@@ -126,17 +126,33 @@
 
 @section('content')
 
+    @php
+        $count = count($route->stops);
+        $deliveredCount = 0;
+
+        $widthPer = 100 / $count;
+
+        $totalWidth = 0;
+
+        foreach($route->stops as $s){
+            if($s->delivered === 1){
+                $totalWidth += $widthPer;
+                $deliveredCount++;
+            }
+        }
+    @endphp
+
     <main style="margin-bottom: 60vh;">
         <div class="ui container" style="margin-top:80px;">
             <div class="ui segment">
 
-                <a href="{{ route('transport.route-startkm') }}" class="fluid ui button negative">Stopp kjøring</a>
+                <a href="{{ route('transport.route-endkm', ['id' => $route->id])  }}" class="fluid ui button negative">Stopp kjøring</a>
 
                 <div class="ui divider"></div>
 
-                <div class="ui green progress" data-percent="80" id="example2">
+                <div class="ui green progress" data-percent="{{ $totalWidth }}" id="example2">
                     <div class="bar"></div>
-                    <div class="label">8/10 levert</div>
+                    <div class="label">{{ $deliveredCount }}/{{ $count }} levert</div>
                 </div>
 
                 <div class="ui divider"></div>
