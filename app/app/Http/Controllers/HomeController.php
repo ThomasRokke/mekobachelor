@@ -87,7 +87,7 @@ class HomeController extends Controller
 
         //Get henteordre - We get from workshops now, but we will change it later on
         $workshops = Workshop::all();
-        dd($workshops);
+
 
 
         return view('office.prototest')->with(compact('routes', 'drivers', 'halvsju', 'atte', 'ti', 'tolv', 'to', 'kveld', 'date', 'orders', 'workshop_id', 'workshops'));
@@ -178,7 +178,7 @@ class HomeController extends Controller
             $route = Route::where('driver_id', Auth::user()->id)->where('active', 1)->get();
 
 
-            return view('transport.home')->with(compact('route'));
+            return view('pages.home')->with(compact('route'));
         }
 
     }
