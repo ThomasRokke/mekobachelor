@@ -83,7 +83,7 @@
     <main style="margin-bottom: 60vh;">
         <div class="ui container" style="margin-top:80px;">
             <div class="ui segment">
-                <h1 class="text-center">Velkommen, Navn.</h1>
+                <h1 class="text-center">Velkommen, {{ \Illuminate\Support\Facades\Auth::user()->name }}.</h1>
 
                 <form method="post" action="{{ route('transport.route-setstartkm') }}">
                     @csrf
