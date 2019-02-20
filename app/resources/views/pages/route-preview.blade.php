@@ -116,6 +116,8 @@
                 <h1 class="text-center">Velkommen, Navn.</h1>
 
 
+
+
                 <div class="container">
                     <div class="col-xs-12">
 
@@ -181,7 +183,7 @@
 
 @endsection
 
-@section('scripts')
+@section('bottom-scripts')
     <script>
 
 
