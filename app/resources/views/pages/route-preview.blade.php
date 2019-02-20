@@ -24,6 +24,9 @@
 
 
 
+                $('.ui.accordion')
+                    .accordion()
+                ;
 
 
             });
@@ -106,6 +109,17 @@
 
         }
     </style>
+
+
+    <style>
+        .toggle-spacing{
+            margin:5px;
+        }
+
+        .ui.toggle.checkbox input:checked ~ .box:before, .ui.toggle.checkbox input:checked ~ label:before {
+            background-color: #47d036 !important;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -113,60 +127,53 @@
     <main style="margin-bottom: 60vh;">
         <div class="ui container" style="margin-top:80px;">
             <div class="ui segment">
-                <h1 class="text-center">Velkommen, Navn.</h1>
 
+                <a href="{{ route('transport.route-startkm') }}" class="fluid ui button positive">Start kjøring</a>
 
+                <div class="ui divider"></div>
 
+                <div class="ui middle aligned divided list accordion ">
 
-                <div class="container">
-                    <div class="col-xs-12">
+                    @foreach($stops as $stop)
 
-                        <h3 class="text-center">Rute <strong>{{ $route->route }}</strong> klokken <strong>{{ $route->time }}</strong></h3>
-
-                        <a href="{{ route('transport.route-startkm') }}" class="btn btn-success btn-block btn-lg btn-old">START KJØRING</a>
-                        <hr>
-
-                        <div id="accordion" class="">
-
-                            @foreach($stops as $stop)
-
-                                <div id="wrapper-1" class="card ">
-                                    <div class="card-header d-flex justify-content-between align-items-centerd-flex justify-content-between align-items-center ">
-
-                                        <a class="collapsed card-link card-collapse-link btn  " style="width:80%" data-toggle="collapse" href="#collapse{{ $stop->workshop->workshop_id }}">
-                                            {{ $stop->workshop->name }}
-                                        </a>
-
-                                        <div class="float-right "><i class="fa fa-file fa-lg align-middle " ></i>
-                                            {{ count($stop->orders) }}</div>
-
-                                    </div>
-                                    <div id="collapse{{ $stop->workshop->workshop_id }}" class="collapse" data-parent="#accordion">
-                                        <div class="card-body">
-
-                                            @foreach($stop->orders as $order)
-
-                                                <div class="custom-control form-control-lg custom-checkbox">
-                                                    <input checked type="checkbox" class="custom-control-input" id="customCheck1">
-                                                    <label class="custom-control-label" for="customCheck1">{{ $order->ordernumber }}</label>
-                                                </div>
-                                            @endforeach
-
-
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                            @endforeach
+                        <div class="item title">
+                            <img class="ui avatar image" src="https://i2.wp.com/openclipart.org/image/2400px/svg_to_png/177208/location-icon.png?resize=980%2C9999&ssl=1">
+                            <div class="content">
+                                <a class="ui header">{{ $stop->workshop->name }} </a>
+                            </div>
 
 
 
                         </div>
-                    </div>
 
-                    <div class="animated bounceInUp" id="map" style="width: 100%; height: 400px;">
-                    </div>
+                        <div class="content">
+
+                            @foreach($stop->orders as $order)
+
+
+                                <div class="ui toggle checkbox toggle-spacing">
+                                    <input type="checkbox" value="{{ $order->ordernumber }}" checked name="public">
+                                    <label>{{ $order->ordernumber }}</label>
+                                </div>
+
+                                <div class="ui fitted divider"></div>
+                            @endforeach
+
+
+
+
+
+                        </div>
+
+
+
+
+
+                    @endforeach
+
+
+
+
 
                 </div>
 
@@ -174,8 +181,19 @@
 
 
 
+
+
+            </div>
+
+
+
+            <div class="ui segment">
+                <div class="animated bounceInUp" id="map" style="width: 100%; height: 400px;">
+                </div>
+
             </div>
         </div>
+
 
 
 
