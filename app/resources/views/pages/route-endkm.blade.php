@@ -83,18 +83,15 @@
     <main style="margin-bottom: 60vh;">
         <div class="ui container" style="margin-top:80px;">
             <div class="ui segment">
-                <h1 class="text-center">Velkommen, Navn.</h1>
 
                 <div class="container">
 
-                    <p class="lead">Kmstand start: {{ $route->kmstart }}</p>
+                    <p class="lead">Kilometer start: {{ $route->kmstart }}</p>
 
                     <form method="POST" action="{{ route('transport.route-setendkm', ['id' => $route->id]) }}">
 
                         @csrf
                         <div class="ui right labeled input">
-
-                                <label for="validationDefaultUsername" class="label-old">Kilometerstand.</label>
 
                                 <input type="tel" name="kmend" min="{{ $route->kmstart }}" max="{{ $route->kmstart + 200 }}"  value="{{ substr($route->kmstart, 0, -3) }}"   class="form-control input-old" id="validationDefaultUsername" autocomplete="off" placeholder="12312312" required oninvalid="this.setCustomValidity('Fyll inn riktig kilometstand.')"
                                            oninput="this.setCustomValidity('')"  />
