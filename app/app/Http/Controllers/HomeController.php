@@ -304,7 +304,7 @@ class HomeController extends Controller
         $route = Route::where('driver_id', Auth::user()->id)->where('active', 1)->first();
 
 
-        return view('transport.route-startkm')->with(compact('route'));
+        return view('pages.route-startkm')->with(compact('route'));
 
     }
 
