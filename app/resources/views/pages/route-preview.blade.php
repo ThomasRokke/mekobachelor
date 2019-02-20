@@ -24,6 +24,9 @@
 
 
 
+                $('.ui.accordion')
+                    .accordion()
+                ;
 
 
             });
@@ -106,6 +109,17 @@
 
         }
     </style>
+
+
+    <style>
+        .toggle-spacing{
+            margin:5px;
+        }
+
+        .ui.toggle.checkbox input:checked ~ .box:before, .ui.toggle.checkbox input:checked ~ label:before {
+            background-color: #47d036 !important;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -113,10 +127,55 @@
     <main style="margin-bottom: 60vh;">
         <div class="ui container" style="margin-top:80px;">
             <div class="ui segment">
-                <h1 class="text-center">Velkommen, Navn.</h1>
+
+                <a href="{{ route('transport.route-startkm') }}" class="fluid ui button positive">Start kjøring</a>
+
+                <div class="ui middle aligned divided list accordion ">
+
+                    @foreach($stops as $stop)
+
+                        <div class="item title">
+                            <img class="ui avatar image" src="https://i2.wp.com/openclipart.org/image/2400px/svg_to_png/177208/location-icon.png?resize=980%2C9999&ssl=1">
+                            <div class="content">
+                                <a class="ui header">{{ $stop->workshop->name }} </a>
+                            </div>
 
 
-                <div class="container">
+
+                        </div>
+
+                        <div class="content">
+
+                            @foreach($stop->orders as $order)
+
+
+                                <div class="ui toggle checkbox toggle-spacing">
+                                    <input type="checkbox" value="{{ $order->ordernumber }}" checked name="public">
+                                    <label>{{ $order->ordernumber }}</label>
+                                </div>
+
+                                <div class="ui fitted divider"></div>
+                            @endforeach
+
+
+
+
+
+                        </div>
+
+
+
+
+
+                    @endforeach
+
+
+
+                </div>
+
+
+
+                <!--<div class="container">
                     <div class="col-xs-12">
 
                         <h3 class="text-center">Rute <strong>{{ $route->route }}</strong> klokken <strong>{{ $route->time }}</strong></h3>
@@ -166,7 +225,7 @@
                     <div class="animated bounceInUp" id="map" style="width: 100%; height: 400px;">
                     </div>
 
-                </div>
+                </div> -->
 
 
 
@@ -177,11 +236,12 @@
 
 
 
+
     </main>
 
 @endsection
 
-@section('scripts')
+@section('bottom-scripts')
     <script>
 
 
