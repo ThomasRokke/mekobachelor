@@ -86,14 +86,20 @@
             <div class="ui segment">
                 <h1 class="ui header">Rute Sammendrag</h1>
 
-                <div class="ui relaxed list">
+                <div class="ui middle aligned divided list">
+
+                    @foreach($route->stops as $stop)
+
                     <div class="item">
 
-                        </div>
+                        <div class="header">{{ $stop->workshop->name }}</div>
+
                     </div>
+
+                    @endforeach
                 </div>
+                <a class="big ui button ui blue button" href="{{ route('home') }}">Til hjemsiden</a>
             </div>
-            <a class="big ui button ui blue button" href="{{ route('home') }}">Til hjemsiden</a>
         </div>
     </main>
     <!--<div class="container">
