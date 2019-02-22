@@ -80,37 +80,37 @@
     </style>
 @endsection
 @section('content')
+
     <main style="margin-bottom: 60vh;">
         <div class="ui container" style="margin-top:80px;">
             <div class="ui segment">
+                <h4 class="text-center">Fyll inn antall kilometer ved stopp</h4>
+                <p class="text-center">Kilometer start: <strong>{{ $route->kmstart }}</strong> </p>
 
-                <div class="container">
+                <form method="post" action="{{ route('transport.route-setendkm', ['id' => $route->id]) }}">
+                    @csrf
 
-                    <p class="lead">Kilometer start: {{ $route->kmstart }}</p>
+                    <div class="ui right icon input">
+                        <input  type="tel" name="kmend" min="{{ $route->kmstart }}" max="{{ $route->kmstart + 200 }}"  value="{{ substr($route->kmstart, 0, -2) }}"   class="" id="validationDefaultUsername" autocomplete="off" placeholder="12312312" required oninvalid="this.setCustomValidity('Fyll inn riktig kilometstand.')"
+                                oninput="this.setCustomValidity('')">
+                        <i class="car icon"></i>
+                    </div>
+                    <input type="hidden" name="routeid" value="{{ $route->id }}">
+                    <button class="ui button negative">
 
-                    <form method="POST" action="{{ route('transport.route-setendkm', ['id' => $route->id]) }}">
+                        Stopp
 
-                        @csrf
-                        <div class="fluid ui right labeled input">
+                    </button>
 
-                                <input type="tel" name="kmend" min="{{ $route->kmstart }}" max="{{ $route->kmstart + 200 }}"  value="{{ substr($route->kmstart, 0, -3) }}"   class="form-control input-old" id="validationDefaultUsername" autocomplete="off" placeholder="12312312" required oninvalid="this.setCustomValidity('Fyll inn riktig kilometstand.')"
-                                           oninput="this.setCustomValidity('')"  />
+                </form>
 
-                                <div class="ui basic label">
-                                Kilometer
-                                </div>
-                        </div>
-                        <button class="fluid positive ui button" type="submit" onclick="confirm('Ønsker du å avslutte ruten? Du kan IKKE angre!')"> Avslutt rute</button>
-                    </form>
-                </div>
 
-                  <div class="ui divider"></div>
 
-                    <a href="{{ route('drivestart') }}" class="ui right labeled icon button" ><i class="left arrow icon"></i> Tilbake til rute </a>
 
-                </div>
+
 
             </div>
         </div>
     </main>
+
 @endsection
