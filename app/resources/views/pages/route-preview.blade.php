@@ -137,9 +137,8 @@
                     @foreach($stops as $stop)
 
                         <div class="item title">
-                            <img class="ui avatar image" src="https://i2.wp.com/openclipart.org/image/2400px/svg_to_png/177208/location-icon.png?resize=980%2C9999&ssl=1">
-                            <div class="content">
-                                <a class="ui header">{{ $stop->workshop->name }} </a>
+                           <div class="content">
+                              <a class="ui header">  <i class="icon wrench"></i>{{ $stop->workshop->name }} </a>
                             </div>
                         </div>
 
