@@ -35,7 +35,7 @@
             Meny
         </a>
 
-        <div class="ui container text">
+        <div class="ui container ">
             <a href="{{ route('home') }}" class="header item meko-color-text" style="border-left:none!important">
                 Mekodrive
             </a>
@@ -60,7 +60,7 @@
     <!-- End nav -->
     <!-- Sidenav-->
     <div id="sidenav" class="ui left demo inverted visible overlay  vertical  sidebar labeled icon menu ">
-        <a href="{{ route('home') }}" class="item {{ \Request::is('home') ? 'active' : null }}">
+        <a href="{{ route('home') }}" class="item {{ \Request::is('home') ? 'active' : null }}" style="margin-top:50px">
             <i class="home icon"></i> Hjem
         </a>
 
