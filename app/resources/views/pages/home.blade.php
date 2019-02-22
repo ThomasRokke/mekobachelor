@@ -127,10 +127,10 @@
             <div class="ui segment">
 
 
-               <a class="ui basic image label huge fluid">
+               <div class="ui basic image label huge fluid">
                     <img src="https://semantic-ui.com/images/avatar/small/elliot.jpg">
                     {{ \Illuminate\Support\Facades\Auth::user()->name }}
-                </a>
+                </div>
                 <div class="ui divider"></div>
                     @if(!empty($route))
                         @foreach($route as $r)

@@ -138,7 +138,7 @@
 
                         <div class="item title">
                            <div class="content">
-                              <a class="ui header">  <i class="icon wrench"></i>{{ $stop->workshop->name }} </a>
+                              <a style="color:black !important;" class="ui header">  <i style="color:gray!important;" class="icon wrench"></i>{{ $stop->workshop->name }} </a>
                             </div>
                         </div>
 

@@ -59,7 +59,7 @@
     </div>
     <!-- End nav -->
     <!-- Sidenav-->
-    <div id="sidenav" class="ui left demo inverted  vertical  sidebar labeled icon menu ">
+    <div id="sidenav" class="ui left demo inverted visible overlay  vertical  sidebar labeled icon menu ">
         <a href="{{ route('home') }}" class="item {{ \Request::is('home') ? 'active' : null }}">
             <i class="home icon"></i> Hjem
         </a>
@@ -83,7 +83,7 @@
 
 
 
-<article>
+<article style="margin-left: 175px">
     @yield('content')
 
 </article>
