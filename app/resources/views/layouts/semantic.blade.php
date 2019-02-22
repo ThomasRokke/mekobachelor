@@ -36,9 +36,9 @@
         </a>
 
         <div class="ui container text">
-            <div class="header item meko-color-text" style="border-left:none!important">
+            <a href="{{ route('home') }}" class="header item meko-color-text" style="border-left:none!important">
                 Mekodrive
-            </div>
+            </a>
             <div class="left menu">
                 <div class="ui left aligned category search item">
                     <div class="ui transparent inverted icon input">
@@ -60,17 +60,23 @@
     <!-- End nav -->
     <!-- Sidenav-->
     <div id="sidenav" class="ui left demo inverted  vertical  sidebar labeled icon menu ">
-        <a href="{{ route('getorders') }}" class="item">
-            <i class="database icon"></i> Datauthenting
+        <a href="{{ route('home') }}" class="item {{ \Request::is('home') ? 'active' : null }}">
+            <i class="home icon"></i> Hjem
         </a>
-        <a href="{{ route('proto.prototest') }}" class="item active">
+
+        <a href="{{ route('proto.prototest') }}" class="item {{ \Request::is('prototest') ? 'active' : null }}">
             <i class="table layout icon a"></i> Ruter
         </a>
-        <a href="{{ route('proto.protoworkshop') }}" class="item">
+        <a href="{{ route('proto.protoworkshop') }}" class="item {{ \Request::is('protoworkshops') ? 'active' : null }}">
             <i class="wrench icon"></i> Verksteder
         </a>
-        <a href="{{ route('proto.protoroles') }}" class="item">
+        <a href="{{ route('proto.protoroles') }}" class="item {{ \Request::is('protoroles') ? 'active' : null }}">
             <i class="users icon"></i> Brukere
+        </a>
+
+
+        <a href="{{ route('getorders') }}" class="item {{ \Request::is('orders') ? 'active' : null }}">
+            <i class="database icon"></i> Datauthenting
         </a>
     </div>
     <!--End sidenav-->
