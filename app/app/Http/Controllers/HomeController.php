@@ -604,7 +604,7 @@ class HomeController extends Controller
 
         }
 
-        $timeStamp = '10:33:00';
+        $timeStamp = '07:20:00';
 
 
         //Set the time if it have not yet been specified
