@@ -83,25 +83,26 @@
     <main style="margin-bottom: 60vh;">
         <div class="ui container" style="margin-top:80px;">
             <div class="ui segment">
-                <h1 class="text-center">Velkommen, {{ \Illuminate\Support\Facades\Auth::user()->name }}.</h1>
+                <h4 class="text-center">Fyll inn antall kilometer ved start</h4>
 
                 <form method="post" action="{{ route('transport.route-setstartkm') }}">
                     @csrf
 
-                        <div class="ui right labeled input">
-                        <input name="kmstart" autofocus="" id="validationDefaultUsername" type="tel"
-                               autocomplete="off" required="" oninvalid="this.setCustomValidity('Fyll inn riktig kilometstand.')"
-                               oninput="this.setCustomValidity('')" placeholder="eks: 135531">
+                    <div class="ui right icon input">
+                        <input  placeholder="Kilometerstand" name="kmstart" autofocus="" id="validationDefaultUsername" type="tel"
+                                autocomplete="off" required="" oninvalid="this.setCustomValidity('Fyll inn riktig kilometstand.')"
+                                oninput="this.setCustomValidity('')">
+                        <i class="car icon"></i>
+                    </div>
+                    <input type="hidden" name="routeid" value="{{ $route->id }}">
+                    <button class="ui right labeled icon button positive">
 
-                            <div class="ui basic label">
-                            Kilometer
-                            </div>
+                        Start
+                        <i class="play icon"></i>
+                    </button>
 
-                            <input type="hidden" name="routeid" value="{{ $route->id }}">
-                            <button class="positive ui button" type="submit"> Start</button>
-
-                        </div>
                 </form>
+
 
 
 
