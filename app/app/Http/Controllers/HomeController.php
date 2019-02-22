@@ -440,7 +440,7 @@ class HomeController extends Controller
 
 
 
-        return redirect(route('pages.route-report', ['id' => $route->id]));
+        return redirect(route('transport.route-report', ['id' => $route->id]));
 
 
     }
