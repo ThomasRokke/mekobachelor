@@ -11,18 +11,13 @@ class RouteTimesController extends Controller
 
     public function timeseed(){
 
-        RouteTimes::firstOrCreate(['route' => 10, 'time' => '07:45', 'from_time' => '00:00', 'to_time' => '07:30']);
-        RouteTimes::firstOrCreate(['route' => 10, 'time' => '09:45', 'from_time' => '07:30', 'to_time' => '09:30']);
-        RouteTimes::firstOrCreate(['route' => 10, 'time' => '12:00', 'from_time' => '09:30', 'to_time' => '11:45']);
-        RouteTimes::firstOrCreate(['route' => 10, 'time' => '14:00', 'from_time' => '11:45', 'to_time' => '13:45']);
 
-<<<<<<< HEAD
         //Rute 10
         RouteTimes::firstOrCreate(['route' => 10, 'time' => '08:00', 'from_time' => '00:00', 'to_time' => '07:45']);
         RouteTimes::firstOrCreate(['route' => 10, 'time' => '10:00', 'from_time' => '07:45', 'to_time' => '09:45']);
         RouteTimes::firstOrCreate(['route' => 10, 'time' => '12:00', 'from_time' => '09:45', 'to_time' => '11:45']);
         RouteTimes::firstOrCreate(['route' => 10, 'time' => '14:00', 'from_time' => '11:45', 'to_time' => '13:45']);
-=======
+
         RouteTimes::firstOrCreate(['route' => 11, 'time' => '07:45', 'from_time' => '00:00', 'to_time' => '07:30']);
         RouteTimes::firstOrCreate(['route' => 11, 'time' => '09:45', 'from_time' => '07:30', 'to_time' => '09:30']);
         RouteTimes::firstOrCreate(['route' => 11, 'time' => '12:00', 'from_time' => '09:30', 'to_time' => '11:45']);
@@ -41,7 +36,7 @@ class RouteTimesController extends Controller
         RouteTimes::firstOrCreate(['route' => 14, 'time' => '09:45', 'from_time' => '07:30', 'to_time' => '09:30']);
         RouteTimes::firstOrCreate(['route' => 14, 'time' => '12:00', 'from_time' => '09:30', 'to_time' => '11:45']);
         RouteTimes::firstOrCreate(['route' => 14, 'time' => '14:00', 'from_time' => '11:45', 'to_time' => '13:45']);
->>>>>>> 438ac8fe259ddaef81a55b05a51b1f8039bc8269
+
 
         $routeTimes = RouteTimes::all();
         dd($routeTimes);
