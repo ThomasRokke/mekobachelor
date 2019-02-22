@@ -1,5 +1,6 @@
 <?php
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,6 +11,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+//Ordre status. Søk opp et ordrenummer og få informasjon om det.
+Route::get('/orderstatus', 'HomeController@getOrderStatus')->name('orderstatus');
 
 //Prototype kjørekontor midlertidig rute
 Route::get('/prototest', 'HomeController@getPrototest')->name('proto.prototest');

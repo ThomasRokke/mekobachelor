@@ -12,7 +12,7 @@ class RouteTimesController extends Controller
     public function timeseed(){
 
 
-
+        //Rute 10
         RouteTimes::firstOrCreate(['route' => 10, 'time' => '08:00', 'from_time' => '00:00', 'to_time' => '07:45']);
         RouteTimes::firstOrCreate(['route' => 10, 'time' => '10:00', 'from_time' => '07:45', 'to_time' => '09:45']);
         RouteTimes::firstOrCreate(['route' => 10, 'time' => '12:00', 'from_time' => '09:45', 'to_time' => '11:45']);

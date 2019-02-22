@@ -40,20 +40,16 @@
                 Mekodrive
             </a>
             <div class="left menu">
-                <div class="ui left aligned category search item">
-                    <div class="ui transparent inverted icon input">
-                        <input class="prompt" type="text" placeholder="Søk etter verksteder">
-                        <i class="search link icon"></i>
+                <form method="get" action="{{ route('orderstatus') }}">
+                    <div class="ui left aligned category search item">
+                        <div class="ui transparent inverted icon input">
+                            <input class="prompt" type="number" name="ordernumber" placeholder="Søk etter ordrenummer">
+                            <i class="search link icon"></i>
+                        </div>
+
                     </div>
-                    <div class="results"></div>
-                </div>
-                <div class="ui left aligned category search item">
-                    <div class="ui transparent inverted icon input">
-                        <input class="prompt" type="text" placeholder="Søk etter ordrenummer">
-                        <i class="search link icon"></i>
-                    </div>
-                    <div class="results"></div>
-                </div>
+                </form>
+
             </div>
         </div>
     </div>

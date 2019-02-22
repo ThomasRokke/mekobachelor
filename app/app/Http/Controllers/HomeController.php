@@ -27,6 +27,17 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
+    public function getOrderStatus(Request $request){
+
+        $ord = $request->ordernumber;
+
+
+        $order = Order::where('ordernumber', '=', $ord)->first();
+
+
+        return view('pages.orderstatus')->with(compact('order', 'ord'));
+    }
+
     public function getOrders(Request $request){
 
         $orders = Order::all();
