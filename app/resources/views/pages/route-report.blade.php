@@ -83,8 +83,133 @@
 @section('content')
     <main style="margin-bottom: 60vh;">
         <div class="ui container" style="margin-top:80px;">
+
+            <div class="ui segment">
+                <div class="ui list">
+
+                    @foreach($route->stops as $stop)
+
+                        <div class="item">
+                            <i class="wrench icon"></i>
+                            <div class="content">
+                                <div class="header">{{ $stop->workshop->name }}</div>
+                                <div class="description">{{ $stop->deliver_time }} <i class="icon clock outline"></i></div>
+                                <div class="list">
+                                    @foreach($stop->orders as $order)
+
+                                        @if($order->delivered === 1)
+                                        <div class="item">
+                                            <i class="check  icon green"></i>
+                                            <div class="content">
+                                                <div class="header"> {{ $order->ordernumber }}</div>
+                                            </div>
+                                        </div>
+
+                                        @else
+                                            <div class="item">
+                                                <i class="ban icon red"></i>
+                                                <div class="content">
+                                                    <div class="header"> {{ $order->ordernumber }}</div>
+
+                                                </div>
+                                            </div>
+
+                                        @endif
+
+
+
+                                    @endforeach
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    @endforeach
+
+
+
+
+                </div>
+            </div>
             <div class="ui segment">
                 <h1 class="ui header">Rute Sammendrag</h1>
+
+
+                <div class="ui middle aligned list">
+                    <div class="item">
+
+                        <div class="content">
+                            <h4>Stovnerbrua Servicesenter</h4>
+                        </div>
+                    </div>
+                    <div class="item" style="margin-left:25px">
+                        <div class="right floated content">
+                            <a class="ui label green">
+                                <i class="check icon"></i>
+                                20:15:65
+                            </a>
+                        </div>
+
+                        <div class="content">
+                            86914984
+                        </div>
+                    </div>
+                    <div class="item" style="margin-left: 25px">
+                        <div class="right floated content">
+                            <a class="ui label red">
+                                <i class="ban icon"></i>
+
+                            </a>
+                        </div>
+
+                        <div class="content">
+                            86914984
+                        </div>
+                    </div>
+
+                    <div class="ui divider"></div>
+
+                    <div class="item">
+
+                        <div class="content">
+                            <h4>Stovnerbrua Servicesenter</h4>
+                        </div>
+                    </div>
+                    <div class="item" style="margin-left:25px">
+                        <div class="right floated content">
+                            <a class="ui label green">
+                                <i class="check icon"></i>
+                                20:15:65
+                            </a>
+                        </div>
+
+                        <div class="content">
+                            86914984
+                        </div>
+                    </div>
+                    <div class="item" style="margin-left: 25px">
+                        <div class="right floated content">
+                            <a class="ui label red">
+                                <i class="ban icon"></i>
+
+                            </a>
+                        </div>
+
+                        <div class="content">
+                            86914984
+                        </div>
+                    </div>
+
+                    <div class="ui divider"></div>
+
+
+
+
+                </div>
+
+
 
                 <div class="ui middle aligned divided list">
 
