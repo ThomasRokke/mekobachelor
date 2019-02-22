@@ -127,11 +127,14 @@
             <div class="ui segment">
 
 
-                <h1 class="text-center">Velkommen, {{ \Illuminate\Support\Facades\Auth::user()->name }}.</h1>
+               <a class="ui basic image label huge fluid">
+                    <img src="https://semantic-ui.com/images/avatar/small/elliot.jpg">
+                    {{ \Illuminate\Support\Facades\Auth::user()->name }}
+                </a>
                 <div class="ui divider"></div>
                     @if(!empty($route))
                         @foreach($route as $r)
-                            <p class="lead text-center animated fadeIn text-size">Du skal kjøre rute <strong>{{ $r->route }}</strong> klokken <strong>{{ $r->time }}</strong></p>
+                            <p class="lead text-center animated fadeIn text-size">Påmeldt rute <strong>{{ $r->route }}</strong> klokken <strong>{{ date('H:i', strtotime($r->time)) }}</strong></p>
 
                             <a class="abc big ui button ui black button" href="{{ route('transport.route-preview') }}">Se kjøreliste</a>
                         @endforeach
