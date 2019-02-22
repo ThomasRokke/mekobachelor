@@ -85,6 +85,10 @@
         <div class="ui container" style="margin-top:80px;">
 
             <div class="ui segment">
+                <h4 class="ui horizontal divider header">
+                    <i class="list icon"></i>
+                    Rute rapport
+                </h4>
                 <div class="ui list">
 
                     @foreach($route->stops as $stop)
@@ -132,99 +136,21 @@
 
 
                 </div>
+
+                <h4 class="ui horizontal divider header">
+                    <i class="car icon"></i>
+                    Du har kjørt {{ $route->kmend - $route->kmstart }}km
+                </h4>
+
+                <h4 class="ui horizontal divider header">
+                    <i class="clock icon"></i>
+                    1t 30min
+                </h4>
+
+                <a href="{{ route('home') }}" class="fluid big ui button ui blue button"><i class="icon home"></i> Til hjemsiden</a>
+
             </div>
-            <div class="ui segment">
-                <h1 class="ui header">Rute Sammendrag</h1>
 
-
-                <div class="ui middle aligned list">
-                    <div class="item">
-
-                        <div class="content">
-                            <h4>Stovnerbrua Servicesenter</h4>
-                        </div>
-                    </div>
-                    <div class="item" style="margin-left:25px">
-                        <div class="right floated content">
-                            <a class="ui label green">
-                                <i class="check icon"></i>
-                                20:15:65
-                            </a>
-                        </div>
-
-                        <div class="content">
-                            86914984
-                        </div>
-                    </div>
-                    <div class="item" style="margin-left: 25px">
-                        <div class="right floated content">
-                            <a class="ui label red">
-                                <i class="ban icon"></i>
-
-                            </a>
-                        </div>
-
-                        <div class="content">
-                            86914984
-                        </div>
-                    </div>
-
-                    <div class="ui divider"></div>
-
-                    <div class="item">
-
-                        <div class="content">
-                            <h4>Stovnerbrua Servicesenter</h4>
-                        </div>
-                    </div>
-                    <div class="item" style="margin-left:25px">
-                        <div class="right floated content">
-                            <a class="ui label green">
-                                <i class="check icon"></i>
-                                20:15:65
-                            </a>
-                        </div>
-
-                        <div class="content">
-                            86914984
-                        </div>
-                    </div>
-                    <div class="item" style="margin-left: 25px">
-                        <div class="right floated content">
-                            <a class="ui label red">
-                                <i class="ban icon"></i>
-
-                            </a>
-                        </div>
-
-                        <div class="content">
-                            86914984
-                        </div>
-                    </div>
-
-                    <div class="ui divider"></div>
-
-
-
-
-                </div>
-
-
-
-                <div class="ui middle aligned divided list">
-
-                    @foreach($route->stops as $stop)
-
-                    <div class="item">
-
-                        <div class="header">{{ $stop->workshop->name }}</div>
-
-                    </div>
-
-                    @endforeach
-                </div>
-                <a class="big ui button ui blue button" href="{{ route('home') }}">Til hjemsiden</a>
-            </div>
         </div>
     </main>
     <!--<div class="container">
