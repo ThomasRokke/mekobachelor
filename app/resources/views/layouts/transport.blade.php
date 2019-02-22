@@ -23,75 +23,75 @@
 
 
 
-    <title>Kjørekontoret </title>
+    <title>Sjåfør </title>
 </head>
 <body>
 
 
-    <!-- Nav -->
-    <div class="ui fixed inverted large menu">
-        <a href="#" class="item open button">
-            <i class="sidebar icon"></i>
-            Meny
-        </a>
+<!-- Nav -->
+<div class="ui fixed inverted large menu">
+    <a href="#" class="item open button">
+        <i class="sidebar icon"></i>
+        Meny
+    </a>
 
-        <div class="ui container ">
-            <a href="{{ route('home') }}" class="header item meko-color-text" style="border-left:none!important">
-                Mekodrive
-            </a>
-            <div class="left menu">
-                <div class="ui left aligned category search item">
-                    <div class="ui transparent inverted icon input">
-                        <input class="prompt" type="text" placeholder="Søk etter verksteder">
-                        <i class="search link icon"></i>
-                    </div>
-                    <div class="results"></div>
+    <div class="ui container ">
+        <a href="{{ route('home') }}" class="header item meko-color-text" style="border-left:none!important">
+            Mekodrive
+        </a>
+        <div class="left menu">
+            <div class="ui left aligned category search item">
+                <div class="ui transparent inverted icon input">
+                    <input class="prompt" type="text" placeholder="Søk etter verksteder">
+                    <i class="search link icon"></i>
                 </div>
-                <div class="ui left aligned category search item">
-                    <div class="ui transparent inverted icon input">
-                        <input class="prompt" type="text" placeholder="Søk etter ordrenummer">
-                        <i class="search link icon"></i>
-                    </div>
-                    <div class="results"></div>
+                <div class="results"></div>
+            </div>
+            <div class="ui left aligned category search item">
+                <div class="ui transparent inverted icon input">
+                    <input class="prompt" type="text" placeholder="Søk etter ordrenummer">
+                    <i class="search link icon"></i>
                 </div>
+                <div class="results"></div>
             </div>
         </div>
     </div>
-    <!-- End nav -->
-    <!-- Sidenav-->
-    <div id="sidenav" class="ui left demo inverted visible overlay  vertical  sidebar labeled icon menu ">
-        <a href="{{ route('home') }}" class="item {{ \Request::is('home') ? 'active' : null }}" style="margin-top:42.85px">
-            <i class="home icon"></i> Hjem
-        </a>
+</div>
+<!-- End nav -->
+<!-- Sidenav-->
+<div id="sidenav" class="ui left demo inverted   vertical  sidebar labeled icon menu ">
+    <a href="{{ route('home') }}" class="item {{ \Request::is('home') ? 'active' : null }}" style="margin-top:42.85px">
+        <i class="home icon"></i> Hjem
+    </a>
 
-        <a href="{{ route('proto.prototest') }}" class="item {{ \Request::is('prototest') ? 'active' : null }}">
-            <i class="table layout icon a"></i> Ruter
-        </a>
-        <a href="{{ route('proto.protoworkshop') }}" class="item {{ \Request::is('protoworkshops') ? 'active' : null }}">
-            <i class="wrench icon"></i> Verksteder
-        </a>
-        <a href="{{ route('proto.protoroles') }}" class="item {{ \Request::is('protoroles') ? 'active' : null }}">
-            <i class="users icon"></i> Brukere
-        </a>
-
-
-        <a href="{{ route('getorders') }}" class="item {{ \Request::is('orders') ? 'active' : null }}">
-            <i class="database icon"></i> Datauthenting
-        </a>
-    </div>
-    <!--End sidenav-->
+    <a href="{{ route('proto.prototest') }}" class="item {{ \Request::is('prototest') ? 'active' : null }}">
+        <i class="table layout icon a"></i> Ruter
+    </a>
+    <a href="{{ route('proto.protoworkshop') }}" class="item {{ \Request::is('protoworkshops') ? 'active' : null }}">
+        <i class="wrench icon"></i> Verksteder
+    </a>
+    <a href="{{ route('proto.protoroles') }}" class="item {{ \Request::is('protoroles') ? 'active' : null }}">
+        <i class="users icon"></i> Brukere
+    </a>
 
 
+    <a href="{{ route('getorders') }}" class="item {{ \Request::is('orders') ? 'active' : null }}">
+        <i class="database icon"></i> Datauthenting
+    </a>
+</div>
+<!--End sidenav-->
 
-<article style="margin-left: 175px">
+
+
+<article style="">
     @yield('content')
 
 </article>
 
 
-    @component('components._footer')
+@component('components._footer')
 
-    @endcomponent
+@endcomponent
 
 <script type="text/javascript">
     $(document)

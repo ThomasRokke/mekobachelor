@@ -1,4 +1,4 @@
-@extends('layouts.semantic')
+@extends('layouts.transport')
 
 @section('header')
     <script type="text/javascript">
