@@ -28,7 +28,7 @@
 <body>
 
 
-    <!-- Nav -->
+    <!-- Nav
     <div class="ui fixed inverted large menu">
         <a href="#" class="item open button">
             <i class="sidebar icon"></i>
@@ -52,7 +52,7 @@
 
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- End nav -->
     <!-- Sidenav-->
     <div id="sidenav" class="ui left demo inverted visible overlay  vertical  sidebar labeled icon menu ">

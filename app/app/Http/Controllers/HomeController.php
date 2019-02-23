@@ -15,6 +15,9 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use jeremykenedy\LaravelRoles\Models\Role;
 use Illuminate\Support\Facades\DB;
+
+use App\Charts\SampleChart;
+
 class HomeController extends Controller
 {
     /**
@@ -25,6 +28,46 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    public function getMap(){
+
+        $routes = Route::where('date', '=', date('Y/m/d', strtotime('-1 days')))->get();
+
+        $activeCount = count($routes);
+
+
+// ...
+
+        /*
+        $chartData = collect([]); // Could also be an array
+
+        for ($days_backwards = 2; $days_backwards >= 0; $days_backwards--) {
+            // Could also be an array_push if using an array rather than a collection.
+            $chartData->push(Order::whereDate('created_at', today()->subDays($days_backwards))->count());
+        }
+
+        $chart = new SampleChart;
+        $chart->labels(['2 days ago', 'Yesterday', 'Today']);
+        $chart->dataset('Antall ordre', 'line', $chartData);
+        */
+
+        $data = Route::groupBy('route')
+            ->get()
+            ->map(function ($item) {
+
+                //Count number of stops on the route
+
+                return count($item->stops);
+            });
+
+
+
+        $chart = new SampleChart;
+        $chart->labels($data->keys());
+        $chart->dataset('My dataset', 'line', $data->values());
+
+        return view( 'map')->with(compact('routes', 'activeCount', 'chart'));
     }
 
     public function getOrderStatus(Request $request){

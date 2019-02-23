@@ -12,6 +12,7 @@
 |
 */
 
+Route::get('/map', 'HomeController@getMap')->name('getmap');
 
 //Ordre status. Søk opp et ordrenummer og få informasjon om det.
 Route::get('/orderstatus', 'HomeController@getOrderStatus')->name('orderstatus');
@@ -61,10 +62,6 @@ Route::get('/drive', function(){
 Route::get('/drivestart', function(){
     return view('drivestart');
 })->name('drivestart');
-
-Route::get('/map', function(){
-   return view('map');
-})->name('map');
 
 
 Route::get('/timeseed', 'RouteTimesController@timeseed');
