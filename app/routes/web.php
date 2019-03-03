@@ -12,6 +12,8 @@
 |
 */
 
+Route::get('/myprofile', 'HomeController@getMyProfile')->name('myprofile');
+
 Route::get('/map', 'HomeController@getMap')->name('getmap');
 
 //Ordre status. Søk opp et ordrenummer og få informasjon om det.
@@ -93,13 +95,16 @@ Route::get('/route-drive', 'HomeController@getRouteDrive')->name('transport.rout
 //end Transport routes
 
 //Roles test attaching admin role
-Route::get('/attachadmin/{id}', 'HomeController@attachAdmin');
+Route::get('/attachadmin/{id}', 'HomeController@attachAdmin')->name('setadmin');
 
 //Roles test attaching user role
-Route::get('/attachuser/{id}', 'HomeController@attachUser');
+Route::get('/attachuser/{id}', 'HomeController@attachUser')->name('setuser');
 
 //Roles test attaching office role
-Route::get('/attachoffice/{id}', 'HomeController@attachOffice');
+Route::get('/attachoffice/{id}', 'HomeController@attachOffice')->name('setoffice');
+
+// Set role - paramters are userid and roleid
+Route::post('/setrole', 'HomeController@setRole')->name('setrole');
 
 /*
  *  Office roles

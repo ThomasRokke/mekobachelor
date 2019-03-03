@@ -70,6 +70,12 @@ class HomeController extends Controller
         return view( 'map')->with(compact('routes', 'activeCount', 'chart'));
     }
 
+    public function getMyProfile(){
+        $user = Auth::user();
+        return view('pages.myprofile')->with(compact('user'));
+    }
+
+
     public function getOrderStatus(Request $request){
 
         $ord = $request->ordernumber;
@@ -192,8 +198,9 @@ class HomeController extends Controller
 
         $roles = Role::all();
 
-        return view('officeproto.protoroles')->with(compact('users', 'roles'));
+        return view('pages.users')->with(compact('users', 'roles'));
     }
+
 
 
     public function getProtoWorkshops(){
@@ -300,6 +307,25 @@ class HomeController extends Controller
             dd('user is now admin');
         }
     }
+
+    public function setRole(Request $request){
+
+        //TODO: Fix permissions so only the correct people are able to give the roles.
+
+        //Find the user to append the role to
+        $user = User::find($request->user_id);
+
+        $user->detachAllRoles();
+        //attach given role based on role_id
+        $user->attachRole($request->role_id);
+
+
+        return redirect(route('proto.protoroles'));
+
+
+
+    }
+
 
     public function attachOffice($id){
         $user = User::find($id);

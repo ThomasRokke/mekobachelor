@@ -25,6 +25,9 @@
 
 
 
+                $('.ui.dropdown')
+                    .dropdown()
+                ;
 
 
             });
@@ -122,10 +125,24 @@
 
 @section('content')
 
-    <div class="ui container">
+    <div class="ui container" style="margin-top:10px">
 
         <div class="ui segment">
-            <div class="ui four statistics">
+            <div class="ui five statistics">
+                <div class="statistics">
+                    <div class="ui floating dropdown labeled search icon button">
+                        <i class="calendar icon"></i>
+                        <span class="text">Siste 7 dager</span>
+                        <div class="menu">
+                            <div class="item">Siste 14 dager</div>
+                            <div class="item">Siste måned</div>
+                            <div class="item">Siste to måneder</div>
+                            <div class="item">Siste 6 måneder</div>
+                            <div class="item">Siste 1 år</div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="statistic">
                     <div class="value">22</div>
                     <div class="label">Ordre</div>
@@ -189,7 +206,7 @@
 
         <div class="ui embed segment" id="map" style="">
     </div>
-    
+
 
 
 
