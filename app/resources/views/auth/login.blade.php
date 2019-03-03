@@ -1,9 +1,62 @@
 @extends('layouts.auth')
 
+@section('header')
+    <style type="text/css">
+        body {
+            background-color: #f7f7f7;
+        }
+        body > .grid {
+            height: 100%;
+        }
+
+        .column-spesific {
+            max-width: 450px;
+        }
+    </style>
+    <script>
+        $(document)
+            .ready(function() {
+                $('.ui.form')
+                    .form({
+                        fields: {
+                            email: {
+                                identifier  : 'email',
+                                rules: [
+                                    {
+                                        type   : 'empty',
+                                        prompt : 'Please enter your e-mail'
+                                    },
+                                    {
+                                        type   : 'email',
+                                        prompt : 'Please enter a valid e-mail'
+                                    }
+                                ]
+                            },
+                            password: {
+                                identifier  : 'password',
+                                rules: [
+                                    {
+                                        type   : 'empty',
+                                        prompt : 'Please enter your password'
+                                    },
+                                    {
+                                        type   : 'length[6]',
+                                        prompt : 'Your password must be at least 6 characters'
+                                    }
+                                ]
+                            }
+                        }
+                    })
+                ;
+            })
+        ;
+    </script>
+@endsection
+
 @section('content')
 
 
-<div class="container">
+<!--<div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -71,5 +124,44 @@
             </div>
         </div>
     </div>
+</div> -->
+
+
+<div class="ui middle aligned center aligned grid" style="margin-top:50px">
+    <div class="column column-spesific">
+        <h2 class="ui image header">
+            <div class="content">
+                Logg inn på din bruker
+            </div>
+        </h2>
+        <form method="POST" action="{{ route('login') }}" class="ui large form">
+            @csrf
+
+            <div class="ui stacked segment">
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        <input type="text" name="email" placeholder="E-post adresse">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="lock icon"></i>
+                        <input type="password" name="password" placeholder="Passord">
+                    </div>
+                </div>
+                <input type="submit" value="Logg inn" class="ui fluid large  submit button">
+            </div>
+
+            <div class="ui error message"></div>
+
+        </form>
+
+        <div class="ui message">
+            Glemt passord? <a href="#">Tilbakestill passord</a>
+        </div>
+    </div>
 </div>
+
 @endsection
+
