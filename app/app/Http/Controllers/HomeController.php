@@ -115,6 +115,8 @@ class HomeController extends Controller
         $atte = Route::where('date', '=',  $date)->where('time', '=', '08:00:00')->get();
         $ti = Route::where('date', '=',  $date)->where('time', '=', '10:00:00')->get();
         $tolv = Route::where('date', '=',  $date)->where('time', '=', '12:00:00')->get();
+
+        $ett = Route::where('date', '=',  $date)->where('time', '=', '13:00:00')->get();
         $to = Route::where('date', '=',  $date)->where('time', '=', '14:00:00')->get();
         $kveld = Route::where('date', '=',  $date)->where('time', '=', '17:30:00')->get();
 
@@ -152,7 +154,7 @@ class HomeController extends Controller
 
 
 
-        return view('office.prototest')->with(compact('routes', 'drivers', 'halvsju', 'atte', 'ti', 'tolv', 'to', 'kveld', 'date', 'orders', 'workshop_id', 'workshops'));
+        return view('office.prototest')->with(compact('routes', 'drivers', 'halvsju', 'atte', 'ti', 'tolv', 'ett', 'to', 'kveld', 'date', 'orders', 'workshop_id', 'workshops'));
     }
 
     public function getPrototest2(Request $request){
@@ -820,7 +822,7 @@ class HomeController extends Controller
         $driver_id = $request->driver_id;
 
 
-
+        $driver = User::find($driver_id);
 
         $route = Route::find($route_id);
 
@@ -828,8 +830,11 @@ class HomeController extends Controller
 
         $route->save();
 
+        $flashString = $driver->name.' er registrert på rute '.$route->route.' klokken '.date('H:i.', strtotime($route->time));
+        $request->session()->flash('regconfirm', $flashString);
 
         return back();
+
 
     }
 
@@ -839,12 +844,39 @@ class HomeController extends Controller
 
         $route = Route::find($route_id);
 
-        $route->active = 1;
+        $driver = null;
 
-        $route->save();
+        $driver = User::find($route->driver_id);
+
+        //Does the route have any connected driver?
+        if(empty($driver)){
+            $request->session()->flash('negative', 'Du har ikke valgt noen sjåfør. Vennligst velg en sjåfør og prøv på nytt.');
+            return back();
+        }
+
+        //If it's a connected driver but it already assigned to an active route.
+        elseif(!empty(Route::where('driver_id', $driver->id)->where('active', 1)->first())){
+
+            $request->session()->flash('negative', 'Sjåføren er allerede knyttet til en annen aktiv rute. Vennligst fullfør ruten eller bytt sjåfør.');
+            return back();
+
+        }
+        else{
+            $route->active = 1;
+
+            $route->save();
+
+            $flashString = 'Rute '.$route->route.' klokken '.date('H:i', strtotime($route->time)). ' som kjøres av '.$driver->name.' er satt som aktiv.';
+            $request->session()->flash('regconfirm', $flashString);
+            return back();
+        }
 
 
-        return back();
+
+
+
+
+
     }
 
     public function setInactive(Request $request){

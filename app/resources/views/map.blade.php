@@ -137,7 +137,7 @@
         <div class="ui segment">
             <div class="ui five statistics">
                 <div class="statistics">
-                    <div class="ui floating dropdown labeled search icon button bg-white">
+                    <div class="ui floating dropdown  search icon labeled bg-white">
                         <i class="calendar icon"></i>
                         <span class="text">Siste 7 dager</span>
                         <div class="menu">
