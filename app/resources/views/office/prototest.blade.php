@@ -102,6 +102,8 @@
                 }
 
 
+
+
             });
 
         //Is called to open the modal when an order is pressed.
@@ -375,11 +377,19 @@
                         @csrf
                         <div class="three fields">
                             <div class="field">
+
                                 <select class="ui search dropdown">
+
                                     @foreach($workshops as $w)
-                                    <option value="">{{ $w->name }}</option>
+
+                                        <option value="">{{ $w->name }}</option>
+
                                     @endforeach
+
                                 </select>
+
+
+
                             </div>
                             <div class="field">
                                 <div class="ui corner labeled input">
@@ -496,7 +506,7 @@
                                                     <div class="content">
                                                         <div class="header">
                                                             {{ $stop->workshop->name }} <span style="color:grey; font-size:0.8em">{{ $stop->workshop->workshop_id }}</span>
-                                                            <span class="right floated">
+                                                            <!--<span class="right floated">
                   <div class="ui dropdown">
                     <div class="text">1</div>
                     <i class="dropdown icon"></i>
@@ -509,7 +519,7 @@
                       </div>
                     </div>
                   </div>
-                </span>
+                </span>-->
                                                         </div>
                                                         <!-- Set to active to display -->
                                                         <div class="ui list horizontal attached">
@@ -655,22 +665,22 @@
                                                     <div class="content">
                                                         <div class="header">
                                                             {{ $stop->workshop->name }} <span style="color:grey; font-size:0.8em">{{ $stop->workshop->workshop_id }}</span>
-                                                            <span class="right floated">
-                  <div class="ui dropdown">
-                    <div class="text">1</div>
-                    <i class="dropdown icon"></i>
-                    <div class="menu">
-                      <div class="item">
-                        1
-                      </div>
-                      <div class="item">
-                        2
-                      </div>
-                    </div>
-                  </div>
-                </span>
-                                                        </div>
-                                                        <!-- Set to active to display -->
+                                                            <!-- <span class="right floated">
+                   <div class="ui dropdown">
+                     <div class="text">1</div>
+                     <i class="dropdown icon"></i>
+                     <div class="menu">
+                       <div class="item">
+                         1
+                       </div>
+                       <div class="item">
+                         2
+                       </div>
+                     </div>
+                   </div>
+                 </span>-->
+                                                         </div>
+                                                         <!-- Set to active to display -->
                                                         <div class="ui list horizontal attached">
                                                             @foreach($stop->orders as $order)
                                                                 <a class="item" style="border: 1px solid lightgray; border-radius: 5px; margin:5px">
@@ -814,7 +824,7 @@
                                                     <div class="content">
                                                         <div class="header">
                                                             {{ $stop->workshop->name }} <span style="color:grey; font-size:0.8em">{{ $stop->workshop->workshop_id }}</span>
-                                                            <span class="right floated">
+                                                            <!--<span class="right floated">
                   <div class="ui dropdown">
                     <div class="text">1</div>
                     <i class="dropdown icon"></i>
@@ -827,7 +837,7 @@
                       </div>
                     </div>
                   </div>
-                </span>
+                </span>-->
                                                         </div>
                                                         <!-- Set to active to display -->
                                                         <div class="ui list horizontal attached">
@@ -973,22 +983,22 @@
                                                     <div class="content">
                                                         <div class="header">
                                                             {{ $stop->workshop->name }} <span style="color:grey; font-size:0.8em">{{ $stop->workshop->workshop_id }}</span>
-                                                            <span class="right floated">
-                  <div class="ui dropdown">
-                    <div class="text">1</div>
-                    <i class="dropdown icon"></i>
-                    <div class="menu">
-                      <div class="item">
-                        1
-                      </div>
-                      <div class="item">
-                        2
-                      </div>
-                    </div>
-                  </div>
-                </span>
-                                                        </div>
-                                                        <!-- Set to active to display -->
+                                                            <!--   <span class="right floated">
+                     <div class="ui dropdown">
+                       <div class="text">1</div>
+                       <i class="dropdown icon"></i>
+                       <div class="menu">
+                         <div class="item">
+                           1
+                         </div>
+                         <div class="item">
+                           2
+                         </div>
+                       </div>
+                     </div>
+                   </span>-->
+                                                           </div>
+                                                           <!-- Set to active to display -->
                                                         <div class="ui list horizontal attached">
                                                             @foreach($stop->orders as $order)
                                                                 <a class="item" style="border: 1px solid lightgray; border-radius: 5px; margin:5px">
@@ -1132,22 +1142,22 @@
                                                 <div class="content">
                                                     <div class="header">
                                                         {{ $stop->workshop->name }} <span style="color:grey; font-size:0.8em">{{ $stop->workshop->workshop_id }}</span>
-                                                        <span class="right floated">
-              <div class="ui dropdown">
-                <div class="text">1</div>
-                <i class="dropdown icon"></i>
-                <div class="menu">
-                  <div class="item">
-                    1
-                  </div>
-                  <div class="item">
-                    2
+                                                        <!--  <span class="right floated">
+                <div class="ui dropdown">
+                  <div class="text">1</div>
+                  <i class="dropdown icon"></i>
+                  <div class="menu">
+                    <div class="item">
+                      1
+                    </div>
+                    <div class="item">
+                      2
+                    </div>
                   </div>
                 </div>
-              </div>
-            </span>
-                                                    </div>
-                                                    <!-- Set to active to display -->
+              </span>-->
+                                                      </div>
+                                                      <!-- Set to active to display -->
                                                     <div class="ui list horizontal attached">
                                                         @foreach($stop->orders as $order)
                                                             <a class="item" style="border: 1px solid lightgray; border-radius: 5px; margin:5px">
@@ -1291,7 +1301,7 @@
                                                     <div class="content">
                                                         <div class="header">
                                                             {{ $stop->workshop->name }} <span style="color:grey; font-size:0.8em">{{ $stop->workshop->workshop_id }}</span>
-                                                            <span class="right floated">
+                                                            <!--<span class="right floated">
                   <div class="ui dropdown">
                     <div class="text">1</div>
                     <i class="dropdown icon"></i>
@@ -1304,7 +1314,7 @@
                       </div>
                     </div>
                   </div>
-                </span>
+                </span>-->
                                                         </div>
                                                         <!-- Set to active to display -->
                                                         <div class="ui list horizontal attached">
