@@ -134,9 +134,15 @@
                 <div class="ui divider"></div>
                     @if(!empty($route))
                         @foreach($route as $r)
+                            @if($r->started === 1)
+                            <p class="lead text-center animated fadeIn text-size">Aktiv rute <strong>{{ $r->route }}</strong> klokken <strong>{{ date('H:i', strtotime($r->time)) }}</strong></p>
+
+                            <a class="abc big ui button ui black button" href="{{ route('transport.route-drive') }}">Gå til ruten</a>
+                            @else
                             <p class="lead text-center animated fadeIn text-size">Påmeldt rute <strong>{{ $r->route }}</strong> klokken <strong>{{ date('H:i', strtotime($r->time)) }}</strong></p>
 
                             <a class="abc big ui button ui black button" href="{{ route('transport.route-preview') }}">Se kjøreliste</a>
+                            @endif
                         @endforeach
                     @else
                         <p class="lead text-center animated fadeIn">Du har <strong>ingen</strong> aktive ruter.</p>

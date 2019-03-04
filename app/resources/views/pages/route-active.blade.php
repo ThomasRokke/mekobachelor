@@ -126,6 +126,13 @@
             cursor: pointer;
             color: black !important;
         }
+
+        .dots{
+            text-overflow: ellipsis !important;
+            white-space: nowrap !important;
+        }
+
+
     </style>
 @endsection
 
@@ -166,15 +173,15 @@
 
                     @foreach($stops as $stop)
 
-                        <div class="item title">
+                        <div class="item title dots">
 
 
 
-                            <div class="content">
+                            <div class="content ">
                                 @if($stop->delivered != 1)
-                                    <a style="color:black !important;" class="ui header">  <i style="color:gray!important;" class="icon times"></i>{{ $stop->workshop->name }} </a>
+                                    <a style="color:black !important;" class="ui header dots-max-width ">  <i style="color:gray!important;" class="icon times"></i>{{ $stop->workshop->name }} </a>
                                 @else
-                                    <a style="color:black !important;" class="ui header">  <i style="color:green!important;" class="icon check"></i>{{ $stop->workshop->name }} </a>
+                                    <a style="color:black !important;" class="ui header ">  <i style="color:green!important;" class="icon check"></i>{{ $stop->workshop->name }} </a>
                                 @endif
 
                             </div>
