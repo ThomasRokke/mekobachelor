@@ -199,7 +199,7 @@
 
 @section('content')
 
-    <div class="ui text container" style="margin-top:80px;">
+    <div class="ui text container" style="margin-top:10px;">
         <div class="ui segment  ">
             <!-- Left rail start-->
             <div class="ui left dividing rail">

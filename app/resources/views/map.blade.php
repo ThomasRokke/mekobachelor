@@ -120,7 +120,14 @@
             font-size: 20px;
         }
 
+
+
     </style>
+
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+    <script src="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.js"></script>
 @endsection
 
 @section('content')
@@ -130,7 +137,7 @@
         <div class="ui segment">
             <div class="ui five statistics">
                 <div class="statistics">
-                    <div class="ui floating dropdown labeled search icon button">
+                    <div class="ui floating dropdown labeled search icon button bg-white">
                         <i class="calendar icon"></i>
                         <span class="text">Siste 7 dager</span>
                         <div class="menu">
@@ -141,6 +148,42 @@
                             <div class="item">Siste 1 år</div>
                         </div>
                     </div>
+
+                    <h6 id="range-trigger" style="color:darkgrey" class="ui horizontal divider header clearing">
+                        Eller <i class="icon caret down"></i>
+                    </h6>
+                    <div id="range-content" style="display: none" class="ui form">
+                        <div class="one fields">
+                            <div class="field">
+
+                                <div class="ui calendar" id="rangestart">
+                                    <div class="ui input left icon">
+                                        <i class="calendar icon"></i>
+                                        <input type="text" placeholder="Fra dato">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <h6 style="color:darkgrey; !important;" class="ui horizontal divider header clearing">
+                            <i class="icon exchange"></i>
+                        </h6>
+                        <div class="one fields">
+
+
+                            <div class="field">
+
+                                <div class="ui calendar" id="rangeend">
+                                    <div class="ui input left icon">
+                                        <i class="calendar icon"></i>
+                                        <input type="text" placeholder="Til dato">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
                 <div class="statistic">
@@ -179,26 +222,72 @@
 
             </div>
             <div class="four wide column">
-                <div class="ui loading segment">
-                    <canvas id="myChart"></canvas>
-                </div>
-            </div>
-            <div class="four wide column">
-                <div class="ui loading segment">
-                    <canvas id="myChart"></canvas>
+                <div class="ui segment">
+
+                    <div class="ui fluid placeholder">
+                        <div class="image header">
+                            <div class="line"></div>
+                            <div class="line"></div>
+                        </div>
+                        <div class="paragraph">
+                            <div class="line"></div>
+                            <div class="line"></div>
+                            <div class="line"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <div class="four wide column">
-                <div class="ui loading segment">
-                    <canvas id="myChart"></canvas>
+                <div class="ui segment">
+
+                    <div class="ui fluid placeholder">
+                        <div class="image header">
+                            <div class="line"></div>
+                            <div class="line"></div>
+                        </div>
+                        <div class="paragraph">
+                            <div class="line"></div>
+                            <div class="line"></div>
+                            <div class="line"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="four wide column">
-                <div class="ui loading segment">
-                    <canvas id="myChart"></canvas>
+                <div class="ui segment">
+
+                    <div class="ui fluid placeholder">
+                        <div class="image header">
+                            <div class="line"></div>
+                            <div class="line"></div>
+                        </div>
+                        <div class="paragraph">
+                            <div class="line"></div>
+                            <div class="line"></div>
+                            <div class="line"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <div class="four wide column">
+                <div class="ui segment">
+
+                    <div class="ui fluid placeholder">
+                        <div class="image header">
+                            <div class="line"></div>
+                            <div class="line"></div>
+                        </div>
+                        <div class="paragraph">
+                            <div class="line"></div>
+                            <div class="line"></div>
+                            <div class="line"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
 
 
 
@@ -222,6 +311,17 @@
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/heatmap.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+            <script>
+                $('#rangestart').calendar({
+                    type: 'date',
+                    endCalendar: $('#rangeend')
+                });
+                $('#rangeend').calendar({
+                    type: 'date',
+                    startCalendar: $('#rangestart')
+                });
+            </script>
 
     <script>
         Highcharts.chart('container', {
@@ -336,6 +436,7 @@
 
 
             @foreach($routes as $route)
+
             @foreach($route->stops as $stop)
 
             var from{{ $stop->id }} = {lat:{!! $stop->workshop->lat !!}, lng:{!! $stop->workshop->lng !!}};
@@ -391,4 +492,10 @@
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbs_N37A9PUe80-qtBc4EzC4_GJ_0PJKs&callback=initMap">
     </script>
+
+            <script>
+                $("#range-trigger").click(function() {
+                    $("#range-content").toggle("fast");
+                });
+            </script>
 @endsection

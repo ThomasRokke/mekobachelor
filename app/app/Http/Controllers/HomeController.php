@@ -32,7 +32,9 @@ class HomeController extends Controller
 
     public function getMap(){
 
-        $routes = Route::where('date', '=', date('Y/m/d', strtotime('-1 days')))->get();
+        $routes = Route::where('date', '>', date('Y/m/d', strtotime('-10 days')))->get();
+
+
 
         $activeCount = count($routes);
 
@@ -672,8 +674,9 @@ class HomeController extends Controller
 
 
         }
+                        //22:32:33
+        $timeStamp =  date('H:i:s');
 
-        $timeStamp = '07:20:00';
 
 
         //Set the time if it have not yet been specified
