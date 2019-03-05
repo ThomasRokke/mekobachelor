@@ -545,7 +545,7 @@
                                                     </div>
                                                 @endforeach
                                             </div>
-                                            <div class="ui bottom attached four item menu">
+                                            <div class="ui bottom attached three item menu">
                                                 @php
                                                     $routeName = 'proto.prototest';
                                                     if($route->active === 1){
@@ -593,21 +593,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <a class="item">
-                                                    <div class="ui dropdown">
-                                                        <i class="car icon"></i>
-                                                        <div class="text">CF54301</div>
-                                                        <i class="dropdown icon"></i>
-                                                        <div class="menu">
-                                                            <div class="item">
-                                                                DJ32112
-                                                            </div>
-                                                            <div class="item">
-                                                                LS23111
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>
                                                 <a class="item"><i class="clock outline layout icon" ></i> {{ ($route->started === 1) ? $route->started_time  : '?' }} - {{ ($route->finished === 1) ? $route->finished_time  : '?' }} </a>
                                             </div>
                                         </div>
