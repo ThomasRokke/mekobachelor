@@ -287,7 +287,7 @@
                 @endif
                 <div class="ui top attached tabular menu">
                     <a class="active item" data-tab="first">Ordre</a>
-                    <a class="item" data-tab="third">Hente</a>
+                    <!--<a class="item" data-tab="third">Hente</a>-->
                 </div>
                 <div class="ui bottom attached active tab segment" data-tab="first">
                     <form method="POST" action="{{ route('office.postroute') }}" class="ui form order error" >
@@ -698,7 +698,7 @@
                     <div class="ui list">
                         <div class="item">
                             <h3 class="ui center aligned header">
-                                Sjåfører
+                                Sjåfør status
                             </h3>
                         </div>
 
@@ -716,8 +716,8 @@
                                         @if($driver->active === 1)
 
                                             @if($driver->started === 1)
-                                                <div class="description">Kjører <a><b>rute {{ $driver->route->route }}</b></a></div>
-                                                <div class="description">Startet {{ date('H:i',strtotime($driver->route->created_at)) }} <a></a></div>
+                                                <div class="description">Kjører <a><b>rute {{ $driver->route }}</b></a></div>
+                                                <div class="description">Startet {{ date('H:i',strtotime($driver->created_at)) }} <a></a></div>
 
                                                 @php
                                                     $driverRoute = $driver;
