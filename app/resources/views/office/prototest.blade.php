@@ -195,9 +195,27 @@
 
 
         .overflow-dots{
+            white-space: nowrap;
             text-overflow: ellipsis;
-            width: 100%;
+            display: block;
+            overflow: hidden;
+            max-width: 200px;
 
+        }
+
+        .overflow-scroll{
+            max-height: 50vh!important;
+            overflow:hidden;
+            overflow-y:scroll;
+        }
+
+        ::-webkit-scrollbar {
+            width: 0px !important;  /* remove scrollbar space */
+            background: transparent !important;  /* optional: just make scrollbar invisible */
+        }
+        /* optional: show position indicator in red */
+        ::-webkit-scrollbar-thumb {
+            background: #FF0000 !important;
         }
     </style>
 
@@ -221,17 +239,22 @@
                             Nylig registrert
                         </h3>
                     </div>
-                    <div class="ui middle aligned divided list">
+
+                    <div class="ui relaxed divided list overflow-scroll">
                         @foreach($orders as $order)
                             <div class="item">
                                 @if($order->delivered === 1)
-                                    <i   class="check green icon"></i>
+                                    <i class="large check green middle aligned icon"></i>
                                 @else
-                                    <i   class="orange cogs icon"></i>
+
+                                    <i class="large orange cogs middle aligned icon"></i>
                                 @endif
 
+
                                 <div class="content">
-                                    <a onclick="editOrder({{ $order->ordernumber }})" class="header overflow-dots">{{ $order->ordernumber }}</a><a style="color:black" href="{{ route('proto.prototest', ['workshop_id' => $order->stop->workshop->workshop_id]) }}" >{{ $order->stop->workshop->name }}</a> <span style="color:gray"><i class="icon clock outline"></i> {{ date('H:i d. M ',strtotime($order->created_at)) }}</span>
+                                    <a onclick="editOrder({{ $order->ordernumber }})" class="header">{{ $order->ordernumber }}</a>
+                                    <div class="description">{{ date('H:i d. M ',strtotime($order->created_at)) }}</div>
+                                    <a href="{{ route('proto.prototest', ['workshop_id' => $order->stop->workshop->workshop_id]) }}" class="description overflow-dots"><i class="icon wrench"></i> {{ $order->stop->workshop->name }}</a>
                                 </div>
 
 
@@ -239,8 +262,8 @@
                         @endforeach
 
 
-
                     </div>
+
 
 
 

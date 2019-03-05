@@ -142,7 +142,7 @@ class HomeController extends Controller
 
 
         //Get the recently registered orders. Order by created at DESC and limit the search to 10.
-        $orders = Order::orderBy('created_at', 'desc')->paginate(10);
+        $orders = Order::orderBy('created_at', 'desc')->paginate(50);
 
 
 
