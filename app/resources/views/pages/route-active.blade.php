@@ -179,9 +179,9 @@
 
                             <div class="content ">
                                 @if($stop->delivered != 1)
-                                    <a style="color:black !important;" class="ui header dots-max-width ">  <i style="color:gray!important;" class="icon times"></i>{{ $stop->workshop->name }} </a>
+                                    <a style="color:black !important; font-size: 1.05em" class="ui header dots-max-width ">  <i style="color:gray!important;" class="icon times"></i>{{ $stop->workshop->name }} </a>
                                 @else
-                                    <a style="color:black !important;" class="ui header ">  <i style="color:green!important;" class="icon check"></i>{{ $stop->workshop->name }} </a>
+                                    <a style="color:black !important; font-size: 1.05em" class="ui header ">  <i style="color:green!important;" class="icon check"></i>{{ $stop->workshop->name }} </a>
                                 @endif
 
                             </div>
@@ -203,7 +203,11 @@
 
                                 <div class="ui toggle checkbox toggle-spacing">
                                     <input type="checkbox"  checked name="{{ $order->ordernumber }}">
-                                    <label>{{ $order->ordernumber }}</label>
+                                    <label>{{ $order->ordernumber }}
+                                        @if($order->amount > 0)
+                                            <i class="green money bill alternate outline icon"></i>
+                                            {{ $order->amount }}kr
+                                        @endif</label>
                                 </div>
 
                                 <div class="ui fitted divider"></div>
@@ -228,7 +232,12 @@
 
                                     <div class="ui toggle checkbox toggle-spacing">
                                         <input type="checkbox" value="{{ $order->ordernumber }}" {{ ($order->delivered === 1 ) ? 'checked' :  '' }} name="{{ $order->ordernumber }}">
-                                        <label>{{ $order->ordernumber }} </label>
+                                        <label>{{ $order->ordernumber }}
+                                            @if($order->amount > 0)
+                                                <i class="green money bill alternate outline icon"></i>
+                                                {{ $order->amount }}kr
+                                            @endif
+                                        </label>
                                     </div>
 
                                     <div class="ui fitted divider"></div>
