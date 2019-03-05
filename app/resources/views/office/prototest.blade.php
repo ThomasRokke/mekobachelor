@@ -1,6 +1,9 @@
 @extends('layouts.semantic')
 
 @section('header')
+
+
+
     <script type="text/javascript">
         $(document)
             .ready(function() {
@@ -197,6 +200,12 @@
 
         }
     </style>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+
+
 @endsection
 
 @section('content')
@@ -444,7 +453,7 @@
                         <i class="left arrow icon"></i>
                         Forrige
                     </a>
-                    <button class="ui left icon button basic">
+                    <button id="flatPickr" class="ui left icon button basic">
                         <i class="calendar icon"></i>
                         {{ date('d M y', strtotime($date)) }}
                     </button>
@@ -567,7 +576,7 @@
                                                         <div class="ui animated fade button basic orange" tabindex="0">
                                                             <div class="visible content"><i class="spinner loading icon"></i> Aktiv</div>
                                                             <div class="hidden content">
-                                                                Brroom..
+                                                                Gjør inaktiv
                                                             </div>
                                                         </div>
                                                     @else
@@ -618,24 +627,25 @@
                             </h3>
                         </div>
 
-                        @foreach($drivers as $driver)
+                        @foreach($driversStatus as $driver)
                             <div class="item">
                                 <img class="ui avatar image" src="https://semantic-ui.com/images/avatar/small/tom.jpg">
                                 <div class="content">
-                                    <a class="header">{{ $driver->name }}</a>
+                                    <a class="header">{{ $driver->driver->name }}</a>
+
 
                                     <!-- TODO!! Må opprette logikk for å håndtere flere sjåfører. Nå leter den kun i den FØRSTE aktive ruten. -->
                                     @if(!empty($driver->route))
 
 
-                                        @if($driver->route->active === 1)
+                                        @if($driver->active === 1)
 
-                                            @if($driver->route->started === 1)
+                                            @if($driver->started === 1)
                                                 <div class="description">Kjører <a><b>rute {{ $driver->route->route }}</b></a></div>
                                                 <div class="description">Startet {{ date('H:i',strtotime($driver->route->created_at)) }} <a></a></div>
 
                                                 @php
-                                                    $driverRoute = $driver->route;
+                                                    $driverRoute = $driver;
                                                     $total = 0;
                                                     $finished = 0;
 
@@ -660,7 +670,7 @@
                                                 </div>
 
                                             @else
-                                                <div class="description">Påmeldt aktiv <a><b>rute {{ $driver->route->route }}</b></a></div>
+                                                <div class="description">Påmeldt aktiv <a><b>rute {{ $driver->route }}</b></a></div>
 
 
                                             @endif
@@ -679,6 +689,16 @@
                             </div>
                         @endforeach
 
+                        @if(!($driversStatus->count() > 0))
+
+                            <div class="item ">
+                                <div class="content ">
+                                    <a class="header" style="color:gray!important;">Ingen er påmeldt en aktiv rute.</a>
+                                </div>
+                            </div>
+
+
+                        @endif
 
 
 
@@ -826,4 +846,18 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('bottom-scripts')
+    <script>
+        var flat = flatpickr("#flatPickr", {
+            onChange: function(selectedDates, dateStr, instance){
+              console.log(dateStr);
+                window.location.href = "http://localhost:8000/prototest?date="+dateStr;
+            },
+
+        });
+
+
+    </script>
 @endsection

@@ -141,7 +141,9 @@ class HomeController extends Controller
 
 
 
-        $orders = Order::paginate(10);
+        //Get the recently registered orders. Order by created at DESC and limit the search to 10.
+        $orders = Order::orderBy('created_at', 'desc')->paginate(10);
+
 
 
 // $games->results = the 30 you asked for
@@ -153,6 +155,13 @@ class HomeController extends Controller
 
 
        // dd($routes);
+
+       /* $drivers = User::with('route')->whereHas('route', function($q){
+            $q->where('active', '=', 1);
+        })->get();
+       */
+        $driversStatus =  Route::where('active', 1)->get();
+
 
         $drivers = User::all();
 
@@ -172,7 +181,7 @@ class HomeController extends Controller
 
 
 
-        return view('office.prototest')->with(compact('routeObjects','routes', 'drivers', 'halvsju', 'atte', 'ti', 'tolv', 'ett', 'to', 'kveld', 'date', 'orders', 'workshop_id', 'workshops'));
+        return view('office.prototest')->with(compact('routeObjects','routes', 'drivers', 'driversStatus', 'halvsju', 'atte', 'ti', 'tolv', 'ett', 'to', 'kveld', 'date', 'orders', 'workshop_id', 'workshops'));
     }
 
     public function getPrototest2(Request $request){
