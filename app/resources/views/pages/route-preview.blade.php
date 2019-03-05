@@ -134,11 +134,51 @@
 
                 <div class="ui middle aligned divided list accordion ">
 
+
+                    @php
+
+                    $gotCash = false;
+                    $totalCash = 0;
+                    $amountOfCashOrders = 0;
+                    foreach($stops as $s){
+                        foreach($s->orders as $o){
+                            if($o->amount !== null){
+                                $totalCash = $totalCash + $o->amount;
+                                $amountOfCashOrders++;
+                                $gotCash = true;
+                            }
+                        }
+                    }
+
+                    @endphp
+
+                    @if($gotCash)
+                    <div class="item title">
+                        <div class="content">
+                            <a style="color:#2f2f2f !important; border: 1px solid orange; border-radius: 5px; padding:10px; font-size: 1.1em" class="ui header">  <i style="color:green!important;" class="green money bill alternate outline icon"></i>OBS! Kontant! Ta med terminal </a>
+                        </div>
+                    </div>
+
+                    <div class="content">
+
+
+
+                            <div class="ui toggle checkbox toggle-spacing">
+
+                                <p class="">Totalt: <strong style="color:black!important;">{{ $totalCash }}kr </strong> fordelt på <strong style="color:black!important;">{{ $amountOfCashOrders }} ordre.</strong></p>
+                            </div>
+
+                            <div class="ui fitted divider"></div>
+
+                    </div>
+
+                    @endif
+
                     @foreach($stops as $stop)
 
                         <div class="item title">
                            <div class="content">
-                              <a style="color:black !important;" class="ui header">  <i style="color:gray!important;" class="icon wrench"></i>{{ $stop->workshop->name }} </a>
+                              <a style="color:black !important; font-size: 0.9em" class="ui header">  <i style="color:gray!important;" class="icon wrench"></i>{{ $stop->workshop->name }} </a>
                             </div>
                         </div>
 

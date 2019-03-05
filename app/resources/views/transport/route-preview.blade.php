@@ -34,7 +34,7 @@
                     <div id="wrapper-1" class="card ">
                         <div class="card-header d-flex justify-content-between align-items-centerd-flex justify-content-between align-items-center ">
 
-                            <a class="collapsed card-link card-collapse-link btn  " style="width:80%" data-toggle="collapse" href="#collapse{{ $stop->workshop->workshop_id }}">
+                            <a class="collapsed card-link card-collapse-link btn  " style="width:80%; " data-toggle="collapse" href="#collapse{{ $stop->workshop->workshop_id }}">
                                 {{ $stop->workshop->name }}
                             </a>
 

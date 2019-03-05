@@ -18,6 +18,34 @@
                     .sidebar('setting', 'transition', 'overlay');
                 $('.open.button')
                     .removeClass('disabled');
+
+
+                @php
+
+                    $gotCash = false;
+                    $totalCash = 0;
+                    $amountOfCashOrders = 0;
+                    foreach($route->stops as $s){
+                        foreach($s->orders as $o){
+                            if($o->amount !== null){
+                                $totalCash = $totalCash + $o->amount;
+                                $amountOfCashOrders++;
+                                $gotCash = true;
+                            }
+                        }
+                    }
+
+                @endphp
+
+                @if($gotCash)
+                $('.ui.dimmer.modals')
+                    .modal('setting', 'closable', false)
+                    .modal('show')
+
+                ;
+                @endif
+
+
             });
         //Is called to open the modal when an order is pressed.
         function editOrder(id) {
@@ -83,6 +111,9 @@
     <main style="margin-bottom: 60vh;">
         <div class="ui container" style="margin-top:80px;">
             <div class="ui segment">
+
+
+
                 <h4 class="text-center">Fyll inn antall kilometer ved start</h4>
 
                 <form method="post" action="{{ route('transport.route-setstartkm') }}">
@@ -111,4 +142,48 @@
             </div>
         </div>
     </main>
+
+    <div class="ui dimmer modals page transition" style="display: flex !important;"><div class="ui fullscreen modal transition hidden">
+            <i class="close icon"></i>
+            <div class="header">
+                Update Your Settings
+            </div>
+            <div class="content">
+                <div class="ui form">
+                    <h4 class="ui dividing header">Give us your feedback</h4>
+                    <div class="field">
+                        <label>Feedback</label>
+                        <textarea data-gramm="true" data-txt_gramm_id="30999a71-9e71-879b-1436-e798d2805f51" data-gramm_id="30999a71-9e71-879b-1436-e798d2805f51" spellcheck="false" data-gramm_editor="true" style="z-index: auto; position: relative; line-height: 17.9998px; font-size: 14px; transition: none 0s ease 0s; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255);"></textarea><grammarly-btn><div class="_1BN1N Kzi1t MoE_1 _2DJZN" style="z-index: 2; transform: translate(1719.05px, 184px);"><div class="_1HjH7"><div title="Protected by Grammarly" class="_3qe6h">&nbsp;</div></div></div></grammarly-btn>
+                    </div>
+                    <div class="field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" checked="checked" name="contact-me" tabindex="0" class="hidden">
+                            <label>It's okay to contact me.</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="actions">
+                <div class="ui button">Cancel</div>
+                <div class="ui green button">Send</div>
+            </div>
+        </div><div class="ui small basic test modal transition visible active" style="display: block !important;">
+            <div class="ui icon header">
+                <i class="green money bill alternate outline icon"></i>
+                Kontantordre på ruten
+            </div>
+            <div class="content">
+                <p>Husk å ta med bankterminal. Har du tatt med terminal?</p>
+            </div>
+            <div class="actions">
+                <div class="ui red basic cancel inverted button">
+                    <i class="remove icon"></i>
+                    Nei
+                </div>
+                <div class="ui green ok inverted button">
+                    <i class="checkmark icon"></i>
+                    Ja
+                </div>
+            </div>
+        </div></div>
 @endsection
