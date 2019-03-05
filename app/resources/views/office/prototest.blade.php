@@ -203,6 +203,7 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/no.js"></script>
 
 
 
@@ -768,7 +769,7 @@
 
                             <div class="item ">
                                 <div class="content ">
-                                    <a class="header" style="color:gray!important;">Ingen er påmeldt en aktiv rute.</a>
+                                    <a class="header" style="color:gray!important;">Ingen påmeldt på aktiv rute.</a>
                                 </div>
                             </div>
 
@@ -930,6 +931,7 @@
               console.log(dateStr);
                 window.location.href = "http://localhost:8000/prototest?date="+dateStr;
             },
+            "locale": "no"
 
         });
 
