@@ -111,6 +111,24 @@ class HomeController extends Controller
             $date = date('Y/m/d');
         }
 
+        //Get me the distinct times found in the route_times table and order them by time.
+        //Results will be in the lines of 08:00:00, 09:00:00, 10:00:00 etc.
+        $route_times = DB::table('route_times')->select('time')->distinct()->orderBy('time')->get();
+
+
+        $timesArray = $route_times->toArray();
+
+        $routeObjects = array();
+       // dd($timesArray[0]->time);
+        foreach($route_times as $t){
+
+            array_push($routeObjects, Route::where('date',  $date)->where('time', $t->time)->get());
+        }
+
+
+
+
+
         $halvsju = Route::where('date',  $date)->where('time', '07:30:00')->get();
         $atte = Route::where('date', '=',  $date)->where('time', '=', '08:00:00')->get();
         $ti = Route::where('date', '=',  $date)->where('time', '=', '10:00:00')->get();
@@ -154,7 +172,7 @@ class HomeController extends Controller
 
 
 
-        return view('office.prototest')->with(compact('routes', 'drivers', 'halvsju', 'atte', 'ti', 'tolv', 'ett', 'to', 'kveld', 'date', 'orders', 'workshop_id', 'workshops'));
+        return view('office.prototest')->with(compact('routeObjects','routes', 'drivers', 'halvsju', 'atte', 'ti', 'tolv', 'ett', 'to', 'kveld', 'date', 'orders', 'workshop_id', 'workshops'));
     }
 
     public function getPrototest2(Request $request){

@@ -454,960 +454,173 @@
                     </a>
                 </div>
                 <div class="ui section divider"></div>
-                @if(!$halvsju->isEmpty())
-                        <div class="route-wrapper ui accordion">
-                            <h2 class="title"><i class="ui icon caret down"></i> 07:30 <i class="ui clock outline icon "></i></h2>
-                            <div class="content {{ ($halvsju[0]->time > date('H:i:s', strtotime(now()))) ? 'active' : '' }}">
-                                <div class="ui top  tabular menu">
 
-                                    @php
 
-                                        $opened = false;
-
-                                    @endphp
-
-                                    @foreach($halvsju as $route)
+                @foreach($routeObjects as $r)
+                        @if(!$r->isEmpty())
+                            <div class="route-wrapper ui accordion">
+                                <h2 class="title"><i class="ui icon caret down"></i> {{ date('H:i', strtotime($r[0]->time)) }} <i class="ui clock outline icon "></i></h2>
+                                <div class="content {{ ($r[0]->time > date('H:i:s', strtotime(now()))) ? 'active' : '' }}">
+                                    <div class="ui top  tabular menu">
 
                                         @php
-                                            $openString = '';
-                                            if(!$opened){
-                                                $openString = 'active';
-                                                $opened = true;
-                                            }
+
+                                            $opened = false;
 
                                         @endphp
 
-                                        <a class="item {{ $openString  }}" data-tab="id-{{ $route->route }}-{{ $route->time }}">Rute {{ $route->route }}</a>
-                                    @endforeach
+                                        @foreach($r as $route)
 
-                                </div>
-
-                                @php
-
-                                    $openTab = false;
-
-                                @endphp
-
-
-                                @foreach($halvsju as $route)
-
-                                    @php
-                                        $openStringTab = '';
-                                        if(!$openTab){
-                                            $openStringTab = 'active';
-                                            $openTab = true;
-                                        }
-
-                                    @endphp
-                                    <div class="ui bottom attached tab {{ $openStringTab  }} " data-tab="id-{{ $route->route }}-{{ $route->time }}">
-                                        <div class="ui attached cards" style="margin:0 !important">
-                                            @foreach($route->stops as $stop)
-                                                <div class="card active" style="width:100%">
-                                                    <div class="content">
-                                                        <div class="header">
-                                                            {{ $stop->workshop->name }} <span style="color:grey; font-size:0.8em">{{ $stop->workshop->workshop_id }}</span>
-                                                            <!--<span class="right floated">
-                  <div class="ui dropdown">
-                    <div class="text">1</div>
-                    <i class="dropdown icon"></i>
-                    <div class="menu">
-                      <div class="item">
-                        1
-                      </div>
-                      <div class="item">
-                        2
-                      </div>
-                    </div>
-                  </div>
-                </span>-->
-                                                        </div>
-                                                        <!-- Set to active to display -->
-                                                        <div class="ui list horizontal attached">
-                                                            @foreach($stop->orders as $order)
-                                                                <a class="item" style="border: 1px solid lightgray; border-radius: 5px; margin:5px">
-                                                                    <div class="content" style="padding:5px 10px 5px 10px">
-                                                                        @if($order->amount === null)
-                                                                            <div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check square outline' : 'orange cogs circle' }}"></i>{{ $order->ordernumber }} &nbsp; @if($order->kkode === 1)<span style="color:red" class=" activating element" data-title="K-KODE" data-content="Dette er en bestilling.">K</span>@endif</div>
-                                                                        <!--<div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check circle ' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
-                                                               -->
-                                                                        @else
-                                                                            <div onclick="editOrder({{ $order->ordernumber }})" class="header activating element" data-title="OBS! KONTANT {{ ($order->kkode === 1) ? 'OG K-KODE!' : '' }}" data-content="{{ $order->amount }} kr"> <i class="icon  {{ ($order->delivered === 1) ? 'green money bill alternate outline icon ' : 'orange money bill alternate outline icon' }}"></i>  {{ $order->ordernumber }} @if($order->kkode === 1)<span style="color:red">K</span>@endif &nbsp;</div>
-
-                                                                        @endif
-                                                                    </div>
-                                                                </a>
-                                                            @endforeach
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                        <div class="ui bottom attached four item menu">
                                             @php
-                                                $routeName = 'proto.prototest';
-                                                if($route->active === 1){
-                                                $routeName = 'setinactive';
+                                                $openString = '';
+                                                if(!$opened){
+                                                    $openString = 'active';
+                                                    $opened = true;
                                                 }
-                                                else{
-                                                $routeName = 'setactive';
-                                                }
+
                                             @endphp
-                                            <a href="{{ route($routeName, ['route_id' => $route->id]) }}" class="item">
-                                                @if($route->finished === 1)
-                                                    <div class="ui animated fade button basic green" tabindex="0">
-                                                        <div class="visible content"><i class="ui icon check"></i> Fullført</div>
-                                                        <div class="hidden content">
-                                                            Oh yeah
-                                                        </div>
-                                                    </div>
-                                                @elseif($route->active === 1)
-                                                    <div class="ui animated fade button basic orange" tabindex="0">
-                                                        <div class="visible content"><i class="spinner loading icon"></i> Aktiv</div>
-                                                        <div class="hidden content">
-                                                            Brroom..
-                                                        </div>
-                                                    </div>
-                                                @else
-                                                    <div class="ui animated fade button basic" tabindex="0">
-                                                        <div class="visible content"> Inaktiv</div>
-                                                        <div class="hidden content">
-                                                            Gjør aktiv
-                                                        </div>
-                                                    </div>
-                                                @endif
-                                            </a>
-                                            <div class="item">
-                                                <div class="ui dropdown">
-                                                    <i class="user icon"></i>
-                                                    <div class="text">{{ (!empty($route->driver)) ? $route->driver->name : 'Velg sjåfør' }}</div>
-                                                    <i class="dropdown icon"></i>
-                                                    <div class="menu">
-                                                        @foreach($drivers as $driver)
-                                                            <a class="item" href="{{ route('setdriver', ['route_id' => $route->id, 'driver_id' => $driver->id]) }}">
-                                                                {{ $driver->name }}
-                                                            </a>
-                                                        @endforeach
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <a class="item">
-                                                <div class="ui dropdown">
-                                                    <i class="car icon"></i>
-                                                    <div class="text">CF54301</div>
-                                                    <i class="dropdown icon"></i>
-                                                    <div class="menu">
-                                                        <div class="item">
-                                                            DJ32112
-                                                        </div>
-                                                        <div class="item">
-                                                            LS23111
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a class="item"><i class="clock outline layout icon" ></i> {{ ($route->started === 1) ? $route->started_time  : '?' }} - {{ ($route->finished === 1) ? $route->finished_time  : '?' }} </a>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                        <div class="ui section divider"></div>
-                    @endif
-                @if(!$atte->isEmpty())
-                        <div class="route-wrapper ui accordion">
-                            <h2 class="title"><i class="ui icon caret down"></i> 08:00 <i class="ui clock outline icon "></i></h2>
-                            <div class="content {{ ($atte[0]->time > date('H:i:s', strtotime(now()))) ? 'active' : '' }}">
-                                <div class="ui top  tabular menu">
 
-                                    @php
-
-                                        $opened = false;
-
-                                    @endphp
-
-                                    @foreach($atte as $route)
-
-                                        @php
-                                            $openString = '';
-                                            if(!$opened){
-                                                $openString = 'active';
-                                                $opened = true;
-                                            }
-
-                                        @endphp
-
-                                        <a class="item {{ $openString  }}" data-tab="id-{{ $route->route }}-{{ $route->time }}">Rute {{ $route->route }}</a>
-                                    @endforeach
-
-                                </div>
-
-                                @php
-
-                                    $openTab = false;
-
-                                @endphp
-
-
-                                @foreach($atte as $route)
-
-                                    @php
-                                        $openStringTab = '';
-                                        if(!$openTab){
-                                            $openStringTab = 'active';
-                                            $openTab = true;
-                                        }
-
-                                    @endphp
-                                    <div class="ui bottom attached tab {{ $openStringTab  }} " data-tab="id-{{ $route->route }}-{{ $route->time }}">
-                                        <div class="ui attached cards" style="margin:0 !important">
-                                            @foreach($route->stops as $stop)
-                                                <div class="card active" style="width:100%">
-                                                    <div class="content">
-                                                        <div class="header">
-                                                            {{ $stop->workshop->name }} <span style="color:grey; font-size:0.8em">{{ $stop->workshop->workshop_id }}</span>
-                                                            <!-- <span class="right floated">
-                   <div class="ui dropdown">
-                     <div class="text">1</div>
-                     <i class="dropdown icon"></i>
-                     <div class="menu">
-                       <div class="item">
-                         1
-                       </div>
-                       <div class="item">
-                         2
-                       </div>
-                     </div>
-                   </div>
-                 </span>-->
-                                                         </div>
-                                                         <!-- Set to active to display -->
-                                                        <div class="ui list horizontal attached">
-                                                            @foreach($stop->orders as $order)
-                                                                <a class="item" style="border: 1px solid lightgray; border-radius: 5px; margin:5px">
-                                                                    <div class="content" style="padding:5px 10px 5px 10px">
-                                                                        @if($order->amount === null)
-                                                                            <div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check square outline' : 'orange cogs circle' }}"></i>{{ $order->ordernumber }} &nbsp; @if($order->kkode === 1)<span style="color:red" class=" activating element" data-title="K-KODE" data-content="Dette er en bestilling.">K</span>@endif</div>
-                                                                        <!--<div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check circle ' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
-                                                               -->
-                                                                        @else
-                                                                            <div onclick="editOrder({{ $order->ordernumber }})" class="header activating element" data-title="OBS! KONTANT {{ ($order->kkode === 1) ? 'OG K-KODE!' : '' }}" data-content="{{ $order->amount }} kr"> <i class="icon  {{ ($order->delivered === 1) ? 'green money bill alternate outline icon ' : 'orange money bill alternate outline icon' }}"></i>  {{ $order->ordernumber }} @if($order->kkode === 1)<span style="color:red">K</span>@endif &nbsp;</div>
-
-                                                                        @endif
-                                                                    </div>
-                                                                </a>
-                                                            @endforeach
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                        <div class="ui bottom attached four item menu">
-                                            @php
-                                                $routeName = 'proto.prototest';
-                                                if($route->active === 1){
-                                                $routeName = 'setinactive';
-                                                }
-                                                else{
-                                                $routeName = 'setactive';
-                                                }
-                                            @endphp
-                                            <a href="{{ route($routeName, ['route_id' => $route->id]) }}" class="item">
-                                                @if($route->finished === 1)
-                                                    <div class="ui animated fade button basic green" tabindex="0">
-                                                        <div class="visible content"><i class="ui icon check"></i> Fullført</div>
-                                                        <div class="hidden content">
-                                                            Oh yeah
-                                                        </div>
-                                                    </div>
-                                                @elseif($route->active === 1)
-                                                    <div class="ui animated fade button basic orange" tabindex="0">
-                                                        <div class="visible content"><i class="spinner loading icon"></i> Aktiv</div>
-                                                        <div class="hidden content">
-                                                            Brroom..
-                                                        </div>
-                                                    </div>
-                                                @else
-                                                    <div class="ui animated fade button basic" tabindex="0">
-                                                        <div class="visible content"> Inaktiv</div>
-                                                        <div class="hidden content">
-                                                            Gjør aktiv
-                                                        </div>
-                                                    </div>
-                                                @endif
-                                            </a>
-                                            <div class="item">
-                                                <div class="ui dropdown">
-                                                    <i class="user icon"></i>
-                                                    <div class="text">{{ (!empty($route->driver)) ? $route->driver->name : 'Velg sjåfør' }}</div>
-                                                    <i class="dropdown icon"></i>
-                                                    <div class="menu">
-                                                        @foreach($drivers as $driver)
-                                                            <a class="item" href="{{ route('setdriver', ['route_id' => $route->id, 'driver_id' => $driver->id]) }}">
-                                                                {{ $driver->name }}
-                                                            </a>
-                                                        @endforeach
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <a class="item">
-                                                <div class="ui dropdown">
-                                                    <i class="car icon"></i>
-                                                    <div class="text">CF54301</div>
-                                                    <i class="dropdown icon"></i>
-                                                    <div class="menu">
-                                                        <div class="item">
-                                                            DJ32112
-                                                        </div>
-                                                        <div class="item">
-                                                            LS23111
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a class="item"><i class="clock outline layout icon" ></i> {{ ($route->started === 1) ? $route->started_time  : '?' }} - {{ ($route->finished === 1) ? $route->finished_time  : '?' }} </a>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                        <div class="ui section divider"></div>
-                    @endif
-                @if(!$ti->isEmpty())
-                        <div class="route-wrapper ui accordion">
-                            <h2 class="title"><i class="ui icon caret down"></i> 10:00 <i class="ui clock outline icon "></i></h2>
-                            <div class="content {{ ($ti[0]->time > date('H:i:s', strtotime(now()))) ? 'active' : '' }}">
-                                <div class="ui top  tabular menu">
-
-                                    @php
-
-                                        $opened = false;
-
-                                    @endphp
-
-                                    @foreach($ti as $route)
-
-                                        @php
-                                            $openString = '';
-                                            if(!$opened){
-                                                $openString = 'active';
-                                                $opened = true;
-                                            }
-
-                                        @endphp
-
-                                        <a class="item {{ $openString  }}" data-tab="id-{{ $route->route }}-{{ $route->time }}">Rute {{ $route->route }}</a>
-                                    @endforeach
-
-                                </div>
-
-                                @php
-
-                                    $openTab = false;
-
-                                @endphp
-
-
-                                @foreach($ti as $route)
-
-                                    @php
-                                        $openStringTab = '';
-                                        if(!$openTab){
-                                            $openStringTab = 'active';
-                                            $openTab = true;
-                                        }
-
-                                    @endphp
-                                    <div class="ui bottom attached tab {{ $openStringTab  }} " data-tab="id-{{ $route->route }}-{{ $route->time }}">
-                                        <div class="ui attached cards" style="margin:0 !important">
-                                            @foreach($route->stops as $stop)
-                                                <div class="card active" style="width:100%">
-                                                    <div class="content">
-                                                        <div class="header">
-                                                            {{ $stop->workshop->name }} <span style="color:grey; font-size:0.8em">{{ $stop->workshop->workshop_id }}</span>
-                                                            <!--<span class="right floated">
-                  <div class="ui dropdown">
-                    <div class="text">1</div>
-                    <i class="dropdown icon"></i>
-                    <div class="menu">
-                      <div class="item">
-                        1
-                      </div>
-                      <div class="item">
-                        2
-                      </div>
-                    </div>
-                  </div>
-                </span>-->
-                                                        </div>
-                                                        <!-- Set to active to display -->
-                                                        <div class="ui list horizontal attached">
-                                                            @foreach($stop->orders as $order)
-                                                                <a class="item" style="border: 1px solid lightgray; border-radius: 5px; margin:5px">
-                                                                    <div class="content" style="padding:5px 10px 5px 10px">
-                                                                        @if($order->amount === null)
-                                                                            <div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check square outline' : 'orange cogs circle' }}"></i>{{ $order->ordernumber }} &nbsp; @if($order->kkode === 1)<span style="color:red" class=" activating element" data-title="K-KODE" data-content="Dette er en bestilling.">K</span>@endif</div>
-                                                                        <!--<div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check circle ' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
-                                                               -->
-                                                                        @else
-                                                                            <div onclick="editOrder({{ $order->ordernumber }})" class="header activating element" data-title="OBS! KONTANT {{ ($order->kkode === 1) ? 'OG K-KODE!' : '' }}" data-content="{{ $order->amount }} kr"> <i class="icon  {{ ($order->delivered === 1) ? 'green money bill alternate outline icon ' : 'orange money bill alternate outline icon' }}"></i>  {{ $order->ordernumber }} @if($order->kkode === 1)<span style="color:red">K</span>@endif &nbsp;</div>
-
-                                                                        @endif
-                                                                    </div>
-                                                                </a>
-                                                            @endforeach
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                        <div class="ui bottom attached four item menu">
-                                            @php
-                                                $routeName = 'proto.prototest';
-                                                if($route->active === 1){
-                                                $routeName = 'setinactive';
-                                                }
-                                                else{
-                                                $routeName = 'setactive';
-                                                }
-                                            @endphp
-                                            <a href="{{ route($routeName, ['route_id' => $route->id]) }}" class="item">
-                                                @if($route->finished === 1)
-                                                    <div class="ui animated fade button basic green" tabindex="0">
-                                                        <div class="visible content"><i class="ui icon check"></i> Fullført</div>
-                                                        <div class="hidden content">
-                                                            Oh yeah
-                                                        </div>
-                                                    </div>
-                                                @elseif($route->active === 1)
-                                                    <div class="ui animated fade button basic orange" tabindex="0">
-                                                        <div class="visible content"><i class="spinner loading icon"></i> Aktiv</div>
-                                                        <div class="hidden content">
-                                                            Brroom..
-                                                        </div>
-                                                    </div>
-                                                @else
-                                                    <div class="ui animated fade button basic" tabindex="0">
-                                                        <div class="visible content"> Inaktiv</div>
-                                                        <div class="hidden content">
-                                                            Gjør aktiv
-                                                        </div>
-                                                    </div>
-                                                @endif
-                                            </a>
-                                            <div class="item">
-                                                <div class="ui dropdown">
-                                                    <i class="user icon"></i>
-                                                    <div class="text">{{ (!empty($route->driver)) ? $route->driver->name : 'Velg sjåfør' }}</div>
-                                                    <i class="dropdown icon"></i>
-                                                    <div class="menu">
-                                                        @foreach($drivers as $driver)
-                                                            <a class="item" href="{{ route('setdriver', ['route_id' => $route->id, 'driver_id' => $driver->id]) }}">
-                                                                {{ $driver->name }}
-                                                            </a>
-                                                        @endforeach
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <a class="item">
-                                                <div class="ui dropdown">
-                                                    <i class="car icon"></i>
-                                                    <div class="text">CF54301</div>
-                                                    <i class="dropdown icon"></i>
-                                                    <div class="menu">
-                                                        <div class="item">
-                                                            DJ32112
-                                                        </div>
-                                                        <div class="item">
-                                                            LS23111
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a class="item"><i class="clock outline layout icon" ></i> {{ ($route->started === 1) ? $route->started_time  : '?' }} - {{ ($route->finished === 1) ? $route->finished_time  : '?' }} </a>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                        <div class="ui section divider"></div>
-                    @endif
-                @if(!$tolv->isEmpty())
-                        <div class="route-wrapper ui accordion">
-                            <h2 class="title"><i class="ui icon caret down"></i> 12:00 <i class="ui clock outline icon "></i></h2>
-                            <div class="content {{ ($tolv[0]->time > date('H:i:s', strtotime(now()))) ? 'active' : '' }}">
-                                <div class="ui top  tabular menu">
-
-                                @php
-
-                                $opened = false;
-
-                                @endphp
-
-                                @foreach($tolv as $route)
-
-                                    @php
-                                        $openString = '';
-                                        if(!$opened){
-                                            $openString = 'active';
-                                            $opened = true;
-                                        }
-
-                                    @endphp
-
-                                    <a class="item {{ $openString  }}" data-tab="id-{{ $route->route }}-{{ $route->time }}">Rute {{ $route->route }}</a>
-                                @endforeach
-
-                                </div>
-
-                                @php
-
-                                    $openTab = false;
-
-                                @endphp
-
-
-                            @foreach($tolv as $route)
-
-                                    @php
-                                        $openStringTab = '';
-                                        if(!$openTab){
-                                            $openStringTab = 'active';
-                                            $openTab = true;
-                                        }
-
-                                    @endphp
-                                    <div class="ui bottom attached tab {{ $openStringTab  }} " data-tab="id-{{ $route->route }}-{{ $route->time }}">
-                                        <div class="ui attached cards" style="margin:0 !important">
-                                            @foreach($route->stops as $stop)
-                                                <div class="card active" style="width:100%">
-                                                    <div class="content">
-                                                        <div class="header">
-                                                            {{ $stop->workshop->name }} <span style="color:grey; font-size:0.8em">{{ $stop->workshop->workshop_id }}</span>
-                                                            <!--   <span class="right floated">
-                     <div class="ui dropdown">
-                       <div class="text">1</div>
-                       <i class="dropdown icon"></i>
-                       <div class="menu">
-                         <div class="item">
-                           1
-                         </div>
-                         <div class="item">
-                           2
-                         </div>
-                       </div>
-                     </div>
-                   </span>-->
-                                                           </div>
-                                                           <!-- Set to active to display -->
-                                                        <div class="ui list horizontal attached">
-                                                            @foreach($stop->orders as $order)
-                                                                <a class="item" style="border: 1px solid lightgray; border-radius: 5px; margin:5px">
-                                                                    <div class="content" style="padding:5px 10px 5px 10px">
-                                                                        @if($order->amount === null)
-                                                                            <div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check square outline' : 'orange cogs circle' }}"></i>{{ $order->ordernumber }} &nbsp; @if($order->kkode === 1)<span style="color:red" class=" activating element" data-title="K-KODE" data-content="Dette er en bestilling.">K</span>@endif</div>
-                                                                        <!--<div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check circle ' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
-                                                               -->
-                                                                        @else
-                                                                            <div onclick="editOrder({{ $order->ordernumber }})" class="header activating element" data-title="OBS! KONTANT {{ ($order->kkode === 1) ? 'OG K-KODE!' : '' }}" data-content="{{ $order->amount }} kr"> <i class="icon  {{ ($order->delivered === 1) ? 'green money bill alternate outline icon ' : 'orange money bill alternate outline icon' }}"></i>  {{ $order->ordernumber }} @if($order->kkode === 1)<span style="color:red">K</span>@endif &nbsp;</div>
-
-                                                                        @endif
-                                                                    </div>
-                                                                </a>
-                                                            @endforeach
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                        <div class="ui bottom attached four item menu">
-                                            @php
-                                                $routeName = 'proto.prototest';
-                                                if($route->active === 1){
-                                                $routeName = 'setinactive';
-                                                }
-                                                else{
-                                                $routeName = 'setactive';
-                                                }
-                                            @endphp
-                                            <a href="{{ route($routeName, ['route_id' => $route->id]) }}" class="item">
-                                                @if($route->finished === 1)
-                                                    <div class="ui animated fade button basic green" tabindex="0">
-                                                        <div class="visible content"><i class="ui icon check"></i> Fullført</div>
-                                                        <div class="hidden content">
-                                                            Oh yeah
-                                                        </div>
-                                                    </div>
-                                                @elseif($route->active === 1)
-                                                    <div class="ui animated fade button basic orange" tabindex="0">
-                                                        <div class="visible content"><i class="spinner loading icon"></i> Aktiv</div>
-                                                        <div class="hidden content">
-                                                            Brroom..
-                                                        </div>
-                                                    </div>
-                                                @else
-                                                    <div class="ui animated fade button basic" tabindex="0">
-                                                        <div class="visible content"> Inaktiv</div>
-                                                        <div class="hidden content">
-                                                            Gjør aktiv
-                                                        </div>
-                                                    </div>
-                                                @endif
-                                            </a>
-                                            <div class="item">
-                                                <div class="ui dropdown">
-                                                    <i class="user icon"></i>
-                                                    <div class="text">{{ (!empty($route->driver)) ? $route->driver->name : 'Velg sjåfør' }}</div>
-                                                    <i class="dropdown icon"></i>
-                                                    <div class="menu">
-                                                        @foreach($drivers as $driver)
-                                                            <a class="item" href="{{ route('setdriver', ['route_id' => $route->id, 'driver_id' => $driver->id]) }}">
-                                                                {{ $driver->name }}
-                                                            </a>
-                                                        @endforeach
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <a class="item">
-                                                <div class="ui dropdown">
-                                                    <i class="car icon"></i>
-                                                    <div class="text">CF54301</div>
-                                                    <i class="dropdown icon"></i>
-                                                    <div class="menu">
-                                                        <div class="item">
-                                                            DJ32112
-                                                        </div>
-                                                        <div class="item">
-                                                            LS23111
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a class="item"><i class="clock outline layout icon" ></i> {{ ($route->started === 1) ? $route->started_time  : '?' }} - {{ ($route->finished === 1) ? $route->finished_time  : '?' }} </a>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                        <div class="ui section divider"></div>
-                    @endif
-                @if(!$ett->isEmpty())
-                    <div class="route-wrapper ui accordion">
-                        <h2 class="title"><i class="ui icon caret down"></i> 13:00 <i class="ui clock outline icon "></i></h2>
-                        <div class="content {{ ($ett[0]->time > date('H:i:s', strtotime(now()))) ? 'active' : '' }}">
-                            <div class="ui top  tabular menu">
-
-                                @php
-
-                                    $opened = false;
-
-                                @endphp
-
-                                @foreach($ett as $route)
-
-                                    @php
-                                        $openString = '';
-                                        if(!$opened){
-                                            $openString = 'active';
-                                            $opened = true;
-                                        }
-
-                                    @endphp
-
-                                    <a class="item {{ $openString  }}" data-tab="id-{{ $route->route }}-{{ $route->time }}">Rute {{ $route->route }}</a>
-                                @endforeach
-
-                            </div>
-
-                            @php
-
-                                $openTab = false;
-
-                            @endphp
-
-
-                            @foreach($ett as $route)
-
-                                @php
-                                    $openStringTab = '';
-                                    if(!$openTab){
-                                        $openStringTab = 'active';
-                                        $openTab = true;
-                                    }
-
-                                @endphp
-                                <div class="ui bottom attached tab {{ $openStringTab  }} " data-tab="id-{{ $route->route }}-{{ $route->time }}">
-                                    <div class="ui attached cards" style="margin:0 !important">
-                                        @foreach($route->stops as $stop)
-                                            <div class="card active" style="width:100%">
-                                                <div class="content">
-                                                    <div class="header">
-                                                        {{ $stop->workshop->name }} <span style="color:grey; font-size:0.8em">{{ $stop->workshop->workshop_id }}</span>
-                                                        <!--  <span class="right floated">
-                <div class="ui dropdown">
-                  <div class="text">1</div>
-                  <i class="dropdown icon"></i>
-                  <div class="menu">
-                    <div class="item">
-                      1
-                    </div>
-                    <div class="item">
-                      2
-                    </div>
-                  </div>
-                </div>
-              </span>-->
-                                                      </div>
-                                                      <!-- Set to active to display -->
-                                                    <div class="ui list horizontal attached">
-                                                        @foreach($stop->orders as $order)
-                                                            <a class="item" style="border: 1px solid lightgray; border-radius: 5px; margin:5px">
-                                                                <div class="content" style="padding:5px 10px 5px 10px">
-                                                                    @if($order->amount === null)
-                                                                        <div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check square outline' : 'orange cogs circle' }}"></i>{{ $order->ordernumber }} &nbsp; @if($order->kkode === 1)<span style="color:red" class=" activating element" data-title="K-KODE" data-content="Dette er en bestilling.">K</span>@endif</div>
-                                                                    <!--<div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check circle ' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
-                                                           -->
-                                                                    @else
-                                                                        <div onclick="editOrder({{ $order->ordernumber }})" class="header activating element" data-title="OBS! KONTANT {{ ($order->kkode === 1) ? 'OG K-KODE!' : '' }}" data-content="{{ $order->amount }} kr"> <i class="icon  {{ ($order->delivered === 1) ? 'green money bill alternate outline icon ' : 'orange money bill alternate outline icon' }}"></i>  {{ $order->ordernumber }} @if($order->kkode === 1)<span style="color:red">K</span>@endif &nbsp;</div>
-
-                                                                    @endif
-                                                                </div>
-                                                            </a>
-                                                        @endforeach
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <a class="item {{ $openString  }}" data-tab="id-{{ $route->route }}-{{ $route->time }}">Rute {{ $route->route }}</a>
                                         @endforeach
+
                                     </div>
-                                    <div class="ui bottom attached four item menu">
+
+                                    @php
+
+                                        $openTab = false;
+
+                                    @endphp
+
+
+                                    @foreach($r as $route)
+
                                         @php
-                                            $routeName = 'proto.prototest';
-                                            if($route->active === 1){
-                                            $routeName = 'setinactive';
+                                            $openStringTab = '';
+                                            if(!$openTab){
+                                                $openStringTab = 'active';
+                                                $openTab = true;
                                             }
-                                            else{
-                                            $routeName = 'setactive';
-                                            }
+
                                         @endphp
-                                        <a href="{{ route($routeName, ['route_id' => $route->id]) }}" class="item">
-                                            @if($route->finished === 1)
-                                                <div class="ui animated fade button basic green" tabindex="0">
-                                                    <div class="visible content"><i class="ui icon check"></i> Fullført</div>
-                                                    <div class="hidden content">
-                                                        Oh yeah
-                                                    </div>
-                                                </div>
-                                            @elseif($route->active === 1)
-                                                <div class="ui animated fade button basic orange" tabindex="0">
-                                                    <div class="visible content"><i class="spinner loading icon"></i> Aktiv</div>
-                                                    <div class="hidden content">
-                                                        Brroom..
-                                                    </div>
-                                                </div>
-                                            @else
-                                                <div class="ui animated fade button basic" tabindex="0">
-                                                    <div class="visible content"> Inaktiv</div>
-                                                    <div class="hidden content">
-                                                        Gjør aktiv
-                                                    </div>
-                                                </div>
-                                            @endif
-                                        </a>
-                                        <div class="item">
-                                            <div class="ui dropdown">
-                                                <i class="user icon"></i>
-                                                <div class="text">{{ (!empty($route->driver)) ? $route->driver->name : 'Velg sjåfør' }}</div>
-                                                <i class="dropdown icon"></i>
-                                                <div class="menu">
-                                                    @foreach($drivers as $driver)
-                                                        <a class="item" href="{{ route('setdriver', ['route_id' => $route->id, 'driver_id' => $driver->id]) }}">
-                                                            {{ $driver->name }}
-                                                        </a>
-                                                    @endforeach
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <a class="item">
-                                            <div class="ui dropdown">
-                                                <i class="car icon"></i>
-                                                <div class="text">CF54301</div>
-                                                <i class="dropdown icon"></i>
-                                                <div class="menu">
-                                                    <div class="item">
-                                                        DJ32112
-                                                    </div>
-                                                    <div class="item">
-                                                        LS23111
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a class="item"><i class="clock outline layout icon" ></i> {{ ($route->started === 1) ? $route->started_time  : '?' }} - {{ ($route->finished === 1) ? $route->finished_time  : '?' }} </a>
-                                    </div>
-                                </div>
-                            @endforeach
+                                        <div class="ui bottom attached tab {{ $openStringTab  }} " data-tab="id-{{ $route->route }}-{{ $route->time }}">
+                                            <div class="ui attached cards" style="margin:0 !important">
+                                                @foreach($route->stops as $stop)
+                                                    <div class="card active" style="width:100%">
+                                                        <div class="content">
+                                                            <div class="header">
+                                                                {{ $stop->workshop->name }} <span style="color:grey; font-size:0.8em">{{ $stop->workshop->workshop_id }}</span>
+                                                                <!--<span class="right floated">
+                      <div class="ui dropdown">
+                        <div class="text">1</div>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                          <div class="item">
+                            1
+                          </div>
+                          <div class="item">
+                            2
+                          </div>
                         </div>
-                    </div>
-                    <div class="ui section divider"></div>
-            @endif
-                @if(!$to->isEmpty())
-                        <div class="route-wrapper ui accordion">
-                            <h2 class="title"><i class="ui icon caret down"></i> 14:00 <i class="ui clock outline icon "></i></h2>
-                            <div class="content {{ ($to[0]->time > date('H:i:s', strtotime(now()))) ? 'active' : '' }}">
-                                <div class="ui top  tabular menu">
-
-                                    @php
-
-                                        $opened = false;
-
-                                    @endphp
-
-                                    @foreach($to as $route)
-
-                                        @php
-                                            $openString = '';
-                                            if(!$opened){
-                                                $openString = 'active';
-                                                $opened = true;
-                                            }
-
-                                        @endphp
-
-                                        <a class="item {{ $openString  }}" data-tab="id-{{ $route->route }}-{{ $route->time }}">Rute {{ $route->route }}</a>
-                                    @endforeach
-
-                                </div>
-
-                                @php
-
-                                    $openTab = false;
-
-                                @endphp
-
-
-                                @foreach($to as $route)
-
-                                    @php
-                                        $openStringTab = '';
-                                        if(!$openTab){
-                                            $openStringTab = 'active';
-                                            $openTab = true;
-                                        }
-
-                                    @endphp
-                                    <div class="ui bottom attached tab {{ $openStringTab  }} " data-tab="id-{{ $route->route }}-{{ $route->time }}">
-                                        <div class="ui attached cards" style="margin:0 !important">
-                                            @foreach($route->stops as $stop)
-                                                <div class="card active" style="width:100%">
-                                                    <div class="content">
-                                                        <div class="header">
-                                                            {{ $stop->workshop->name }} <span style="color:grey; font-size:0.8em">{{ $stop->workshop->workshop_id }}</span>
-                                                            <!--<span class="right floated">
-                  <div class="ui dropdown">
-                    <div class="text">1</div>
-                    <i class="dropdown icon"></i>
-                    <div class="menu">
-                      <div class="item">
-                        1
                       </div>
-                      <div class="item">
-                        2
-                      </div>
-                    </div>
-                  </div>
-                </span>-->
-                                                        </div>
-                                                        <!-- Set to active to display -->
-                                                        <div class="ui list horizontal attached">
-                                                            @foreach($stop->orders as $order)
-                                                                <a class="item" style="border: 1px solid lightgray; border-radius: 5px; margin:5px">
-                                                                    <div class="content" style="padding:5px 10px 5px 10px">
-                                                                        @if($order->amount === null)
-                                                                            <div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check square outline' : 'orange cogs circle' }}"></i>{{ $order->ordernumber }} &nbsp; @if($order->kkode === 1)<span style="color:red" class=" activating element" data-title="K-KODE" data-content="Dette er en bestilling.">K</span>@endif</div>
-                                                                        <!--<div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check circle ' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
+                    </span>-->
+                                                            </div>
+                                                            <!-- Set to active to display -->
+                                                            <div class="ui list horizontal attached">
+                                                                @foreach($stop->orders as $order)
+                                                                    <a class="item" style="border: 1px solid lightgray; border-radius: 5px; margin:5px">
+                                                                        <div class="content" style="padding:5px 10px 5px 10px">
+                                                                            @if($order->amount === null)
+                                                                                <div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check square outline' : 'orange cogs circle' }}"></i>{{ $order->ordernumber }} &nbsp; @if($order->kkode === 1)<span style="color:red" class=" activating element" data-title="K-KODE" data-content="Dette er en bestilling.">K</span>@endif</div>
+                                                                            <!--<div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check circle ' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
                                                                -->
-                                                                        @else
-                                                                            <div onclick="editOrder({{ $order->ordernumber }})" class="header activating element" data-title="OBS! KONTANT {{ ($order->kkode === 1) ? 'OG K-KODE!' : '' }}" data-content="{{ $order->amount }} kr"> <i class="icon  {{ ($order->delivered === 1) ? 'green money bill alternate outline icon ' : 'orange money bill alternate outline icon' }}"></i>  {{ $order->ordernumber }} @if($order->kkode === 1)<span style="color:red">K</span>@endif &nbsp;</div>
+                                                                            @else
+                                                                                <div onclick="editOrder({{ $order->ordernumber }})" class="header activating element" data-title="OBS! KONTANT {{ ($order->kkode === 1) ? 'OG K-KODE!' : '' }}" data-content="{{ $order->amount }} kr"> <i class="icon  {{ ($order->delivered === 1) ? 'green money bill alternate outline icon ' : 'orange money bill alternate outline icon' }}"></i>  {{ $order->ordernumber }} @if($order->kkode === 1)<span style="color:red">K</span>@endif &nbsp;</div>
 
-                                                                        @endif
-                                                                    </div>
+                                                                            @endif
+                                                                        </div>
+                                                                    </a>
+                                                                @endforeach
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                            <div class="ui bottom attached four item menu">
+                                                @php
+                                                    $routeName = 'proto.prototest';
+                                                    if($route->active === 1){
+                                                    $routeName = 'setinactive';
+                                                    }
+                                                    else{
+                                                    $routeName = 'setactive';
+                                                    }
+                                                @endphp
+                                                <a href="{{ route($routeName, ['route_id' => $route->id]) }}" class="item">
+                                                    @if($route->finished === 1)
+                                                        <div class="ui animated fade button basic green" tabindex="0">
+                                                            <div class="visible content"><i class="ui icon check"></i> Fullført</div>
+                                                            <div class="hidden content">
+                                                                Oh yeah
+                                                            </div>
+                                                        </div>
+                                                    @elseif($route->active === 1)
+                                                        <div class="ui animated fade button basic orange" tabindex="0">
+                                                            <div class="visible content"><i class="spinner loading icon"></i> Aktiv</div>
+                                                            <div class="hidden content">
+                                                                Brroom..
+                                                            </div>
+                                                        </div>
+                                                    @else
+                                                        <div class="ui animated fade button basic" tabindex="0">
+                                                            <div class="visible content"> Inaktiv</div>
+                                                            <div class="hidden content">
+                                                                Gjør aktiv
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                </a>
+                                                <div class="item">
+                                                    <div class="ui dropdown">
+                                                        <i class="user icon"></i>
+                                                        <div class="text">{{ (!empty($route->driver)) ? $route->driver->name : 'Velg sjåfør' }}</div>
+                                                        <i class="dropdown icon"></i>
+                                                        <div class="menu">
+                                                            @foreach($drivers as $driver)
+                                                                <a class="item" href="{{ route('setdriver', ['route_id' => $route->id, 'driver_id' => $driver->id]) }}">
+                                                                    {{ $driver->name }}
                                                                 </a>
                                                             @endforeach
                                                         </div>
                                                     </div>
                                                 </div>
-                                            @endforeach
-                                        </div>
-                                        <div class="ui bottom attached four item menu">
-                                            @php
-                                                $routeName = 'proto.prototest';
-                                                if($route->active === 1){
-                                                $routeName = 'setinactive';
-                                                }
-                                                else{
-                                                $routeName = 'setactive';
-                                                }
-                                            @endphp
-                                            <a href="{{ route($routeName, ['route_id' => $route->id]) }}" class="item">
-                                                @if($route->finished === 1)
-                                                    <div class="ui animated fade button basic green" tabindex="0">
-                                                        <div class="visible content"><i class="ui icon check"></i> Fullført</div>
-                                                        <div class="hidden content">
-                                                            Oh yeah
+                                                <a class="item">
+                                                    <div class="ui dropdown">
+                                                        <i class="car icon"></i>
+                                                        <div class="text">CF54301</div>
+                                                        <i class="dropdown icon"></i>
+                                                        <div class="menu">
+                                                            <div class="item">
+                                                                DJ32112
+                                                            </div>
+                                                            <div class="item">
+                                                                LS23111
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                @elseif($route->active === 1)
-                                                    <div class="ui animated fade button basic orange" tabindex="0">
-                                                        <div class="visible content"><i class="spinner loading icon"></i> Aktiv</div>
-                                                        <div class="hidden content">
-                                                            Brroom..
-                                                        </div>
-                                                    </div>
-                                                @else
-                                                    <div class="ui animated fade button basic" tabindex="0">
-                                                        <div class="visible content"> Inaktiv</div>
-                                                        <div class="hidden content">
-                                                            Gjør aktiv
-                                                        </div>
-                                                    </div>
-                                                @endif
-                                            </a>
-                                            <div class="item">
-                                                <div class="ui dropdown">
-                                                    <i class="user icon"></i>
-                                                    <div class="text">{{ (!empty($route->driver)) ? $route->driver->name : 'Velg sjåfør' }}</div>
-                                                    <i class="dropdown icon"></i>
-                                                    <div class="menu">
-                                                        @foreach($drivers as $driver)
-                                                            <a class="item" href="{{ route('setdriver', ['route_id' => $route->id, 'driver_id' => $driver->id]) }}">
-                                                                {{ $driver->name }}
-                                                            </a>
-                                                        @endforeach
-                                                    </div>
-                                                </div>
+                                                </a>
+                                                <a class="item"><i class="clock outline layout icon" ></i> {{ ($route->started === 1) ? $route->started_time  : '?' }} - {{ ($route->finished === 1) ? $route->finished_time  : '?' }} </a>
                                             </div>
-                                            <a class="item">
-                                                <div class="ui dropdown">
-                                                    <i class="car icon"></i>
-                                                    <div class="text">CF54301</div>
-                                                    <i class="dropdown icon"></i>
-                                                    <div class="menu">
-                                                        <div class="item">
-                                                            DJ32112
-                                                        </div>
-                                                        <div class="item">
-                                                            LS23111
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a class="item"><i class="clock outline layout icon" ></i> {{ ($route->started === 1) ? $route->started_time  : '?' }} - {{ ($route->finished === 1) ? $route->finished_time  : '?' }} </a>
                                         </div>
-                                    </div>
-                                @endforeach
+                                    @endforeach
+                                </div>
                             </div>
-                        </div>
-                        <div class="ui section divider"></div>
-                @endif
+                            <div class="ui section divider"></div>
+                        @endif
+
+                @endforeach
+
+
+
             </div><!-- End main content -->
             <!-- Right rail start -->
             <div class="ui right dividing rail">
