@@ -324,7 +324,7 @@
                             <div class="content">
                                 <div class="three fields">
                                     <div class="field">
-                                        <select name="route" class="ui search dropdown">
+                                        <select name="route" class="ui search dropdown" id="route">
                                             <option value="">Velg rute</option>
                                             <option value="10">10</option>
                                             <option value="11">11</option>
@@ -334,7 +334,7 @@
                                         </select>
                                     </div>
                                     <div class="field">
-                                        <select name="time" class="ui search dropdown">
+                                        <select name="time" class="ui search dropdown" id="time">
                                             <option value="">Velg tid</option>
                                             <option value="07:30">07:30</option>
                                             <option value="08:00">08:00</option>
@@ -347,12 +347,12 @@
                                         </select>
                                     </div>
                                     <div class="field">
-                                        <input name="date" type="date" placeholder="Dato">
+                                        <input name="date" type="date" placeholder="Dato" id="date" oninvalid="this.setCustomValidity('Dato må spesifiseres')">
                                     </div>
                                 </div>
                                 <div class="three fields">
                                     <div class="field">
-                                        <div class="ui test toggle checkbox" style="margin-left:80px; !important; margin-top:5px !important;">
+                                        <div class="ui kontant test toggle checkbox" style="margin-left:80px; !important; margin-top:5px !important;">
                                             <input  type="checkbox">
                                         </div>
                                         <div class="ui below pointing label">
@@ -368,7 +368,7 @@
                                         </div>
                                     </div>
                                     <div class="field">
-                                        <div class="ui test toggle checkbox" style="margin-left:80px; !important; margin-top:5px !important;">
+                                        <div class="ui test toggle checkbox kkode" style="margin-left:80px; !important; margin-top:5px !important;">
                                             <input name="kkode"  type="checkbox">
                                         </div>
                                         <div class="ui below pointing label">
@@ -554,6 +554,80 @@
                                                     </div>
                                                 @endforeach
                                             </div>
+                                            @php
+
+                                                $gotCash = false;
+                                                $totalCash = 0;
+                                                $amountOfCashOrders = 0;
+                                                    foreach($stop->orders as $o){
+                                                        if($o->amount !== null){
+                                                            $totalCash = $totalCash + $o->amount;
+                                                            $amountOfCashOrders++;
+                                                            $gotCash = true;
+                                                        }
+
+                                                }
+
+                                            @endphp
+
+                                            @if($gotCash)
+                                                <div class="ui bottom attached four item menu">
+                                                    @php
+                                                        $routeName = 'proto.prototest';
+                                                        if($route->active === 1){
+                                                        $routeName = 'setinactive';
+                                                        }
+                                                        else{
+                                                        $routeName = 'setactive';
+                                                        }
+                                                    @endphp
+                                                    <a href="{{ route($routeName, ['route_id' => $route->id]) }}" class="item">
+                                                        @if($route->finished === 1)
+                                                            <div class="ui animated fade button basic green" tabindex="0">
+                                                                <div class="visible content"><i class="ui icon check"></i> Fullført</div>
+                                                                <div class="hidden content">
+                                                                    Oh yeah
+                                                                </div>
+                                                            </div>
+                                                        @elseif($route->active === 1)
+                                                            <div class="ui animated fade button basic orange" tabindex="0">
+                                                                <div class="visible content"><i class="spinner loading icon"></i> Aktiv</div>
+                                                                <div class="hidden content">
+                                                                    Gjør inaktiv
+                                                                </div>
+                                                            </div>
+                                                        @else
+                                                            <div class="ui animated fade button basic" tabindex="0">
+                                                                <div class="visible content"> Inaktiv</div>
+                                                                <div class="hidden content">
+                                                                    Gjør aktiv
+                                                                </div>
+                                                            </div>
+                                                        @endif
+                                                    </a>
+                                                    <div class="item">
+                                                        <div class="ui dropdown">
+                                                            <i class="user icon"></i>
+                                                            <div class="text">{{ (!empty($route->driver)) ? $route->driver->name : 'Velg sjåfør' }}</div>
+                                                            <i class="dropdown icon"></i>
+                                                            <div class="menu">
+                                                                @foreach($drivers as $driver)
+                                                                    <a class="item" href="{{ route('setdriver', ['route_id' => $route->id, 'driver_id' => $driver->id]) }}">
+                                                                        {{ $driver->name }}
+                                                                    </a>
+                                                                @endforeach
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <a class="item"><i class="green money bill alternate outline icon" ></i>
+                                                        {{ $totalCash }}kr ({{ $amountOfCashOrders }} ordre)
+
+                                                    </a>
+
+                                                    <a class="item"><i class="clock outline layout icon" ></i> {{ ($route->started === 1) ? $route->started_time  : '?' }} - {{ ($route->finished === 1) ? $route->finished_time  : '?' }} </a>
+                                                </div>
+                                            @else
+
                                             <div class="ui bottom attached three item menu">
                                                 @php
                                                     $routeName = 'proto.prototest';
@@ -604,6 +678,7 @@
                                                 </div>
                                                 <a class="item"><i class="clock outline layout icon" ></i> {{ ($route->started === 1) ? $route->started_time  : '?' }} - {{ ($route->finished === 1) ? $route->finished_time  : '?' }} </a>
                                             </div>
+                                            @endif
                                         </div>
                                     @endforeach
                                 </div>

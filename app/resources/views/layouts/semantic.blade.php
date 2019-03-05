@@ -80,9 +80,8 @@
                     }});
             });
 
-            $('.ui.checkbox')
-                .checkbox()
-                .first().checkbox({
+            $('.ui.kontant')
+                .checkbox({
                 onChecked: function() {
                     console.log('checked');
                     document.getElementById('sum').disabled = false;
@@ -110,7 +109,16 @@
                     console.log('on change');
                 }
             })
+
             ;
+
+            $('.ui.kkode')
+                .checkbox()
+
+            ;
+
+
+
             // bind events to buttons
             $('.callback.example .button')
                 .on('click', function() {

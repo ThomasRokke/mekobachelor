@@ -39,16 +39,7 @@
         <a href="{{ route('home') }}" class="header item meko-color-text" style="border-left:none!important">
             Mekodrive
         </a>
-        <div class="left menu">
 
-            <div class="ui left aligned category search item">
-                <div class="ui transparent inverted icon input">
-                    <input class="prompt" type="text" placeholder="Søk etter ordrenummer">
-                    <i class="search link icon"></i>
-                </div>
-                <div class="results"></div>
-            </div>
-        </div>
     </div>
 </div>
 <!-- End nav -->
