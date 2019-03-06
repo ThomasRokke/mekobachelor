@@ -163,6 +163,7 @@
                     <!--<a class="item" data-tab="third">Hente</a>-->
                 </div>
                 <div class="ui bottom attached active tab segment" data-tab="first">
+
                     <form method="POST" action="{{ route('postedit') }}" class="ui form order error" >
                         @csrf
                         <div class="three fields">
@@ -179,6 +180,9 @@
                             <div class="field">
                                 <div class="ui corner labeled input">
                                     <input type="text" name="ordernumber" value="{{ $order->ordernumber }}"  placeholder="Ordrenummer">
+                                    <input type="hidden" name="old_ordernumber" value="{{ $order->ordernumber }}">
+                                    <input type="hidden" name="old_stop" value="{{ $order->stop->id }}">
+                                    <input type="hidden" name="old_route" value="{{ $order->stop->route->id }}">
                                     <div class="ui corner label">
                                         <i class="asterisk icon red"></i>
                                     </div>

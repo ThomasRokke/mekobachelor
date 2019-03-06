@@ -692,43 +692,96 @@ class HomeController extends Controller
     }
     public function postEdit(Request $request){
 
-        $order = Order::where('ordernumber', $request->ordernumber)->first();
+        if($request->old_ordernumber == $request->ordernumber){
 
-        $oldRoute = Route::find($order->stop->route->id);
-        $oldStop = Stop::find($order->stop->id);
+            $order = Order::where('ordernumber', $request->ordernumber)->first();
 
-
-        $r = Route::firstOrCreate(['date' => $request->date, 'route' => $request->route, 'time' => $request->time]);
-
-        $w = Workshop::where('workshop_id', $request->workshop_id)->first();
+            $oldRoute = Route::find($request->old_route);
+            $oldStop = Stop::find($request->old_stop);
 
 
-        $s = Stop::firstOrCreate(['route_id' => $r->id, 'workshop_id' => $w->workshop_id]);
+            $r = Route::firstOrCreate(['date' => $request->date, 'route' => $request->route, 'time' => $request->time]);
 
-        $order->ordernumber = $request->ordernumber;
-        $order->workshop_id = $w->workshop_id;
-        $order->stop_id = $s->id;
-        $order->workshop_id = $request->workshop_id;
+            $w = Workshop::where('workshop_id', $request->workshop_id)->first();
 
 
-        $order->save();
+            $s = Stop::firstOrCreate(['route_id' => $r->id, 'workshop_id' => $w->workshop_id]);
+
+            $order->ordernumber = $request->ordernumber;
+            $order->workshop_id = $w->workshop_id;
+            $order->stop_id = $s->id;
+            $order->workshop_id = $request->workshop_id;
+
+
+            $order->save();
 
 
 
-        //TODO: Remove old stops or route if they do not contain anything
-        if($oldStop->id == $s->id){
-            dd('same');
-        }else{
-            if(Stop::find($oldStop->id)->orders->count() == 0){
-                Stop::destroy($oldStop->id);
+            //TODO: Remove old stops or route if they do not contain anything
+            if($oldStop->id == $s->id){
+
+            }else{
+                if(Stop::find($oldStop->id)->orders->count() == 0){
+                    Stop::destroy($oldStop->id);
+
+                }
+                if(Route::find($oldRoute->id)->stops->count() == 0){
+                    Route::destroy($oldRoute->id);
+
+                }
 
             }
-            if(Route::find($oldRoute->id)->stops->count() == 0){
-                Route::destroy($oldRoute->id);
+        }else{
+            $order = Order::where('ordernumber', $request->ordernumber)->first();
+            if(empty($order)){
 
+                $old_order = Order::where('ordernumber', $request->old_ordernumber)->first();
+
+                $oldRoute = Route::find($request->old_route);
+                $oldStop = Stop::find($request->old_stop);
+
+
+                $r = Route::firstOrCreate(['date' => $request->date, 'route' => $request->route, 'time' => $request->time]);
+
+                $w = Workshop::where('workshop_id', $request->workshop_id)->first();
+
+
+                $s = Stop::firstOrCreate(['route_id' => $r->id, 'workshop_id' => $w->workshop_id]);
+
+                $old_order->ordernumber = $request->ordernumber;
+                $old_order->workshop_id = $w->workshop_id;
+                $old_order->stop_id = $s->id;
+                $old_order->workshop_id = $request->workshop_id;
+
+
+                $old_order->save();
+
+
+
+                //TODO: Remove old stops or route if they do not contain anything
+                if($oldStop->id == $s->id){
+
+                }else{
+                    if(Stop::find($oldStop->id)->orders->count() == 0){
+                        Stop::destroy($oldStop->id);
+
+                    }
+                    if(Route::find($oldRoute->id)->stops->count() == 0){
+                        Route::destroy($oldRoute->id);
+
+                    }
+
+                }
+
+            }
+
+            else{
+                $request->session()->flash('negative', 'Ordrenummeret du forsøkte å bytte til er allerede tatt.');
+                return back();
             }
 
         }
+
 
 
 
