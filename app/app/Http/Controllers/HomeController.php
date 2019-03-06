@@ -181,7 +181,7 @@ class HomeController extends Controller
 
 
 
-        return view('office.prototest')->with(compact('routeObjects','routes', 'drivers', 'driversStatus', 'halvsju', 'atte', 'ti', 'tolv', 'ett', 'to', 'kveld', 'date', 'orders', 'workshop_id', 'workshops'));
+        return view('office.prototest')->with(compact('routeObjects', 'route_times', 'routes', 'drivers', 'driversStatus', 'halvsju', 'atte', 'ti', 'tolv', 'ett', 'to', 'kveld', 'date', 'orders', 'workshop_id', 'workshops'));
     }
 
     public function getPrototest2(Request $request){
