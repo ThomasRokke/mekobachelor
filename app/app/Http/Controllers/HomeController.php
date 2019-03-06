@@ -734,7 +734,7 @@ class HomeController extends Controller
 
 
 
-        return redirect(route('proto.prototest', ['date' => $order->date]));
+        return redirect(route('proto.prototest', ['date' => $r->date]));
 
     }
 
