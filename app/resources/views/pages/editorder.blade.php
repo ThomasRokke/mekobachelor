@@ -1,4 +1,4 @@
-@extends('layouts.transport')
+@extends('layouts.semantic')
 
 @section('header')
     <script type="text/javascript">
@@ -231,7 +231,7 @@
                                 <div class="three fields">
                                     <div class="field">
                                         <div class="ui kontant test toggle checkbox" style="margin-left:100px; !important; margin-top:5px !important;">
-                                            <input  type="checkbox">
+                                            <input  type="checkbox" {{ ($order->amount != null) ? 'checked' : '' }}>
                                         </div>
                                         <div class="ui below pointing label">
                                             Skal det betales med kort eller kontant?
@@ -239,7 +239,7 @@
                                     </div>
                                     <div class="field">
                                         <div class="ui corner labeled input">
-                                            <input type="text" name="amount" placeholder="sum" id="sum"  disabled>
+                                            <input type="text" name="amount" placeholder="sum" id="sum" value="{{ $order->amount }}"  {{ ($order->amount != null) ? '' : 'disabled' }}>
                                             <div style="display: none"  id="input-required-disabled" class="ui corner label input-label-enabled">
                                                 <i class="asterisk icon red"></i>
                                             </div>
@@ -247,7 +247,7 @@
                                     </div>
                                     <div class="field">
                                         <div class="ui test toggle checkbox kkode" style="margin-left:70px; !important; margin-top:5px !important;">
-                                            <input name="kkode"  type="checkbox">
+                                            <input name="kkode"  type="checkbox" {{ (!empty($order->kkode)) ? 'checked' : '' }}>
                                         </div>
                                         <br>
                                         <div class="ui below pointing label">

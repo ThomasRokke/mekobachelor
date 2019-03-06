@@ -707,6 +707,26 @@ class HomeController extends Controller
 
             $s = Stop::firstOrCreate(['route_id' => $r->id, 'workshop_id' => $w->workshop_id]);
 
+            $kkodeBolean = 0;
+            //Check if the order is K-Kode - is a boolean.
+            if(!empty($request->kkode)){
+                $kkode= $request->kkode;
+                if($kkode === "on"){
+                    $kkodeBolean = 1;
+                }
+            }
+
+            if(!empty($request->amount)){
+                $amount = $request->amount;
+
+            }else{
+                $amount = null;
+
+            }
+
+            $order->amount = $amount;
+            $order->kkode = $kkodeBolean;
+
             $order->ordernumber = $request->ordernumber;
             $order->workshop_id = $w->workshop_id;
             $order->stop_id = $s->id;
@@ -747,6 +767,26 @@ class HomeController extends Controller
 
 
                 $s = Stop::firstOrCreate(['route_id' => $r->id, 'workshop_id' => $w->workshop_id]);
+
+                $kkodeBolean = 0;
+                //Check if the order is K-Kode - is a boolean.
+                if(!empty($request->kkode)){
+                    $kkode= $request->kkode;
+                    if($kkode === "on"){
+                        $kkodeBolean = 1;
+                    }
+                }
+
+                if(!empty($request->amount)){
+                    $amount = $request->amount;
+
+                }else{
+                    $amount = null;
+
+                }
+
+                $old_order->amount = $amount;
+                $old_order->kkode = $kkodeBolean;
 
                 $old_order->ordernumber = $request->ordernumber;
                 $old_order->workshop_id = $w->workshop_id;

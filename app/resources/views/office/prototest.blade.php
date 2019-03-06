@@ -242,7 +242,7 @@
 
 
                                 <div class="content">
-                                    <a onclick="editOrder({{ $order->ordernumber }})" class="header">{{ $order->ordernumber }}</a>
+                                    <a onclick="window.location.href='{{ route('getedit', ['id' => $order->ordernumber]) }}'" class="header">{{ $order->ordernumber }}</a>
                                     <div class="description">{{ date('H:i d. M ',strtotime($order->created_at)) }}</div>
                                     <a href="{{ route('proto.prototest', ['workshop_id' => $order->stop->workshop->workshop_id]) }}" class="description overflow-dots"><i class="icon wrench"></i> {{ $order->stop->workshop->name }}</a>
                                 </div>
@@ -327,7 +327,7 @@
                             </div>
                             <div class="field">
                                 <!-- Add positive class on valid validation -->
-                                <input class="ui  basic button positive" type="submit" value="Registrer ordre" placeholder="Last Name">
+                                <input class="ui  basic button positive fluid" type="submit" value="Registrer ordre" placeholder="Last Name">
                             </div>
                         </div>
                         <div class="ui accordion order">
