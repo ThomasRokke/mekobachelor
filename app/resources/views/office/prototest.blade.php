@@ -109,19 +109,7 @@
 
             });
 
-        //Is called to open the modal when an order is pressed.
-        //Is called to open the modal when an order is pressed.
-        function editOrder(id, ord, knr) {
 
-            $("#modal-header").text(id); //Set the header to id. You can make ur own data passed from onclick by adding more data paramters to the function.
-            $("#modal-ord").val(ord); // OrdreNr
-            $("#modal-knr").val(knr); // KundeNr
-            $('.ui.modal.order')
-                .modal({
-                    blurring: true //What kind of background around the modal
-                })
-                .modal('show'); //Show the modal
-        }
 
 
     </script>
@@ -238,6 +226,8 @@
                         <h3 class="ui center aligned header">
                             Nylig registrert
                         </h3>
+
+                        <div class="ui divider"></div>
                     </div>
 
                     <div class="ui relaxed divided list overflow-scroll">
@@ -563,11 +553,11 @@
                                                                     <a class="item" style="border: 1px solid lightgray; border-radius: 5px; margin:5px">
                                                                         <div class="content" style="padding:5px 10px 5px 10px">
                                                                             @if($order->amount === null)
-                                                                                <div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check square outline' : 'orange cogs circle' }}"></i>{{ $order->ordernumber }} &nbsp; @if($order->kkode === 1)<span style="color:red" class=" activating element" data-title="K-KODE" data-content="Dette er en bestilling.">K</span>@endif</div>
+                                                                                <div onclick="window.location.href='{{ route('getedit', ['id' => $order->ordernumber]) }}'" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check square outline' : 'orange cogs circle' }}"></i>{{ $order->ordernumber }} &nbsp; @if($order->kkode === 1)<span style="color:red" class=" activating element" data-title="K-KODE" data-content="Dette er en bestilling.">K</span>@endif</div>
                                                                             <!--<div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check circle ' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
                                                                -->
                                                                             @else
-                                                                                <div onclick="editOrder({{ $order->ordernumber }})" class="header activating element" data-title="OBS! KONTANT {{ ($order->kkode === 1) ? 'OG K-KODE!' : '' }}" data-content="{{ $order->amount }} kr"> <i class="icon  {{ ($order->delivered === 1) ? 'green money bill alternate outline icon ' : 'orange money bill alternate outline icon' }}"></i>  {{ $order->ordernumber }} @if($order->kkode === 1)<span style="color:red">K</span>@endif &nbsp;</div>
+                                                                                <div onclick="window.location.href='{{ route('getedit', ['id' => $order->ordernumber]) }}'" class="header activating element" data-title="OBS! KONTANT {{ ($order->kkode === 1) ? 'OG K-KODE!' : '' }}" data-content="{{ $order->amount }} kr"> <i class="icon  {{ ($order->delivered === 1) ? 'green money bill alternate outline icon ' : 'orange money bill alternate outline icon' }}"></i>  {{ $order->ordernumber }} @if($order->kkode === 1)<span style="color:red">K</span>@endif &nbsp;</div>
 
                                                                             @endif
                                                                         </div>
@@ -724,6 +714,8 @@
                             <h3 class="ui center aligned header">
                                 Sjåfør status
                             </h3>
+
+                            <div class="ui divider"></div>
                         </div>
 
                         @foreach($driversStatus as $driver)
@@ -792,7 +784,7 @@
 
                             <div class="item ">
                                 <div class="content ">
-                                    <a class="header" style="color:gray!important;">Ingen påmeldt på aktiv rute.</a>
+                                    <a class="header" style="color:gray!important;">Ingen aktive ruter.</a>
                                 </div>
                             </div>
 
@@ -808,141 +800,6 @@
                 <!-- Can add extra segments for more separeted content -->
             </div>
             <!-- right rail end -->
-        </div>
-    </div>
-    <!-- Modal Kontant-->
-    <div class="ui modal">
-        <i class="close icon"></i>
-        <div class="header">
-            # 83213
-        </div>
-        <div class="image content">
-            <div class="ui medium image">
-                <img src="https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX22409286.jpg">
-            </div>
-            <div class="description">
-                <div class="ui header">Her skal jeg lage et oppsett for å flytte ordre osv</div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus magnam quo dolor illum molestias. Odio.</p>
-            </div>
-        </div>
-        <div class="actions">
-            <div class="ui black deny button">
-                Avbryt
-            </div>
-            <div class="ui positive right labeled icon button">
-                Jeg forstår
-                <i class="checkmark icon"></i>
-            </div>
-        </div>
-    </div>
-    <!-- End modal -->
-    <div class="ui modal order">
-        <i class="close icon"></i>
-        <div class="header">
-            <div>
-                <i class="icon file outline"></i>
-                <bold><span id="modal-header"></span></bold>
-            </div>
-        </div>
-        <div class="image content ">
-            <div class="ui medium image">
-                <img src="https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX22409286.jpg">
-            </div>
-            <div class="description">
-                <div class="ui header">Rediger ordre</div>
-
-                <!-- FORM THING -->
-
-                <form method="POST" action="{{ route('office.postroute') }}" class="ui form order error" >
-                    @csrf
-                    <div class="three fields">
-                        <div class="field">
-                            <div class="ui corner labeled input">
-                                <input class="ui" id="modal-knr" type="text" name="workshop_id" placeholder="Kundenummer" autocomplete="off">
-                                <div class="ui corner label">
-                                    <i class="asterisk icon red"></i>
-                                </div>
-                            </div>
-                            <div style="display: none" id="kundenummer-label" class="ui pointing label">
-                            </div>
-                        </div>
-                        <div class="field">
-                            <div class="ui corner labeled input">
-                                <input type="text" id="modal-ord" name="ordernumber" placeholder="Ordrenummer">
-                                <div class="ui corner label">
-                                    <i class="asterisk icon red"></i>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="ui  order">
-
-                        <div class="content">
-                            <div class="three fields">
-                                <div class="field">
-                                    <select name="route" class="ui search dropdown">
-                                        <option value="">Velg rute</option>
-                                        <option value="10">10</option>
-                                        <option value="11">11</option>
-                                        <option value="12">12</option>
-                                        <option value="13">13</option>
-                                        <option value="14">14</option>
-                                    </select>
-                                </div>
-                                <div class="field">
-                                    <select name="time" class="ui search dropdown">
-                                        <option value="">Velg tid</option>
-                                        <option value="07:30">07:30</option>
-                                        <option value="08:00">08:00</option>
-                                        <option value="09:00">09:00</option>
-                                        <option value="10:00">10:00</option>
-                                        <option value="12:00">12:00</option>
-                                        <option value="13:00">13:00</option>
-                                        <option value="14:00">14:00</option>
-                                        <option value="17:30">17:30</option>
-                                    </select>
-                                </div>
-                                <div class="field">
-                                    <input name="date" type="date" placeholder="Dato">
-                                </div>
-                            </div>
-
-                            <!-- TODO Gjør sånn at checkboks for kontant står på riktig valgt verdi -->
-                            <div class="three fields">
-                                <div class="field">
-                                    <div class="ui test toggle checkbox" style="margin-left:80px; !important; margin-top:5px !important;">
-                                        <input  type="checkbox">
-                                    </div>
-                                    <div class="ui below pointing label">
-                                        Kort/kontant
-                                    </div>
-                                </div>
-                                <div class="field">
-                                    <div class="ui corner labeled input">
-                                        <input type="text" placeholder="sum" id="sum"  disabled>
-                                        <div style="display: none"  id="input-required-disabled" class="ui corner label input-label-enabled">
-                                            <i class="asterisk icon red"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-
-                <!-- END FORM THING -->
-            </div>
-        </div>
-
-        <div class="actions">
-            <div class="ui black deny button">
-                Avbryt
-            </div>
-            <div class="ui positive right labeled icon button">
-                Lagre endring
-                <i class="checkmark icon"></i>
-            </div>
         </div>
     </div>
 @endsection

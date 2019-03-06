@@ -21,6 +21,12 @@ Route::get('/orderstatus', 'HomeController@getOrderStatus')->name('orderstatus')
 
 //Prototype kjørekontor midlertidig rute
 Route::get('/prototest', 'HomeController@getPrototest')->name('proto.prototest');
+
+
+//Edit order
+Route::get('/editorder', 'HomeController@getEdit')->name('getedit');
+Route::post('/postedit', 'HomeController@postEdit')->name('postedit');
+
 Route::get('/prototest2', 'HomeController@getPrototest2')->name('proto.prototest2');
 
 Route::get('/protohome', 'HomeController@getPrototestHome')->name('proto.prototesthome');
@@ -29,6 +35,7 @@ Route::get('/protoworkshops', 'HomeController@getProtoWorkshops')->name('proto.p
 Route::get('/protoworkshopscreate', 'HomeController@getProtoWorkshopCreate')->name('proto.protoworkshopcreate');
 
 Route::get('/protoroles', 'HomeController@getProtoRoles')->name('proto.protoroles');
+
 
 Route::get('/orders', 'HomeController@getOrders')->name('getorders');
 

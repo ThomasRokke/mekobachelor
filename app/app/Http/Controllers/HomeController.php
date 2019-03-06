@@ -683,6 +683,61 @@ class HomeController extends Controller
         return response()->json($workshops);
     }
 
+    public function getEdit(Request $request){
+
+        $order = Order::where('ordernumber', $request->id)->first();
+
+
+        return view('pages.editorder')->with(compact('order'));
+    }
+    public function postEdit(Request $request){
+
+        $order = Order::where('ordernumber', $request->ordernumber)->first();
+
+        $oldRoute = Route::find($order->stop->route->id);
+        $oldStop = Stop::find($order->stop->id);
+
+
+        $r = Route::firstOrCreate(['date' => $request->date, 'route' => $request->route, 'time' => $request->time]);
+
+        $w = Workshop::where('workshop_id', $request->workshop_id)->first();
+
+
+        $s = Stop::firstOrCreate(['route_id' => $r->id, 'workshop_id' => $w->workshop_id]);
+
+        $order->ordernumber = $request->ordernumber;
+        $order->workshop_id = $w->workshop_id;
+        $order->stop_id = $s->id;
+        $order->workshop_id = $request->workshop_id;
+
+
+        $order->save();
+
+
+
+        //TODO: Remove old stops or route if they do not contain anything
+        if($oldStop->id == $s->id){
+            dd('same');
+        }else{
+            if(Stop::find($oldStop->id)->orders->count() == 0){
+                Stop::destroy($oldStop->id);
+
+            }
+            if(Route::find($oldRoute->id)->stops->count() == 0){
+                Route::destroy($oldRoute->id);
+
+            }
+
+        }
+
+
+
+
+
+        return redirect(route('proto.prototest', ['date' => $order->date]));
+
+    }
+
     public function postRoute(Request $request){
 
         $request->validate([
@@ -704,7 +759,7 @@ class HomeController extends Controller
 
         }
                         //22:32:33
-        $timeStamp =  date('H:i:s');
+        $timeStamp = '08:32:33'; //date('H:i:s');
 
 
 
