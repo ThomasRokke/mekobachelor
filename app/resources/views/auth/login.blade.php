@@ -140,6 +140,20 @@
                     Logg inn på din bruker
                 </div>
             </h2>
+            @if ($errors->any())
+
+                <div class="ui error message">
+                    <i class="close icon"></i>
+                    <div class="header">
+                        Feilmelding:
+                    </div>
+                    <ul class="list">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <form method="POST" action="{{ route('login') }}" class="ui large form">
                 @csrf
 
@@ -164,8 +178,12 @@
             </form>
 
             <div class="ui message">
+                Ny bruker? <a href="{{ route('register') }}">Registrer bruker</a>
+            </div>
+            <div class="ui message">
                 Glemt passord? <a href="#">Tilbakestill passord</a>
             </div>
+
         </div>
     </div>
 
