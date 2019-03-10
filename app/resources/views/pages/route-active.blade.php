@@ -179,7 +179,7 @@
 
                             <div class="content ">
                                 @if($stop->delivered != 1)
-                                    <a style="color:black !important; font-size: 1.05em" class="ui header dots-max-width ">  <i style="color:gray!important;" class="icon times"></i>{{ $stop->workshop->name }} </a>
+                                    <a style="color:black !important; font-size: 1.05em" class="ui header dots-max-width ">  <i style="color:gray!important;" class="icon dot circle"></i>{{ $stop->workshop->name }} </a>
                                 @else
                                     <a style="color:black !important; font-size: 1.05em" class="ui header ">  <i style="color:green!important;" class="icon check"></i>{{ $stop->workshop->name }} </a>
                                 @endif
@@ -244,7 +244,7 @@
                                 @endforeach
 
 
-                                <button class="fluid ui button negative">Angre levering  &nbsp;<i class="icon times"></i></button>
+                                <button class="fluid ui button negative">Angre levering  &nbsp;<i class="icon dot circle"></i></button>
 
 
 

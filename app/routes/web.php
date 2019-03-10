@@ -12,6 +12,18 @@
 |
 */
 
+Route::get('/routetimes', 'HomeController@getRoutetimes')->name('routetimes');
+
+Route::get('/editroutetimes', 'HomeController@getEditRouteTimes')->name('editroutetimes');
+
+Route::get('/createroutetimes', 'HomeController@getCreateRouteTimes')->name('createroutetimes');
+
+Route::post('/createroutetimes', 'HomeController@postcreateroutetime')->name('postcreateroutetime');
+
+Route::post('/deleteroutetimes', 'HomeController@deleteroutetimes')->name('deleteroutetimes');
+
+Route::post('/postroutetimeedit', 'HomeController@postroutetimeedit')->name('postroutetimeedit');
+
 Route::get('/myprofile', 'HomeController@getMyProfile')->name('myprofile');
 
 Route::get('/map', 'HomeController@getMap')->name('getmap');

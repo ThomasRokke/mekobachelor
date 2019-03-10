@@ -78,6 +78,78 @@ class HomeController extends Controller
     }
 
 
+
+    public function getRouteTimes(Request $request){
+
+        $rtimes = RouteTimes::all();
+        return view('pages.routetimes')->with(compact('rtimes'));
+    }
+
+    public function getEditRouteTimes(Request $request){
+
+        $routetime = RouteTimes::find($request->id);
+        return view('pages.editroutetimes')->with(compact('routetime'));
+    }
+
+    public function getCreateRouteTimes(){
+        return view('pages.createroutetimes');
+    }
+
+    public function postcreateroutetime(Request $r){
+        $r->validate([
+            'route' => 'required',
+            'time' => 'required',
+            'from_time' => 'required',
+            'to_time' => 'required',
+
+
+        ]);
+
+
+        $rt = new RouteTimes();
+
+        $rt->route = $r->route;
+        $rt->time = $r->time;
+        $rt->from_time = $r->from_time;
+        $rt->to_time = $r->to_time;
+
+        $rt->save();
+
+        return redirect(route('routetimes'));
+    }
+
+    public function deleteroutetimes(Request $r){
+        $rt = RouteTimes::find($r->routetimeid);
+
+        if(!empty($rt)){
+            $rt->destroy($r->routetimeid);
+
+            $rt->save();
+
+            return redirect(route('routetimes'));
+
+        }else{
+            return redirect(route('routetimes'));
+        }
+
+    }
+
+    public function postroutetimeedit(Request $r){
+
+        $rt = RouteTimes::find($r->routetimeid);
+
+        $rt->route = $r->route;
+        $rt->time = $r->time;
+        $rt->from_time = $r->from_time;
+        $rt->to_time = $r->to_time;
+
+        $rt->save();
+
+        return redirect(route('routetimes'));
+
+
+    }
+
     public function getOrderStatus(Request $request){
 
         $ord = $request->ordernumber;
@@ -852,7 +924,7 @@ class HomeController extends Controller
 
         }
                         //22:32:33
-        $timeStamp = '08:32:33'; //date('H:i:s');
+        $timeStamp = date('H:i:s'); //'08:32:33'; //
 
 
 

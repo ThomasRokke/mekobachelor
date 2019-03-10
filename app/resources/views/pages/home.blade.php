@@ -41,6 +41,8 @@
 
     </script>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.9/css/weather-icons.min.css" type="text/css">
+
     <style>
 
         .meko-color-text {
@@ -117,6 +119,7 @@
         }
 
     </style>
+
 @endsection
 
 
@@ -125,6 +128,7 @@
     <main style="margin-bottom: 60vh;">
         <div class="ui container" style="margin-top:80px;">
             <div class="ui segment">
+
 
 
                <div class="ui basic image label huge fluid">
@@ -150,6 +154,18 @@
 
 
             </div>
+
+            <div class="ui segment" style="overflow-x: scroll">
+                <script src="https://www.yr.no/sted/Norge/Oslo/Oslo/Oslo/ekstern_boks_time_for_time.js"></script>
+                <script src="https://www.yr.no/sted/Norge/Oslo/Oslo/Oslo/ekstern_boks_tre_dager.js"></script><noscript><a href="https://www.yr.no/sted/Norge/Oslo/Oslo/Oslo/">yr.no: Værvarsel for Oslo</a></noscript>
+            </div>
+
         </div>
     </main>
+@endsection
+
+@section('bottom-scripts')
+
+
+
 @endsection

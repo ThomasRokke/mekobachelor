@@ -11,6 +11,10 @@
         <i class="wrench icon"></i> Verksteder
     </a>
 
+    <a href="{{ route('routetimes') }}" class="item {{ \Request::is('routetimes') ? 'active' : null }}">
+        <i class="clock icon"></i> Rutetider
+    </a>
+
     <a href="{{ route('getmap') }}" class="item {{ \Request::is('map') ? 'active' : null }}">
         <i class="chart line icon"></i> Statistikk
     </a>
