@@ -207,6 +207,18 @@
         }
     </style>
 
+    <style>
+
+        /*
+            Hide rails at a certain width.
+        */
+        @media screen and (max-width: 1424px) {
+            .rail {
+                display: none !important;
+            }
+        }
+    </style>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://npmcdn.com/flatpickr/dist/l10n/no.js"></script>
@@ -220,7 +232,7 @@
     <div class="ui text container" style="margin-top:10px;">
         <div class="ui segment  ">
             <!-- Left rail start-->
-            <div class="ui left dividing rail">
+            <div class="ui left dividing rail" id="left-rail">
                 <div class="ui segment">
                     <div class="item">
                         <h3 class="ui center aligned header">

@@ -155,10 +155,18 @@
 
             </div>
 
-            <div class="ui segment" style="overflow-x: scroll">
-                <script src="https://www.yr.no/sted/Norge/Oslo/Oslo/Oslo/ekstern_boks_time_for_time.js"></script>
-                <script src="https://www.yr.no/sted/Norge/Oslo/Oslo/Oslo/ekstern_boks_tre_dager.js"></script><noscript><a href="https://www.yr.no/sted/Norge/Oslo/Oslo/Oslo/">yr.no: Værvarsel for Oslo</a></noscript>
+
+            <div class="ui embed segment" id="map" style="">
             </div>
+
+            <div class="ui segment" style="overflow-x: scroll; margin-top:15px">
+                <script src="https://www.yr.no/sted/Norge/Oslo/Oslo/Oslo/ekstern_boks_tre_dager.js"></script><noscript><a href="https://www.yr.no/sted/Norge/Oslo/Oslo/Oslo/">yr.no: Værvarsel for Oslo</a></noscript>
+
+                <script src="https://www.yr.no/sted/Norge/Oslo/Oslo/Oslo/ekstern_boks_time_for_time.js"></script>
+            </div>
+
+
+
 
         </div>
     </main>
@@ -166,6 +174,20 @@
 
 @section('bottom-scripts')
 
+    <script>
+        var map;
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: 59.9203, lng: 10.837569},
+                zoom: 9
+            });
+
+            var trafficLayer = new google.maps.TrafficLayer();
+            trafficLayer.setMap(map);
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbs_N37A9PUe80-qtBc4EzC4_GJ_0PJKs&callback=initMap"
+            async defer></script>
 
 
 @endsection

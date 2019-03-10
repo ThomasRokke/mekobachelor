@@ -5,7 +5,7 @@
             <img src="https://www.mekonomen.no/Content/images/mekonomen-logo.svg" class="ui centered image">
             <div class="ui horizontal inverted small divided link list">
                 <a class="item" href="#">Sidekart</a>
-                <a class="item" href="#">Kontakt IT</a>
+                <a class="item" href="mailto:thomas.roekke@gmail.com">Kontakt IT</a>
                 <a class="item" href="#">Personvern</a>
             </div>
             <div class="ui inverted section">
