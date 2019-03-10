@@ -3,7 +3,13 @@
 @section('header')
     <style type="text/css">
         body {
-            background-color: #f7f7f7;
+            background-image: url("https://www.mjosbil.no/ep_bilder/5/413-68f19b5a1338d9debdbe4bf19c66a095.jpeg");
+            background-color: #cccccc;
+
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
         }
         body > .grid {
             height: 100%;
@@ -130,7 +136,7 @@
 <div class="ui middle aligned center aligned grid" style="margin-top:50px">
     <div class="column column-spesific">
         <h2 class="ui image header">
-            <div class="content">
+            <div class="content" style="color:white">
                 Logg inn på din bruker
             </div>
         </h2>
