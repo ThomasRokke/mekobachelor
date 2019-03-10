@@ -35,12 +35,12 @@
         Meny
     </a>
 
-    <div class="ui container ">
+
         <a href="{{ route('home') }}" class="header item meko-color-text" style="border-left:none!important">
-            Mekodrive
+            <img src="https://i.ibb.co/8N1Lnnk/Screenshot-2019-03-10-at-17-30-42.png" width="100" class="ui centered image">
         </a>
 
-    </div>
+
 </div>
 <!-- End nav -->
 <!-- Sidenav-->

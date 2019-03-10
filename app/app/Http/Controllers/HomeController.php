@@ -351,22 +351,12 @@ class HomeController extends Controller
 
         $user = Auth::user();
 
-        //If the user have the role of admin or office
-        if ($user->hasRole(['admin', 'office'])) { // you can pass an id or slug
+        //get all routes with my driver id that is active
+        // TODO: add where this date = bla bla
+        $route = Route::where('driver_id', Auth::user()->id)->where('active', 1)->get();
 
 
-            return view('office.home');
-        }
-        //If the user have the role of User.
-        else{
-
-            //get all routes with my driver id that is active
-            // TODO: add where this date = bla bla
-            $route = Route::where('driver_id', Auth::user()->id)->where('active', 1)->get();
-
-
-            return view('pages.home')->with(compact('route'));
-        }
+        return view('pages.home')->with(compact('route'));
 
     }
 
