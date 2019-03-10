@@ -131,26 +131,41 @@
 
 
 
-               <div class="ui basic image label huge fluid">
+                <div class="ui basic image label huge fluid">
                     <img src="https://semantic-ui.com/images/avatar/small/elliot.jpg">
                     {{ \Illuminate\Support\Facades\Auth::user()->name }}
                 </div>
                 <div class="ui divider"></div>
-                    @if(!empty($route))
-                        @foreach($route as $r)
-                            @if($r->started === 1)
+                @if(!empty($route))
+
+                    @php
+                        $any = false;
+                        foreach($route as $r){
+                        if($r->route < 0){
+                            $any = true;
+                          }
+                        }
+
+                    @endphp
+
+                    @foreach($route as $r)
+                        @if($r->started === 1)
                             <p class="lead text-center animated fadeIn text-size">Aktiv rute <strong>{{ $r->route }}</strong> klokken <strong>{{ date('H:i', strtotime($r->time)) }}</strong></p>
 
                             <a class="abc big ui button ui black button" href="{{ route('transport.route-drive') }}">Gå til ruten</a>
-                            @else
+                        @else
                             <p class="lead text-center animated fadeIn text-size">Påmeldt rute <strong>{{ $r->route }}</strong> klokken <strong>{{ date('H:i', strtotime($r->time)) }}</strong></p>
 
                             <a class="abc big ui button ui black button" href="{{ route('transport.route-preview') }}">Se kjøreliste</a>
-                            @endif
-                        @endforeach
-                    @else
-                        <p class="lead text-center animated fadeIn">Du har <strong>ingen</strong> aktive ruter.</p>
+                        @endif
+                    @endforeach
+
+                    @if(!$any)
+                        <p class="lead text-center animated fadeIn text-size">Du har <strong>ingen</strong> aktive ruter.</p>
                     @endif
+                @else
+                    <p class="lead text-center animated fadeIn">Du har <strong>ingen</strong> aktive ruter.</p>
+                @endif
 
 
             </div>
@@ -159,7 +174,7 @@
             <div class="ui embed segment" id="map" style="">
             </div>
 
-            <div class="ui segment" style="overflow-x: scroll; margin-top:15px">
+            <div style="overflow-x: scroll; margin-top:15px">
                 <script src="https://www.yr.no/sted/Norge/Oslo/Oslo/Oslo/ekstern_boks_tre_dager.js"></script><noscript><a href="https://www.yr.no/sted/Norge/Oslo/Oslo/Oslo/">yr.no: Værvarsel for Oslo</a></noscript>
 
                 <script src="https://www.yr.no/sted/Norge/Oslo/Oslo/Oslo/ekstern_boks_time_for_time.js"></script>
