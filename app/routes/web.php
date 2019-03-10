@@ -46,6 +46,9 @@ Route::get('/protohome', 'HomeController@getPrototestHome')->name('proto.protote
 Route::get('/protoworkshops', 'HomeController@getProtoWorkshops')->name('proto.protoworkshop');
 Route::get('/protoworkshopscreate', 'HomeController@getProtoWorkshopCreate')->name('proto.protoworkshopcreate');
 
+Route::get('/editworkshop', 'HomeController@getEditWorkshop')->name('editworkshop');
+Route::post('/postworkshopedit', 'HomeController@postworkshopedit')->name('postworkshopedit');
+
 Route::get('/protoroles', 'HomeController@getProtoRoles')->name('proto.protoroles');
 
 

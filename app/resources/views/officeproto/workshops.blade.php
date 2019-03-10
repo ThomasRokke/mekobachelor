@@ -187,7 +187,11 @@
                             <td>{{ $w->adr }}</td>
                             <td>{{ $w->lng }}</td>
                             <td>{{ $w->lng }}</td>
-                            <td><i class="icon caret down"></i></td>
+                            <td>
+                                <div class="menu">
+                                    <a href="{{ route('editworkshop', ['workshop_id' => $w->id]) }}" class="item"><i class="icon edit"></i>Rediger</a>
+                                </div>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>

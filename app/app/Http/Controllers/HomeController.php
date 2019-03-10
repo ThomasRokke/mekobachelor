@@ -78,6 +78,29 @@ class HomeController extends Controller
     }
 
 
+    public function getEditWorkshop(Request $request){
+        $w = Workshop::find($request->workshop_id);
+
+        return view('pages.editworkshop')->with(compact('w'));
+    }
+
+    public function postworkshopedit(Request $request){
+        //create new workshop instance
+        $w = Workshop::find($request->wid);
+        $w->workshop_id = $request->workshop_id;
+        $w->name = $request->name;
+        $w->route = $request->route;
+        $w->lat = $request->lat;
+        $w->lng = $request->lng;
+        $w->adr = $request->adr;
+        $w->place_id = $request->fromID;
+
+        //save the new record
+        $w->save();
+
+        //redirect to the workshop overview
+        return redirect(route('proto.protoworkshop'));
+    }
 
     public function getRouteTimes(Request $request){
 
