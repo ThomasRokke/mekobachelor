@@ -12,6 +12,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
 
 
+    <style>
+        body{
+            height: 100%;
+            margin: 0;
+
+        }
+
+        html{
+            height: 100%;
+            margin: 0;
+        }
+    </style>
     <script
             src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -31,9 +43,7 @@
 
 </article>
 
-@component('components._footer')
 
-@endcomponent
 
 @yield('bottom-scripts')
 </body>

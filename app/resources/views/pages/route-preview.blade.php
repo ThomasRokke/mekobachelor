@@ -108,6 +108,14 @@
             width: 100%;
 
         }
+
+        .item.title .content{
+            margin: 5px 0 5px 0;
+        }
+
+        .ui.fitted.divider{
+            margin: 5px 0 5px 0;
+        }
     </style>
 
 

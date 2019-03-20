@@ -13,8 +13,19 @@
         #sortable li span { position: absolute; margin-left: -1.3em; }
 
         #sortable{
-            font-size: 1.4em;
+            font-size: 1.2em;
 
+        }
+
+        .ui.negative.button{
+            padding: 5px 2px 5px 10px;
+            margin-bottom: 5px;
+
+        }
+
+        .not-prio-list{
+            max-height: 700px!important;
+            overflow-y: scroll;
         }
     </style>
 
@@ -150,9 +161,14 @@
 
             <div class="ui grid">
                 <div class="six wide column">
-                    <h2>Ikke prioritert</h2>
-                    <div class="ui divider"></div>
-                    <div class="ui celled list">
+                    <div class="ui  header">
+                        <i class="wrench icon" style="color:gray"></i>
+                        <div class="content">
+                            Verksteder på rute {{ $route }}.
+                            <div class="sub header">Trykk på grønn plussknapp for å legge til i prioritert liste.</div>
+                        </div>
+                    </div>
+                    <div class="ui celled list not-prio-list">
                         @foreach($workshops as $w)
                         <div class="item">
                             <img data-name="{{ $w->name }}" data-wid="{{ $w->workshop_id }}" class="ui avatar image add-to-list right floated" src="https://cdn0.iconfinder.com/data/icons/social-messaging-ui-color-shapes/128/add-circle-green-512.png">
@@ -169,18 +185,32 @@
                     </div>
                 </div>
                 <div class="ten wide column">
-                    <h2>Prioritert</h2>
-                    <div class="ui divider"></div>
+                    <div class="ui  header">
+                        <i class="sort numeric down icon" style="color:gray"></i>
+                        <div class="content">
+                            Prioritert liste på rute {{ $route }}.
+                            <div class="sub header">Dra elementene til ønsket posisjon og trykk lagre.</div>
+                        </div>
+                    </div>
 
                     <form method="POST" action="{{ route('priopost') }}">
                         @csrf
-                        <div class="ui divided list" id="sortable" style="width: 100%!important;"></div>
+                        <div class="ui divided list" id="sortable" style="width: 60%!important;"></div>
 
                         <div class="ui divider"></div>
                         <input type="hidden" name="route" value="{{ $route }}">
-                        <button class="ui button right floated positive" type="submit">Lagre endringer</button>
+
+                        <button class="ui button  positive" type="submit">Lagre endringer &nbsp;<i class="icon save" style="color:white!important;"></i></button>
                     </form>
 
+
+
+                    <div class="ui divider"></div>
+
+
+                    @if(count($prio) > 0)
+                        <div class="ui embed segment" id="map" style=""></div>
+                    @endif
                 </div>
             </div>
 
@@ -314,5 +344,88 @@
         });
 
 
+    </script>
+
+    @if(count($prio) > 0)
+    <script>
+
+        // Initialize and add the map
+        function initMap() {
+
+            // The map, centered at Uluru
+            var map = new google.maps.Map(
+                document.getElementById('map'));
+
+
+            bounds  = new google.maps.LatLngBounds();
+
+
+
+
+            @foreach($prio as $p)
+
+
+
+
+            var from{{ $p->id }} = {lat:{!! $p->lat !!}, lng:{!! $p->lng !!}};
+
+            var content{{ $p->id }} = '<div id="content">'+
+                '<div id="siteNotice">'+
+                '</div>'+
+                '<h4 id="firstHeading" class="firstHeading">{!! $p->name !!}</h4>'+
+                '<div id="bodyContent">'+
+                '<h5><a target="_blank" href="https://www.google.com/maps?saddr=My+Location&daddr={!! $p->adr !!}&destination_place_id={!! $p->place_id !!}&travelmode=driving">' +
+                '                Veibeskrivelse <i class="icon car"></i></a></h5>'+
+                '</div>'+
+                '</div>';
+
+            var infowindow{{ $p->id }} = new google.maps.InfoWindow({
+                content: content{{ $p->id }}
+            });
+
+            // The marker, positioned at Uluru
+            var marker{{ $p->id }} = new google.maps.Marker({position: from{{ $p->id }}, map: map, label:'{{ $p->position }}'});
+
+
+
+            loc{{ $p->id }} = new google.maps.LatLng(marker{{ $p->id }}.position.lat(), marker{{ $p->id }}.position.lng());
+
+
+
+            bounds.extend(loc{{ $p->id }});
+
+
+            marker{{ $p->id }}.addListener('click', function() {
+                infowindow{{ $p->id }}.open(map, marker{{ $p->id }});
+            });
+            @endforeach
+
+
+
+
+            map.fitBounds(bounds);
+            map.panToBounds(bounds);
+
+
+            var trafficLayer = new google.maps.TrafficLayer();
+            trafficLayer.setMap(map);
+
+
+
+        }
+    </script>
+    <!--Load the API from the specified URL
+    * The async attribute allows the browser to render the page while the API loads
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+    * The callback parameter executes the initMap() function
+    -->
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?&libraries=visualization&key=AIzaSyBbs_N37A9PUe80-qtBc4EzC4_GJ_0PJKs&callback=initMap">
+    </script>
+    @endif
+    <script>
+        $("#range-trigger").click(function() {
+            $("#range-content").toggle("fast");
+        });
     </script>
 @endsection

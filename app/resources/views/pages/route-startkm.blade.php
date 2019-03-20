@@ -37,13 +37,7 @@
 
                 @endphp
 
-                @if($gotCash)
-                $('.ui.dimmer.modals')
-                    .modal('setting', 'closable', false)
-                    .modal('show')
 
-                ;
-                @endif
 
 
             });
@@ -134,6 +128,20 @@
 
                 </form>
 
+                @if($gotCash)
+                    <div class="ui icon message positive">
+                        <i class="money icon"></i>
+                        <div class="content">
+                            <div class="header">
+                                Du skal ta i mot kontant betaling.
+                            </div>
+                            <p>Har du husket å ta med deg terminal?</p>
+                        </div>
+                    </div>
+                @endif
+
+
+
 
 
 
@@ -143,47 +151,5 @@
         </div>
     </main>
 
-    <div class="ui dimmer modals page transition" style="display: flex !important;"><div class="ui fullscreen modal transition hidden">
-            <i class="close icon"></i>
-            <div class="header">
-                Update Your Settings
-            </div>
-            <div class="content">
-                <div class="ui form">
-                    <h4 class="ui dividing header">Give us your feedback</h4>
-                    <div class="field">
-                        <label>Feedback</label>
-                        <textarea data-gramm="true" data-txt_gramm_id="30999a71-9e71-879b-1436-e798d2805f51" data-gramm_id="30999a71-9e71-879b-1436-e798d2805f51" spellcheck="false" data-gramm_editor="true" style="z-index: auto; position: relative; line-height: 17.9998px; font-size: 14px; transition: none 0s ease 0s; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255);"></textarea><grammarly-btn><div class="_1BN1N Kzi1t MoE_1 _2DJZN" style="z-index: 2; transform: translate(1719.05px, 184px);"><div class="_1HjH7"><div title="Protected by Grammarly" class="_3qe6h">&nbsp;</div></div></div></grammarly-btn>
-                    </div>
-                    <div class="field">
-                        <div class="ui checkbox">
-                            <input type="checkbox" checked="checked" name="contact-me" tabindex="0" class="hidden">
-                            <label>It's okay to contact me.</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="actions">
-                <div class="ui button">Cancel</div>
-                <div class="ui green button">Send</div>
-            </div>
-        </div><div class="ui small basic test modal transition visible active" style="display: block !important;">
-            <div class="ui icon header">
-                <i class="green money bill alternate outline icon"></i>
-                Kontantordre på ruten
-            </div>
-            <div class="content">
-                <p>Husk å ta med bankterminal. Har du tatt med terminal?</p>
-            </div>
-            <div class="actions">
-                <div class="ui red basic cancel inverted button">
-                    <i class="remove icon"></i>
-                    Nei
-                </div>
-                <div class="ui green ok inverted button">
-                    <i class="checkmark icon"></i>
-                    Ja
-                </div>
-            </div>
-        </div></div>
+
 @endsection

@@ -434,10 +434,28 @@
 
             bounds  = new google.maps.LatLngBounds();
 
+            var heatmapData = [
+                @foreach($routes as $route)
+
+                @foreach($route->stops as $stop)
+                new google.maps.LatLng({!! $stop->workshop->lat !!}, {!! $stop->workshop->lng !!}),
+
+                @endforeach
+                @endforeach
+            ];
+
+            var heatmap = new google.maps.visualization.HeatmapLayer({
+                data: heatmapData
+            });
+            heatmap.set('radius', heatmap.get('radius') ? null : 30);
+            heatmap.setMap(map);
+
 
             @foreach($routes as $route)
 
             @foreach($route->stops as $stop)
+
+
 
             var from{{ $stop->id }} = {lat:{!! $stop->workshop->lat !!}, lng:{!! $stop->workshop->lng !!}};
 
@@ -473,6 +491,8 @@
             @endforeach
             @endforeach
 
+
+
             map.fitBounds(bounds);
             map.panToBounds(bounds);
 
@@ -490,7 +510,7 @@
     * The callback parameter executes the initMap() function
     -->
     <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbs_N37A9PUe80-qtBc4EzC4_GJ_0PJKs&callback=initMap">
+            src="https://maps.googleapis.com/maps/api/js?&libraries=visualization&key=AIzaSyBbs_N37A9PUe80-qtBc4EzC4_GJ_0PJKs&callback=initMap">
     </script>
 
             <script>

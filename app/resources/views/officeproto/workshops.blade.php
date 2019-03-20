@@ -173,9 +173,9 @@
                         <th>Firmanavn</th>
                         <th>Rute</th>
                         <th>Adresse</th>
-                        <th>Lat</th>
-                        <th>Lng</th>
-                        <th>Vektet pos.</th>
+
+                        <th>Prioritert</th>
+                        <th>Posisjon</th>
                         <th>Handlinger</th>
                     </tr>
                     </thead>
@@ -186,9 +186,9 @@
                             <td>{{ $w->name }}</td>
                             <td>{{ $w->route }}</td>
                             <td>{{ $w->adr }}</td>
-                            <td>{{ $w->lng }}</td>
-                            <td>{{ $w->lng }}</td>
-                            <td>93</td>
+
+                            <td>{{ ($w->prioritized === 1) ? 'Ja' : '' }}</td>
+                            <td>{{ $w->position }}</td>
                             <td>
                                 <div class="menu">
                                     <a href="{{ route('editworkshop', ['workshop_id' => $w->id]) }}" class="item"><i class="icon edit"></i>Rediger</a>
@@ -203,9 +203,9 @@
                         <th>Firmanavn</th>
                         <th>Rute</th>
                         <th>Adresse</th>
-                        <th>Lat</th>
-                        <th>Lng</th>
-                        <th>Vektet pos.</th>
+
+                        <th>Prioritert</th>
+                        <th>Posisjon</th>
                         <th>Handlinger</th>
                     </tr>
                     </tfoot>

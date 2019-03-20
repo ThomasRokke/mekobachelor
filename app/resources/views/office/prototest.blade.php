@@ -44,7 +44,9 @@
 
                 //Init the dropdowns used.
                 $('.ui.dropdown')
-                    .dropdown();
+                    .dropdown({
+                        clearable: true
+                    });
 
                 //Validate forms
                 $('.ui.form.order')
@@ -517,7 +519,7 @@
 
                                             @endphp
 
-                                            <a class="item {{ $openString  }}" data-tab="id-{{ $route->route }}-{{ $route->time }}">Rute {{ $route->route }}</a>
+                                            <a class="item {{ $openString  }}" data-tab="id-{{ $route->route }}-{{ $route->time }}">Rute {{ $route->route }} @if($route->finished === 1)&nbsp;<i class="icon check green"></i>@endif</a>
                                         @endforeach
 
                                     </div>

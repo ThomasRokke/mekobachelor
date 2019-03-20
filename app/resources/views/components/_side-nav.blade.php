@@ -15,6 +15,10 @@
         <i class="clock icon"></i> Rutetider
     </a>
 
+    <a href="{{ route('prioritize') }}" class="item {{ \Request::is('prioritize') ? 'active' : null }}">
+        <i class="sort numeric down icon"></i> Prioriter
+    </a>
+
     <a href="{{ route('getmap') }}" class="item {{ \Request::is('map') ? 'active' : null }}">
         <i class="chart line icon"></i> Statistikk
     </a>

@@ -515,6 +515,9 @@ class HomeController extends Controller
 
     public function getRoutePreview(){
 
+        //Set route position based on 
+
+
         //get all routes with my driver id that is active
         // TODO: add where this date = bla bla
         $route = Route::where('driver_id', Auth::user()->id)->where('active', 1)->first();
@@ -1200,7 +1203,6 @@ class HomeController extends Controller
 
         // https://maps.googleapis.com/maps/api/directions/json?origin=Adelaide,SA&destination=Adelaide,SA&waypoints=optimize:true|Barossa+Valley,SA|Clare,SA|Connawarra,SA|McLaren+Vale,SA&key=AIzaSyA7eRw8L-VehjHMRGTjPtkt7dCgaQFUcJQ
 
-
         $route = Route::find($request->route_id);
 
         $countStops = count($route->stops);
@@ -1212,8 +1214,6 @@ class HomeController extends Controller
             $stopArray[$i] = [$route->stops[$i]->workshop->adr, $route->stops[$i]];
         }
 
-
-
         //dd($stopArray);
 
         $waypointsString = '';
@@ -1222,9 +1222,6 @@ class HomeController extends Controller
 
             $waypointsString .= '|place_id:' . $stop->workshop->place_id;
         }
-
-
-
 
 
         $waypoints = "|place_id:ChIJ4eGnUL58QUYRf_PNdGhDisI|place_id:ChIJp2K8RTtlQUYRDBL_VduyAOA|place_id:ChIJ4eGnUL58QUYRf_PNdGhDisI";
@@ -1237,11 +1234,8 @@ class HomeController extends Controller
         //https://maps.googleapis.com/maps/api/place/autocomplete/json?input=thon+osl&key=AIzaSyApvbnXANxqHKHaZ4A23LrdvMOSlRh1r8M
         //sends a get request with the auth information in the header + the generated URL.
         $responseRaw = $client->get($url);
-        //grab the returned information body information and decode it to JSSON format.
+        //grab the returned information body information and decode it to JSON format.
         $responseDecodet = json_decode($responseRaw->getBody(), true);
-
-
-
 
         //dd($responseDecodet);
 
@@ -1249,8 +1243,6 @@ class HomeController extends Controller
         // dd($responseDecodet['routes'][0]['waypoint_order'][0]);
 
         $amount = count($responseDecodet['routes'][0]['legs']);
-
-
 
         // dd($responseDecodet['routes'][0]['legs']);
 
@@ -1266,11 +1258,7 @@ class HomeController extends Controller
                 }
             }
 
-
-
-
         }
-
 
 
         /*

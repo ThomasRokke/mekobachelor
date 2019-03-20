@@ -10,6 +10,8 @@
             background-repeat: no-repeat;
             background-size: cover;
             position: relative;
+            height: 100%;
+            width: 100%;
         }
         body > .grid {
             height: 100%;
