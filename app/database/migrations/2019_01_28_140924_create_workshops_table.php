@@ -23,6 +23,8 @@ class CreateWorkshopsTable extends Migration
             $table->string('lng')->nullable();
             $table->string('place_id')->nullable();
             $table->string('phone')->nullable();
+            $table->boolean('prioritized')->nullable();
+            $table->integer('position')->nullable();
 
             $table->timestamps();
         });

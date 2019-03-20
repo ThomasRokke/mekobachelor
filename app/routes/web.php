@@ -179,3 +179,8 @@ Route::get('/optimize', 'HomeController@optimize')->name('optimize');
 Route::post('/markdel', 'HomeController@markdelivered')->name('markdelivered');
 Route::post('/undokdel', 'HomeController@undodelivered')->name('undodelivered');
 
+
+
+//Sortert rekkefølge
+Route::get('/prioritize', 'HomeController@prioritize')->name('prioritize');
+Route::post('/prioritize', 'HomeController@priopost')->name('priopost');
