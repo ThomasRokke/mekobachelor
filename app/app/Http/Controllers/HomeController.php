@@ -515,21 +515,22 @@ class HomeController extends Controller
 
     public function getRoutePreview(){
 
-        //Set route position based on 
+        //Set route position based on
+        $routeToSet = Route::where('driver_id', Auth::user()->id)->where('active', 1)->first();
 
+        foreach($routeToSet->stops as $s){
+            if($s->workshop->prioritized !== null){
+                $s->route_position = $s->workshop->position;
+                $s->save();
+            }
+        }
 
         //get all routes with my driver id that is active
         // TODO: add where this date = bla bla
         $route = Route::where('driver_id', Auth::user()->id)->where('active', 1)->first();
 
         $stopsRaw = $route->stops;
-
-
-        if(!empty($stopsRaw[0]->route_position)){
-            $stops = $stopsRaw->sortBy('route_position');
-        }else{
-            $stops = $stopsRaw;
-        }
+        $stops = $stopsRaw;
 
 
         return view('pages.route-preview')->with(compact('route', 'stops'));
@@ -580,9 +581,141 @@ class HomeController extends Controller
 
         $stop->save();
 
-        return redirect()->back();
+
+
+        //Set route position based on
+        $routeToSet = Route::where('driver_id', Auth::user()->id)->where('active', 1)->first();
+
+        $amountPrio = 0;
+        $amountDelivered = 0;
+        $lastPos = 0;
+        $otherExits = false;
+        foreach($routeToSet->stops as $s){
+            if($s->workshop->prioritized !== null){
+                $lastPos = $s->route_position;
+                $amountPrio++; //Amount of prioritized
+
+                if($s->delivered === 1){
+                    $lastPos = $s->route_position;
+                    $amountDelivered++;
+                }
+            }else{
+                $otherExits = true;
+            }
+        }
+
+
+        //If you have delivered all the prioritized orders and if others exits. Run the optimization algorithm
+        if($amountDelivered === $amountPrio && $otherExits){
+            return redirect(route('optimize', ['route_id' => $stop->route->id]));
+        }else{
+            return redirect()->back();
+        }
+
+
+
+
+
+
 
     }
+
+    //optimize with google!!!
+    public function optimize(Request $request){
+        // https://maps.googleapis.com/maps/api/directions/json?origin=place_id:ChIJDS_Xlr1vQUYR_DoZm2txJhg&destination=place_id:ChIJDS_Xlr1vQUYR_DoZm2txJhg&waypoints=optimize:true|via:place_id:ChIJ2WDjTRhuQUYR1_zDeFG9iBA|via:place_id:ChIJE45MHl1uQUYRcXmbvjUpf04&key=AIzaSyA7eRw8L-VehjHMRGTjPtkt7dCgaQFUcJQ
+
+        // https://maps.googleapis.com/maps/api/directions/json?origin=Adelaide,SA&destination=Adelaide,SA&waypoints=optimize:true|Barossa+Valley,SA|Clare,SA|Connawarra,SA|McLaren+Vale,SA&key=AIzaSyA7eRw8L-VehjHMRGTjPtkt7dCgaQFUcJQ
+
+        $route = Route::find($request->route_id);
+
+        $lastPrioStop = $route->stops->where('route_position', '!==', null)->sortBy('route_position')->last();
+
+        $startPlaceID = $lastPrioStop->workshop->place_id;
+
+
+        $stops = $route->stops->where('route_position', '===', null);
+
+        $countStops = count($stops);
+
+        $stopArray = [];
+
+        foreach($stops as $stop){
+            array_push($stopArray, $stop->workshop->adr, $stop);
+            //$stopArray[$i] = [$stops[$i]->workshop->adr, $stops[$i]];
+        }
+
+
+        $waypointsString = '';
+
+        foreach ($stops as $stop){
+
+            $waypointsString .= '|place_id:' . $stop->workshop->place_id;
+        }
+
+
+
+        $waypoints = "|place_id:ChIJ4eGnUL58QUYRf_PNdGhDisI|place_id:ChIJp2K8RTtlQUYRDBL_VduyAOA|place_id:ChIJ4eGnUL58QUYRf_PNdGhDisI";
+
+        // dd($route);
+        //new GuzzleHttp\Client;
+        $client = new Client();
+        //base url + the query provided by the user
+        $url = "https://maps.googleapis.com/maps/api/directions/json?origin=place_id:".$startPlaceID."&destination=place_id:EiNTbWFsdm9sbHZlaWVuIDQ3LCAwNjY3IE9zbG8sIE5vcndheQ&waypoints=optimize:true".$waypointsString."&key=AIzaSyA7eRw8L-VehjHMRGTjPtkt7dCgaQFUcJQ";
+        //https://maps.googleapis.com/maps/api/place/autocomplete/json?input=thon+osl&key=AIzaSyApvbnXANxqHKHaZ4A23LrdvMOSlRh1r8M
+        //sends a get request with the auth information in the header + the generated URL.
+        $responseRaw = $client->get($url);
+        //grab the returned information body information and decode it to JSON format.
+        $responseDecodet = json_decode($responseRaw->getBody(), true);
+
+
+        dd($responseDecodet);
+
+        //dd($responseDecodet['routes'][0]['legs']);
+        // dd($responseDecodet['routes'][0]['waypoint_order'][0]);
+
+        $amount = count($responseDecodet['routes'][0]['legs']);
+        $startPosition = $lastPrioStop->route_position;
+
+        $amount = $amount + $startPosition;
+
+
+
+        //TODO:: KEEP THE SAME SHIET
+        // dd($responseDecodet['routes'][0]['legs']);
+
+        for($i = $startPosition; $i < $amount; $i++){
+
+
+            $legadr = $responseDecodet['routes'][0]['legs'][$i]['start_address'];
+
+            foreach ($stops as $stop){
+                if($stop->workshop->adr === $legadr){
+                    $stop->route_position = $i;
+                    $stop->save();
+                }
+            }
+
+        }
+
+
+        /*
+        for($i = 0; $i < $countStops; $i++){
+            $stop = $stopArray[$i][1];
+
+           // dd($stop);
+            $stop->route_position = $responseDecodet['routes'][0]['waypoint_order'][$i];
+            $stop->save();
+
+
+        }
+        */
+
+
+        return redirect(route('transport.route-drive'));
+
+
+    }
+
 
     public function undodelivered(Request $request){
         $stop = Stop::find($request->id);
@@ -1197,87 +1330,6 @@ class HomeController extends Controller
         return back();
     }
 
-//optimize with google!!!
-    public function optimize(Request $request){
-        // https://maps.googleapis.com/maps/api/directions/json?origin=place_id:ChIJDS_Xlr1vQUYR_DoZm2txJhg&destination=place_id:ChIJDS_Xlr1vQUYR_DoZm2txJhg&waypoints=optimize:true|via:place_id:ChIJ2WDjTRhuQUYR1_zDeFG9iBA|via:place_id:ChIJE45MHl1uQUYRcXmbvjUpf04&key=AIzaSyA7eRw8L-VehjHMRGTjPtkt7dCgaQFUcJQ
-
-        // https://maps.googleapis.com/maps/api/directions/json?origin=Adelaide,SA&destination=Adelaide,SA&waypoints=optimize:true|Barossa+Valley,SA|Clare,SA|Connawarra,SA|McLaren+Vale,SA&key=AIzaSyA7eRw8L-VehjHMRGTjPtkt7dCgaQFUcJQ
-
-        $route = Route::find($request->route_id);
-
-        $countStops = count($route->stops);
-
-
-        $stopArray = [];
-
-        for($i = 0; $i < $countStops; $i++){
-            $stopArray[$i] = [$route->stops[$i]->workshop->adr, $route->stops[$i]];
-        }
-
-        //dd($stopArray);
-
-        $waypointsString = '';
-
-        foreach ($route->stops as $stop){
-
-            $waypointsString .= '|place_id:' . $stop->workshop->place_id;
-        }
-
-
-        $waypoints = "|place_id:ChIJ4eGnUL58QUYRf_PNdGhDisI|place_id:ChIJp2K8RTtlQUYRDBL_VduyAOA|place_id:ChIJ4eGnUL58QUYRf_PNdGhDisI";
-
-        // dd($route);
-        //new GuzzleHttp\Client;
-        $client = new Client();
-        //base url + the query provided by the user
-        $url = "https://maps.googleapis.com/maps/api/directions/json?origin=place_id:ChIJDS_Xlr1vQUYR_DoZm2txJhg&destination=place_id:EiNTbWFsdm9sbHZlaWVuIDQ3LCAwNjY3IE9zbG8sIE5vcndheQ&waypoints=optimize:true".$waypointsString."&key=AIzaSyA7eRw8L-VehjHMRGTjPtkt7dCgaQFUcJQ";
-        //https://maps.googleapis.com/maps/api/place/autocomplete/json?input=thon+osl&key=AIzaSyApvbnXANxqHKHaZ4A23LrdvMOSlRh1r8M
-        //sends a get request with the auth information in the header + the generated URL.
-        $responseRaw = $client->get($url);
-        //grab the returned information body information and decode it to JSON format.
-        $responseDecodet = json_decode($responseRaw->getBody(), true);
-
-        //dd($responseDecodet);
-
-        //dd($responseDecodet['routes'][0]['legs']);
-        // dd($responseDecodet['routes'][0]['waypoint_order'][0]);
-
-        $amount = count($responseDecodet['routes'][0]['legs']);
-
-        // dd($responseDecodet['routes'][0]['legs']);
-
-        for($i = 1; $i < $amount; $i++){
-
-
-            $legadr = $responseDecodet['routes'][0]['legs'][$i]['start_address'];
-
-            foreach ($route->stops as $stop){
-                if($stop->workshop->adr === $legadr){
-                    $stop->route_position = $i;
-                    $stop->save();
-                }
-            }
-
-        }
-
-
-        /*
-        for($i = 0; $i < $countStops; $i++){
-            $stop = $stopArray[$i][1];
-
-           // dd($stop);
-            $stop->route_position = $responseDecodet['routes'][0]['waypoint_order'][$i];
-            $stop->save();
-
-
-        }
-        */
-
-
-        return back();
-
-
-    }
 
 
 

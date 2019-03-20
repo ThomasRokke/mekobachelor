@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Route extends Model
 {
@@ -20,8 +21,10 @@ class Route extends Model
      * Get the stops for the route
      */
     public function stops()
-    {
-        return $this->hasMany('App\Stop', 'route_id', 'id');
+    {                                                                                //To remove problem with Laravel not implementing NULL logic in orderByFunction - So i Do this with raw to prevent using RAW in Eloquent ORM later in the project.
+        return $this->hasMany('App\Stop', 'route_id', 'id')->select(['*', DB::raw('route_position IS NULL AS route_position_null')])
+            ->orderBy('route_position_null')
+            ->orderBy('route_position');
     }
 
     /**
