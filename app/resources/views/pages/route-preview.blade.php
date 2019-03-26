@@ -127,6 +127,13 @@
         .ui.toggle.checkbox input:checked ~ .box:before, .ui.toggle.checkbox input:checked ~ label:before {
             background-color: #47d036 !important;
         }
+
+        .dots-max-width{
+            width: 100%!important;
+            text-overflow: ellipsis !important;
+            overflow: hidden;
+            white-space: nowrap;
+        }
     </style>
 @endsection
 
@@ -163,7 +170,7 @@
                     @if($gotCash)
                     <div class="item title">
                         <div class="content">
-                            <a style="color:#2f2f2f !important; border: 1px solid orange; border-radius: 5px; padding:10px; font-size: 1.1em" class="ui header">  <i style="color:green!important;" class="green money bill alternate outline icon"></i>OBS! Kontant! Ta med terminal </a>
+                            <a style="color:#2f2f2f !important; border: 1px solid orange; border-radius: 5px; padding:10px; font-size: 1.1em" class="ui header ">  <i style="color:green!important;" class="green money bill alternate outline icon"></i>OBS! Kontant! Ta med terminal </a>
                         </div>
                     </div>
 
@@ -186,7 +193,7 @@
 
                         <div class="item title">
                            <div class="content">
-                              <a style="color:black !important; font-size: 0.9em" class="ui header">  <i style="color:gray!important;" class="icon wrench"></i>{{ $stop->workshop->name }} </a>
+                              <a style="color:black !important; font-size: 0.9em" class="ui header  dots-max-width">  <i style="color:gray!important;" class="icon wrench"></i>{{ ($stop->route_position !== null)  ?  $stop->route_position : '?' }} - {{ $stop->workshop->name }} </a>
                             </div>
                         </div>
 

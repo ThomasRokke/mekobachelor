@@ -749,8 +749,10 @@
 
                                             @if($driver->started === 1)
                                                 <div class="description">Kjører <a><b>rute {{ $driver->route }}</b></a></div>
-                                                <div class="description">Startet {{ date('H:i',strtotime($driver->created_at)) }} <a></a></div>
-
+                                                <div class="description">Startet: <i class="icon clock outline"></i>{{ date('H:i',strtotime($driver->created_at)) }}</div>
+                                                @if($driver->optimized_time !== null)
+                                                <div class="description">Tilbake: <i class="icon clock outline"></i>{{ date('H:i',strtotime($driver->optimized_time)) }}**</div>
+                                                @endif
                                                 @php
                                                     $driverRoute = $driver;
                                                     $total = 0;

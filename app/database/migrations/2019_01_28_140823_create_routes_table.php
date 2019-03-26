@@ -34,6 +34,7 @@ class CreateRoutesTable extends Migration
             $table->boolean('lunch_break')->default(0);
             $table->time('lunch_start')->nullable();
             $table->time('lunch_end')->nullable();
+            $table->longText('map_polylines')->nullable();
             $table->timestamps();
         });
     }

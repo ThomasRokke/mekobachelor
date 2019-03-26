@@ -518,12 +518,33 @@ class HomeController extends Controller
         //Set route position based on
         $routeToSet = Route::where('driver_id', Auth::user()->id)->where('active', 1)->first();
 
+
+        $indexToSet =  array();
         foreach($routeToSet->stops as $s){
             if($s->workshop->prioritized !== null){
-                $s->route_position = $s->workshop->position;
-                $s->save();
+               array_push($indexToSet, ['id' => $s->id, 'pos' => $s->workshop->position]);
+
             }
         }
+
+
+        //Sort the array to ensure lowest position is first.
+        usort($indexToSet, function($a, $b) {
+            return $a['pos'] - $b['pos'];
+        });
+
+        for($i = 0; $i < count($indexToSet); $i++){
+            //Find stop
+            $stop = Stop::find($indexToSet[$i]['id']);
+            $stop->route_position = $i + 1;
+            $stop->optimized = 1;
+
+            $stop->save();
+        }
+
+
+
+
 
         //get all routes with my driver id that is active
         // TODO: add where this date = bla bla
@@ -591,7 +612,8 @@ class HomeController extends Controller
         $lastPos = 0;
         $otherExits = false;
         foreach($routeToSet->stops as $s){
-            if($s->workshop->prioritized !== null){
+            if($s->workshop->prioritized !== null || $s->route_position !== null ){
+
                 $lastPos = $s->route_position;
                 $amountPrio++; //Amount of prioritized
 
@@ -603,6 +625,7 @@ class HomeController extends Controller
                 $otherExits = true;
             }
         }
+
 
 
         //If you have delivered all the prioritized orders and if others exits. Run the optimization algorithm
@@ -628,6 +651,10 @@ class HomeController extends Controller
 
         $route = Route::find($request->route_id);
 
+
+
+
+
         $lastPrioStop = $route->stops->where('route_position', '!==', null)->sortBy('route_position')->last();
 
         $startPlaceID = $lastPrioStop->workshop->place_id;
@@ -636,6 +663,8 @@ class HomeController extends Controller
         $stops = $route->stops->where('route_position', '===', null);
 
         $countStops = count($stops);
+
+
 
         $stopArray = [];
 
@@ -668,34 +697,71 @@ class HomeController extends Controller
         $responseDecodet = json_decode($responseRaw->getBody(), true);
 
 
-        dd($responseDecodet);
+
+      //  dd($responseDecodet);
 
         //dd($responseDecodet['routes'][0]['legs']);
+        //Save the route polylines to be displayed at map.
+        $route->map_polylines = $responseDecodet['routes'][0]['overview_polyline']['points'];
+
+        $route->save();
+
         // dd($responseDecodet['routes'][0]['waypoint_order'][0]);
 
         $amount = count($responseDecodet['routes'][0]['legs']);
-        $startPosition = $lastPrioStop->route_position;
 
-        $amount = $amount + $startPosition;
+        $startPosition = $lastPrioStop->route_position + 1;
 
 
+
+        $amount = $amount - 1;
+
+        $totalDuration = 0;
 
         //TODO:: KEEP THE SAME SHIET
         // dd($responseDecodet['routes'][0]['legs']);
+           // dd($responseDecodet);
+        for($i = 0; $i < $amount; $i++){
 
-        for($i = $startPosition; $i < $amount; $i++){
+
+            $legadr = $responseDecodet['routes'][0]['legs'][$i]['end_address'];
+
+            //Duration in seconds + 30 that is the average drop time
+            $duration = $responseDecodet['routes'][0]['legs'][$i]['duration']['value'] + 30;
 
 
-            $legadr = $responseDecodet['routes'][0]['legs'][$i]['start_address'];
+            $totalDuration = $totalDuration + $duration;
+
+
+
+            //dd($responseDecodet['routes'][0]['legs'][$i]);
 
             foreach ($stops as $stop){
-                if($stop->workshop->adr === $legadr){
-                    $stop->route_position = $i;
+
+                if($stop->workshop->adr == $legadr){
+
+                    $stop->route_position = $lastPrioStop->route_position + 1 + $i;
                     $stop->save();
+
+
+                }else{
+                    //dd($stop->workshop->adr);
+
                 }
             }
 
         }
+        //Set the optimized time to the total duration
+
+        $now = new DateTime('now');
+        $now->modify('+ '.$totalDuration.' seconds');
+
+
+
+        $route->optimized_time = $now;
+        $route->save();
+
+        //new DateTime('now');
 
 
         /*
@@ -709,6 +775,7 @@ class HomeController extends Controller
 
         }
         */
+
 
 
         return redirect(route('transport.route-drive'));
@@ -777,14 +844,12 @@ class HomeController extends Controller
         // TODO: add where this date = bla bla
         $route = Route::where('driver_id', Auth::user()->id)->where('active', 1)->first();
 
-        $stopsRaw = $route->stops;
+        $stops = $route->stops;
 
 
-        if(!empty($stopsRaw[0]->route_position)){
-            $stops = $stopsRaw->sortBy('route_position');
-        }else{
-            $stops = $stopsRaw;
-        }
+
+
+
 
 
         return view('pages.route-active')->with(compact('route', 'stops'));
@@ -803,11 +868,19 @@ class HomeController extends Controller
     public function setRouteEndKm(Request $request){
         $route = Route::find($request->id);
 
+        $optTime = Carbon::parse($route->optimized_time);
+        $now = Carbon::now();
+
+        $diffInMinutes = $optTime->diffInMinutes($now, false);
+
+
 
         $route->finished = 1;
         $route->kmend = $request->kmend;
         $route->active = 0;
         $route->finished_time = new DateTime('now');
+        $route->time_diff = $diffInMinutes;
+            //optimized_time
 
         $route->save();
 

@@ -18,6 +18,7 @@ class CreateStopsTable extends Migration
             $table->integer('route_id');
             $table->integer('workshop_id');
             $table->integer('route_position')->nullable();
+            $table->boolean('optimized')->nullable();
             $table->boolean('delivered')->default(0);
             $table->time('deliver_time')->nullable();
             $table->timestamps();
