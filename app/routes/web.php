@@ -143,6 +143,9 @@ Route::get('/users', 'UserController@getRoles')->name('proto.protoroles');
 
 Route::get('/createuser', 'UserController@getCreateUser')->name('createuser');
 
+Route::get('/edituser', 'UserController@getEdituser')->name('user.edituser');
+Route::post('/edituser', 'UserController@postEdituser')->name('user.postedituser');
+
 // Set role - paramters are userid and roleid
 Route::post('/setrole', 'UserController@setRole')->name('setrole');
 

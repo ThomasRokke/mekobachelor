@@ -23,9 +23,6 @@
                     .removeClass('disabled');
 
 
-                $('.ui.dropdown')
-                    .dropdown()
-                ;
 
 
 
@@ -108,12 +105,6 @@
             width: 100%;
 
         }
-
-
-        .roles-dropdown-fix-icon{
-            padding-top: 0!important;
-            padding-bottom: 0!important;
-        }
     </style>
 
 
@@ -154,17 +145,129 @@
                 }
 
             } );
+
+            $('.ui.form')
+                .form({
+                    fields: {
+                        name: {
+                            identifier: 'name',
+                            rules: [
+                                {
+                                    type   : 'empty',
+                                    prompt : 'Please enter your name'
+                                }
+                            ]
+                        },
+                        skills: {
+                            identifier: 'skills',
+                            rules: [
+                                {
+                                    type   : 'minCount[2]',
+                                    prompt : 'Please select at least two skills'
+                                }
+                            ]
+                        },
+                        gender: {
+                            identifier: 'gender',
+                            rules: [
+                                {
+                                    type   : 'empty',
+                                    prompt : 'Please select a gender'
+                                }
+                            ]
+                        },
+                        username: {
+                            identifier: 'username',
+                            rules: [
+                                {
+                                    type   : 'empty',
+                                    prompt : 'Please enter a username'
+                                }
+                            ]
+                        },
+                        password: {
+                            identifier: 'password',
+                            rules: [
+                                {
+                                    type   : 'empty',
+                                    prompt : 'Please enter a password'
+                                },
+                                {
+                                    type   : 'minLength[6]',
+                                    prompt : 'Your password must be at least {ruleValue} characters'
+                                }
+                            ]
+                        },
+                        terms: {
+                            identifier: 'terms',
+                            rules: [
+                                {
+                                    type   : 'checked',
+                                    prompt : 'You must agree to the terms and conditions'
+                                }
+                            ]
+                        }
+                    }
+                })
+            ;
+
         } );
     </script>
 @endsection
 
 @section('content')
 
-    <main style="margin-bottom: 40vh;">
+    <main style="margin-bottom: 30vh;">
 
-        <div class="ui segment container" style="margin-top:80px;" >
+        <div class="ui text  container" style="margin-top:80px;" >
 
             <div class="main-content">
+
+                <div class="ui horizontal divider">Rediger bruker <i class="icon user"></i></div>
+
+                <form method="POST" action="{{ route('user.postedituser') }}" class="ui form segment">
+                    @csrf
+                    <input type="hidden" name="id" value="{{ $user->id }}">
+                    <div class="two fields">
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="user icon"></i>
+                                <input type="text" name="name" value="{{ (!empty(old('name'))) ? old('name') : $user->name }}" placeholder="Navn navnesen">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="mail icon"></i>
+                                <input type="text" value="{{ (!empty(old('email'))) ? old('email') : $user->email }}" name="email" placeholder="E-post adresse">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="two fields">
+                        <div class="field">
+                            <div class="ui basic positive submit button">Lagre endringer <i class="icon send"></i></div>
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="ui error message"></div>
+                </form>
+                @if ($errors->any())
+
+                    <div class="ui error message">
+                        <i class="close icon"></i>
+                        <div class="header">
+                            Feilmelding:
+                        </div>
+                        <ul class="list">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 @if(session('regconfirm'))
                     <div class="ui success message transition">
                         <i class="close icon"></i>
@@ -173,105 +276,31 @@
                         </div>
                     </div>
                 @endif
-                <a href="{{ route('createuser') }}" class="ui positive basic button right floated small" >
-                    <i class="icon add"></i>
-                    Opprett ny bruker
-                </a>
-                <h4 class="ui horizontal divider header clearing">
-                    <i class="wrench icon"></i>
-                    Brukere
-                </h4>
 
-                <table id="example" class="ui celled table" style="width:100%">
-                    <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Navn</th>
-                        <th>E-post</th>
-                        <th>Rolle</th>
-                        <th>Handlinger</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($users as $u)
-
-                        @php
-                            $role = '';
-
-                            $level = $u->level();
-
-                           switch ($level) {
-                            case 1:
-                                $role = 'User';
-                                break;
-                             case 3:
-                                $role = 'Office';
-                                break;
-                            case 5:
-                            $role = 'Admin';
-                            break;
-
-                            default:
-                                $role = 'unkown';
-                           }
-
-                        @endphp
-                        <tr>
-                            <td>{{ $u->id }}</td>
-                            <td>{{ $u->name }}</td>
-                            <td>{{ $u->email }}</td>
-                            <td>
-                                <div class="ui left pointing dropdown icon">
-                                    {{ $role }}
-
-
-                                    @if(Auth::check() && Auth::user()->hasRole('admin'))
-                                        <i class="caret down icon"></i>
-                                        <div class="menu">
-                                            <div class="ui right search icon input ">
-                                                <i class="search icon roles-dropdown-fix-icon"></i>
-                                                <input type="text" name="search" placeholder="Søk etter rolle..">
-                                            </div>
-                                            @foreach($roles as $role)
-                                                <a class="item" onclick="event.preventDefault();
-                                                        document.getElementById('{{ $u->id . $role->id }}').submit();">
-                                                    <div class="ui green empty circular label"></div>
-                                                    {{ $role->name }}
-                                                </a>
-                                                <form id="{{ $u->id . $role->id }}" action="{{ route('setrole') }}" method="POST" style="display: none">
-                                                    @csrf
-                                                    <input type="hidden" name="user_id" value="{{ $u->id }}">
-                                                    <input type="hidden" name="role_id" value="{{ $role->id }}">
-                                                </form>
-
-                                            @endforeach
-
-                                        </div>
-                                    @endif
-
-                                </div>
-                            </td>
-
-
-                            <td><a href="{{ route('user.edituser', ['user_id' => $u->id]) }}"><i class="icon edit"></i>Rediger</a></td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                    <tfoot>
-                    <tr>
-                        <th>Id</th>
-                        <th>Navn</th>
-                        <th>E-post</th>
-                        <th>Rolle</th>
-                        <th>Handlinger</th>
-                    </tr>
-                    </tfoot>
-                </table>
-
+                @if(session('negative'))
+                    <div class="ui error message transition">
+                        <i class="close icon"></i>
+                        <div class="header">
+                            {{ Session::get('negative') }}
+                        </div>
+                    </div>
+                @endif
 
             </div>
         </div>
 
+
+
     </main>
+
+
+
+
+@endsection
+
+
+@section('bottom-scripts')
+
+    <script type="text/javascript" src="{{ asset('js/googleplacesapi.js') }}"></script>
 
 @endsection

@@ -27,7 +27,10 @@ class UserController extends Controller
     }
 
     public function getRoles(){
-
+        //If the user is over level 2 - aka office
+        if(Auth::user()->level() < 2) {
+            return response('Unauthorized.', 401);
+        }
         $users = User::all();
 
         $roles = Role::all();
@@ -36,8 +39,11 @@ class UserController extends Controller
     }
 
     public function setRole(Request $request){
+        //If the user is over level 4 - aka admin
+        if(Auth::user()->level() < 4) {
+            return response('Unauthorized.', 401);
+        }
 
-        //TODO: Fix permissions so only the correct people are able to give the roles.
 
         //Find the user to append the role to
         $user = User::find($request->user_id);
@@ -55,5 +61,42 @@ class UserController extends Controller
 
     public function getCreateUser(){
         return view('users.createuser');
+    }
+
+    public function getEditUser(Request $request){
+        $user = User::find($request->user_id);
+        return view('users.edituser')->with(compact('user'));
+    }
+
+    public function postEditUser(Request $request){
+        //If the user is over level 4 - aka admin
+        if(Auth::user()->level() < 4) {
+            return response('Unauthorized.', 401);
+        }
+
+        $request->validate([
+            'id' => 'required|exists:users',
+            'name' => 'required',
+            'email' => 'required|email'
+        ]);
+        $user = User::find($request->id);
+
+        //Check if the email the user provided is the same
+        if($user->email !== $request->email){
+
+            //Check if the new user email already exists.
+            if(User::where('email', '=', $request->email)->exists()) {
+                $request->session()->flash('negative', $request->email.' er allerede i bruk av noen andre.');
+                return back()->withInput();
+            }
+        }
+
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->save();
+
+        $request->session()->flash('regconfirm', $request->email.' har blitt endret.');
+        return redirect(route('proto.protoroles'));
     }
 }
