@@ -162,6 +162,8 @@ Route::get('/routes', 'HomeController@getRoutes')->name('office.routes');
 
 Route::post('/postroute', 'HomeController@postRoute')->name('office.postroute');
 
+Route::post('/posthente', 'HomeController@postHente')->name('office.posthente');
+
 //Check if the workshop number exists and what name it has
 Route::get('/getworkshopinfo', 'HomeController@getWorkshopInfo');
 

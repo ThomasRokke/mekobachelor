@@ -5,8 +5,26 @@
 
 
     <script type="text/javascript">
+        var content = [
+            @foreach($workshops as $w)
+            { title: '{!! $w->name !!}', wid: '{!! $w->workshop_id !!}' },
+            @endforeach
+
+            // etc
+        ];
         $(document)
             .ready(function() {
+                $('.ui.search')
+                    .search({
+                        source: content,
+                        onSelect: function (result,response) {
+                            console.log(result['wid']);
+                            console.log(response);
+                            $("#hente-wid").val(result['wid']);
+                            return true;
+                        }
+                    })
+                ;
                 //Init tab js
                 $('.menu .item')
                     .tab();
@@ -315,7 +333,7 @@
                 @endif
                 <div class="ui top attached tabular menu">
                     <a class="active item" data-tab="first">Ordre</a>
-                    <!--<a class="item" data-tab="third">Hente</a>-->
+                    <a class="item" data-tab="third">Hente</a>
                 </div>
                 <div class="ui bottom attached active tab segment" data-tab="first">
                     <form method="POST" action="{{ route('office.postroute') }}" class="ui form order error" >
@@ -412,27 +430,27 @@
                     <!-- Form end -->
                 </div>
                 <div class="ui bottom attached tab segment" data-tab="third">
-                    <form method="POST" action="{{ route('office.postroute') }}" class="ui form order error" >
+                    <form method="POST" action="{{ route('office.posthente') }}" class="ui form order error" >
                         @csrf
                         <div class="three fields">
                             <div class="field">
+                                <div class="ui search">
+                                    <div class="ui icon input">
+                                        <input class="prompt" type="text" placeholder="Søk blandt verksteder...">
+                                        <i class="search icon"></i>
+                                    </div>
 
-                                <select class="ui search dropdown">
+                                    <div class="results"></div>
+                                </div>
 
-                                    @foreach($workshops as $w)
 
-                                        <option value="">{{ $w->name }}</option>
-
-                                    @endforeach
-
-                                </select>
 
 
 
                             </div>
                             <div class="field">
                                 <div class="ui corner labeled input">
-                                    <input type="text" name="ordernumber"  placeholder="Ordrenummer">
+                                    <input id="hente-wid" placeholder="Kundenummer" type="text"  name="workshop_id" value="">
                                     <div class="ui corner label">
                                         <i class="asterisk icon red"></i>
                                     </div>
@@ -568,6 +586,11 @@
                                                                 @foreach($stop->orders as $order)
                                                                     <a class="item" style="border: 1px solid lightgray; border-radius: 5px; margin:5px">
                                                                         <div class="content" style="padding:5px 10px 5px 10px">
+
+                                                                        @if($order->ordernumber <= 6000 && $order->ordernumber >= 2000)
+                                                                                <div onclick="window.location.href='{{ route('getedit', ['id' => $order->ordernumber]) }}'" class="header activating element" data-title="Henteordre!" data-content="Husk å ta med henteordren"> <i class="icon  {{ ($order->delivered === 1) ? 'green box icon ' : 'orange box icon' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
+
+                                                                        @else
                                                                             @if($order->amount === null)
                                                                                 <div onclick="window.location.href='{{ route('getedit', ['id' => $order->ordernumber]) }}'" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check square outline' : 'orange cogs circle' }}"></i>{{ $order->ordernumber }} &nbsp; @if($order->kkode === 1)<span style="color:red" class=" activating element" data-title="K-KODE" data-content="Dette er en bestilling.">K</span>@endif</div>
                                                                             <!--<div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check circle ' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
@@ -576,6 +599,7 @@
                                                                                 <div onclick="window.location.href='{{ route('getedit', ['id' => $order->ordernumber]) }}'" class="header activating element" data-title="OBS! KONTANT {{ ($order->kkode === 1) ? 'OG K-KODE!' : '' }}" data-content="{{ $order->amount }} kr"> <i class="icon  {{ ($order->delivered === 1) ? 'green money bill alternate outline icon ' : 'orange money bill alternate outline icon' }}"></i>  {{ $order->ordernumber }} @if($order->kkode === 1)<span style="color:red">K</span>@endif &nbsp;</div>
 
                                                                             @endif
+                                                                        @endif
                                                                         </div>
                                                                     </a>
                                                                 @endforeach

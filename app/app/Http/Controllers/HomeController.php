@@ -917,6 +917,184 @@ class HomeController extends Controller
         return view('office.workshop-create');
     }
 
+    public function postHente(Request $request){
+        $request->validate([
+            'workshop_id' => 'required|exists:workshops|max:8|min:6',
+        ]);
+
+        //Create a new range of ordernumber from 2000 to 4000.
+        $rangeStart = 2000;
+        $ordnr = null;
+        //Check if the ordernumber exits
+        $ordExists = Order::where('ordernumber', $rangeStart)->first();
+        if(!empty($ordExists)){
+            $prevTakenOrd = Order::where('ordernumber', '>=', 2000)
+                ->where('ordernumber', '<=', 6000)
+                ->orderBy('ordernumber', 'DESC')->first();
+
+            $prevOrdnr = $prevTakenOrd->ordernumber;
+            //Set ordnr to one plus 1
+            $ordnr = $prevOrdnr + 1;
+
+        }else{
+            $ordnr = $rangeStart;
+        }
+
+
+
+
+            $route = null;
+        $routeSet = false;
+        //If the user have specified the route
+        if(!empty($request->route)){
+            $route = $request->route;
+            $routeSet = true;
+            //Else - give the default route specified in the workshop table.
+        }else{
+            $workshop = Workshop::where('workshop_id', '=', $request->workshop_id)->first();
+            $route = $workshop->route;
+
+
+        }
+        //22:32:33
+        $timeStamp = date('H:i:s'); //'08:32:33'; //
+
+
+
+        //Set the time if it have not yet been specified
+        $timeSet = false;
+        $time = null;
+
+
+        $date = null;
+        $dateSet = false;
+        if(!empty($request->time)){
+            $time = $request->time;
+            $timeSet = true;
+
+
+        }else{
+
+
+            //TODO: Set the timestamp to current time - manually set it for testing purposes.
+
+
+
+            $response = RouteTimes::where('route', '=', $route)
+                ->where('from_time', '<=', $timeStamp)
+                ->where('to_time', '>=', $timeStamp)
+                ->first();
+
+            //If there is any response within the daily timespans.
+            if(!empty($response)){
+                $time = $response->time;
+                $timeSet = true;
+                $date = date('Y/m/d'); // set to todays date
+                $dateSet = true;
+            }else{
+                $timeObj = RouteTimes::where('route', '=', $route)
+                    ->orderBy('time', 'ASC')
+                    ->first();
+
+                $time = $timeObj->time;
+                $timeSet = true;
+
+                $date = \Carbon\Carbon::tomorrow()->format('Y/m/d');
+                $dateSet = true;
+
+            }
+
+        }
+        //time is now set
+
+
+
+
+        $date = null;
+        $dateSet = false;
+        if(!empty($request->date)){
+            $date = $request->date;
+            $dateSet = true;
+        }else{
+
+            $newTime = new \Carbon\Carbon($time, 'Europe/London');
+
+            $newTime = $newTime->subMinutes(15);
+
+            $newTime = $newTime->format('H:i');
+
+            $timeLimit = $newTime;
+
+            //If there is any response within the daily timespans.
+            //if(Carbon::now()->lessThan($timeLimit)){
+            if($timeStamp  <= $timeLimit){
+
+                $date = date('Y/m/d'); // set to todays date
+                $dateSet = true;
+
+            }else{
+
+                $date = \Carbon\Carbon::tomorrow()->format('Y/m/d');
+                $dateSet = true;
+
+            }
+
+        }
+
+
+
+
+        if(!empty($request->amount)){
+            $amount = $request->amount;
+            $amountComment = $request->amountcomment;
+
+        }else{
+            $amount = null;
+            $amountComment = null;
+        }
+
+        $wid = $request->workshop_id;
+
+        //TODO: Perform a check if there there is any active route that this stop could be put in.
+
+        $r = Route::firstOrCreate(['date' => $date, 'route' => $route, 'time' => $time]);
+
+        $w = Workshop::where('workshop_id', $wid)->first();
+
+
+
+        $s = Stop::firstOrCreate(['route_id' => $r->id, 'workshop_id' => $wid]);
+
+        $kkodeBolean = 0;
+        //Check if the order is K-Kode - is a boolean.
+        if(!empty($request->kkode)){
+            $kkode= $request->kkode;
+            if($kkode === "on"){
+                $kkodeBolean = 1;
+            }
+        }
+
+
+
+        $o = new Order;
+        $o->ordernumber = $ordnr;
+        $o->stop_id = $s->id;
+        $o->workshop_id = $wid;
+        $o->amount = $amount;
+        $o->amount_comment = $amountComment;
+        $o->kkode = $kkodeBolean;
+        $o->save();
+
+
+        $sessionString = "Henteordren ble lagt til på rute ".$r->route. " klokken ". $r->time. " den " . date('d M', strtotime($date)) . ". Ordrenummeret er: ".$o->ordernumber;
+
+        //dd($sessionString);
+
+        $request->session()->flash('regconfirm', $sessionString);
+        return redirect(route('proto.prototest'));
+
+
+    }
     /**
      * Store a newly created resource in storage.
      *

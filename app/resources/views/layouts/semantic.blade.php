@@ -128,55 +128,7 @@
             ;
 
 
-            $('.ui.search')
-                .search({
-                    type          : 'category',
-                    minCharacters : 3,
-                    apiSettings   : {
-                        onResponse: function(githubResponse) {
-                            var count = Object.keys(githubResponse).length;
-                            console.log(count);
-                            var
-                                response = {
-                                    results : {}
-                                }
-                            ;
 
-                            for(var i = 0; i < count; i++){
-
-                                var objectPart = githubResponse[i];
-
-                                console.log(objectPart);
-                                var
-                                    language   = 'Verksted',
-                                    maxResults = 8
-                                ;
-                                if(i >= maxResults) {
-
-                                    return false;
-                                }
-                                // create new language category
-                                if(response.results[language] === undefined) {
-                                    response.results[language] = {
-                                        name    : language,
-                                        results : []
-                                    };
-                                }
-                                // add result to category
-                                response.results[language].results.push({
-                                    title       : objectPart.name,
-                                    description : objectPart.description,
-                                    url         : objectPart.html_url
-                                });
-                            }
-
-
-                            return response;
-                        },
-                        url: '//localhost:8000/searchworkshops?q={query}'
-                    }
-                })
-            ;
 
 
         })

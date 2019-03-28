@@ -225,7 +225,11 @@
                                         @if($order->amount > 0)
                                             <i class="green money bill alternate outline icon"></i>
                                             {{ $order->amount }}kr
-                                        @endif</label>
+                                        @endif
+                                        @if($order->ordernumber <= 6000 && $order->ordernumber >= 2000)
+                                            <strong>Henteordre</strong>
+                                        @endif
+                                    </label>
                                 </div>
 
                                 <div class="ui fitted divider"></div>
@@ -254,6 +258,9 @@
                                             @if($order->amount > 0)
                                                 <i class="green money bill alternate outline icon"></i>
                                                 {{ $order->amount }}kr
+                                            @endif
+                                            @if($order->ordernumber <= 6000 && $order->ordernumber >= 2000)
+                                                <strong>Henteordre</strong>
                                             @endif
                                         </label>
                                     </div>
