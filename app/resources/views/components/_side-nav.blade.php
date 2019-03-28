@@ -17,10 +17,11 @@
     <a href="{{ route('routetimes') }}" class="item {{ \Request::is('routetimes') ? 'active' : null }}">
         <i class="clock icon"></i> Rutetider
     </a>
-
+    @if(Auth::check() && Auth::user()->hasRole('admin'))
     <a href="{{ route('prioritize') }}" class="item {{ \Request::is('prioritize') ? 'active' : null }}">
         <i class="sort numeric down icon"></i> Prioriter
     </a>
+    @endif
 
     <a href="{{ route('dashboard') }}" class="item {{ \Request::is('dashboard') ? 'active' : null }}">
         <i class="chart line icon"></i> Statistikk
@@ -30,10 +31,11 @@
         <i class="users icon"></i> Brukere
     </a>
 
-
+    @if(Auth::check() && Auth::user()->hasRole('admin'))
     <a href="{{ route('dataexport') }}" class="item {{ \Request::is('dataexport') ? 'active' : null }}">
         <i class="database icon"></i> Data
     </a>
+    @endif
 
     @endif
 

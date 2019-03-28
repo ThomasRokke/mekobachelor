@@ -221,6 +221,8 @@
                 </div>
 
             </div>
+            @if(Auth::check() && Auth::user()->hasRole('admin'))
+                <!-- Admin KPI's -->
             <div class="four wide column">
                 <div class="ui segment">
 
@@ -286,12 +288,9 @@
                     </div>
                 </div>
             </div>
+            @endif
 
-
-
-
-
-    </div>
+         </div>
 
         <div class="ui embed segment" id="map" style="">
     </div>
