@@ -50,25 +50,37 @@
     </a>
 
     @if(Auth::check() && Auth::user()->level() >= 2)
-    <a href="{{ route('routes') }}" class="item {{ \Request::is('prototest') ? 'active' : null }}">
-        <i class="table layout icon a"></i> Ruter
-    </a>
-    <a href="{{ route('proto.protoworkshop') }}" class="item {{ \Request::is('protoworkshops') ? 'active' : null }}">
-        <i class="wrench icon"></i> Verksteder
-    </a>
-
-    <a href="{{ route('dashboard') }}" class="item {{ \Request::is('dashboard') ? 'active' : null }}">
-        <i class="chart line icon"></i> Statistikk
-    </a>
-
-    <a href="{{ route('proto.protoroles') }}" class="item {{ \Request::is('protoroles') ? 'active' : null }}">
-        <i class="users icon"></i> Brukere
-    </a>
 
 
-    <a href="{{ route('dataexport') }}" class="item {{ \Request::is('orders') ? 'active' : null }}">
-        <i class="database icon"></i> Data
-    </a>
+        <a href="{{ route('routes') }}" class="item {{ \Request::is('routes') ? 'active' : null }}">
+            <i class="table layout icon a"></i> Ruter
+        </a>
+        <a href="{{ route('proto.protoworkshop') }}" class="item {{ \Request::is('workshops') ? 'active' : null }}">
+            <i class="wrench icon"></i> Verksteder
+        </a>
+
+        <a href="{{ route('routetimes') }}" class="item {{ \Request::is('routetimes') ? 'active' : null }}">
+            <i class="clock icon"></i> Rutetider
+        </a>
+        @if(Auth::check() && Auth::user()->hasRole('admin'))
+            <a href="{{ route('prioritize') }}" class="item {{ \Request::is('prioritize') ? 'active' : null }}">
+                <i class="sort numeric down icon"></i> Prioriter
+            </a>
+        @endif
+
+        <a href="{{ route('dashboard') }}" class="item {{ \Request::is('dashboard') ? 'active' : null }}">
+            <i class="chart line icon"></i> Statistikk
+        </a>
+
+        <a href="{{ route('proto.protoroles') }}" class="item {{ \Request::is('users') ? 'active' : null }}">
+            <i class="users icon"></i> Brukere
+        </a>
+
+        @if(Auth::check() && Auth::user()->hasRole('admin'))
+            <a href="{{ route('dataexport') }}" class="item {{ \Request::is('dataexport') ? 'active' : null }}">
+                <i class="database icon"></i> Data
+            </a>
+        @endif
 
     @endif
 

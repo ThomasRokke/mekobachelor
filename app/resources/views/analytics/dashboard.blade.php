@@ -121,6 +121,10 @@
         }
 
 
+        .highcharts-credits{
+            display: none!important;
+        }
+
 
     </style>
 
@@ -139,13 +143,13 @@
                 <div class="statistics">
                     <div class="ui floating dropdown  search icon labeled bg-white">
                         <i class="calendar icon"></i>
-                        <span class="text">Siste 7 dager</span>
+                        <span class="text">Siste {{ $time }} dager</span>
                         <div class="menu">
-                            <div class="item">Siste 14 dager</div>
-                            <div class="item">Siste måned</div>
-                            <div class="item">Siste to måneder</div>
-                            <div class="item">Siste 6 måneder</div>
-                            <div class="item">Siste 1 år</div>
+                            <a href="{{ route('dashboard', ['time' => 1]) }}" class="item">Siste 1 dag</a>
+                            <a href="{{ route('dashboard', ['time' => 7]) }}" class="item">Siste 7 dager</a>
+                            <a href="{{ route('dashboard', ['time' => 14]) }}" class="item">Siste 14 dager</a>
+                            <a href="{{ route('dashboard', ['time' => 30]) }}" class="item">Siste 30 dager</a>
+                            <a href="{{ route('dashboard', ['time' => 60]) }}" class="item">Siste 60 dager</a>
                         </div>
                     </div>
 
@@ -187,22 +191,22 @@
                 </div>
 
                 <div class="statistic">
-                    <div class="value">22</div>
+                    <div class="value">{{ $orders }}</div>
                     <div class="label">Ordre</div>
                 </div>
 
                 <div class="statistic">
-                    <div class="value">14</div>
+                    <div class="value">{{ $stops }}</div>
                     <div class="label">Dropp</div>
                 </div>
 
                 <div class="statistic">
-                    <div class="value"><i class="car icon"></i> 523</div>
+                    <div class="value"><i class="car icon"></i> {{ $totalKM }}</div>
                     <div class="label">Kilometer kjørt</div>
                 </div>
                 <div class="statistic">
-                    <div class="value"><i class="clock outline icon"></i> 143</div>
-                    <div class="label">Timer brukt på veien</div>
+                    <div class="value"><i class="clock outline icon"></i> {{ $totalHours }}t <span style="font-size: 0.6em">{{ $totalMinutes }} min</span></div>
+                    <div class="label">Tid brukt på veien</div>
                 </div>
             </div>
         </div>
@@ -222,7 +226,7 @@
 
             </div>
             @if(Auth::check() && Auth::user()->hasRole('admin'))
-                <!-- Admin KPI's -->
+                <!-- Admin KPI's
             <div class="four wide column">
                 <div class="ui segment">
 
@@ -287,7 +291,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
             @endif
 
          </div>
@@ -334,7 +338,7 @@
 
 
             title: {
-                text: 'Antall dropp og ordre per dag'
+                text: 'Antall dropp'
             },
 
             xAxis: {
@@ -363,15 +367,44 @@
 
             tooltip: {
                 formatter: function () {
-                    return '<b>' + this.series.xAxis.categories[this.point.x] + '</b> dropp <br><b>' +
-                        this.point.value + '</b> ordre på <br><b>' + this.series.yAxis.categories[this.point.y] + '</b>';
+                    return '<b>Rute ' + this.series.xAxis.categories[this.point.x] + '</b><br><b>' +
+                        this.point.value + '</b> dropp på <br><b>' + this.series.yAxis.categories[this.point.y] + '</b>';
                 }
             },
 
             series: [{
                 name: 'Sales per employee',
                 borderWidth: 1,
-                data: [[0, 0, 10], [0, 1, 19], [0, 2, 8], [0, 3, 24], [0, 4, 67], [1, 0, 92], [1, 1, 58], [1, 2, 78], [1, 3, 117], [1, 4, 48], [2, 0, 35], [2, 1, 15], [2, 2, 123], [2, 3, 64], [2, 4, 52], [3, 0, 72], [3, 1, 132], [3, 2, 114], [3, 3, 19], [3, 4, 16], [4, 0, 38], [4, 1, 5], [4, 2, 8], [4, 3, 117], [4, 4, 115]],
+                data: [
+                    [{!! $mon10[0] !!},{!! $mon10[1] !!},{!! $mon10[2] !!}],
+                    [{!! $mon11[0] !!},{!! $mon11[1] !!},{!! $mon11[2] !!}],
+                    [{!! $mon12[0] !!},{!! $mon12[1] !!},{!! $mon12[2] !!}],
+                    [{!! $mon13[0] !!},{!! $mon13[1] !!},{!! $mon13[2] !!}],
+                    [{!! $mon14[0] !!},{!! $mon14[1] !!},{!! $mon14[2] !!}],
+
+                    [{!! $tue10[0] !!},{!! $tue10[1] !!},{!! $tue10[2] !!}],
+                    [{!! $tue11[0] !!},{!! $tue11[1] !!},{!! $tue11[2] !!}],
+                    [{!! $tue12[0] !!},{!! $tue12[1] !!},{!! $tue12[2] !!}],
+                    [{!! $tue13[0] !!},{!! $tue13[1] !!},{!! $tue13[2] !!}],
+                    [{!! $tue14[0] !!},{!! $tue14[1] !!},{!! $tue14[2] !!}],
+
+                    [{!! $wen10[0] !!},{!! $wen10[1] !!},{!! $wen10[2] !!}],
+                    [{!! $wen11[0] !!},{!! $wen11[1] !!},{!! $wen11[2] !!}],
+                    [{!! $wen12[0] !!},{!! $wen12[1] !!},{!! $wen12[2] !!}],
+                    [{!! $wen13[0] !!},{!! $wen13[1] !!},{!! $wen13[2] !!}],
+                    [{!! $wen14[0] !!},{!! $wen14[1] !!},{!! $wen14[2] !!}],
+
+                    [{!! $thu10[0] !!},{!! $thu10[1] !!},{!! $thu10[2] !!}],
+                    [{!! $thu11[0] !!},{!! $thu11[1] !!},{!! $thu11[2] !!}],
+                    [{!! $thu12[0] !!},{!! $thu12[1] !!},{!! $thu12[2] !!}],
+                    [{!! $thu13[0] !!},{!! $thu13[1] !!},{!! $thu13[2] !!}],
+                    [{!! $thu14[0] !!},{!! $thu14[1] !!},{!! $thu14[2] !!}],
+
+                    [{!! $fri10[0] !!},{!! $fri10[1] !!},{!! $fri10[2] !!}],
+                    [{!! $fri11[0] !!},{!! $fri11[1] !!},{!! $fri11[2] !!}],
+                    [{!! $fri12[0] !!},{!! $fri12[1] !!},{!! $fri12[2] !!}],
+                    [{!! $fri13[0] !!},{!! $fri13[1] !!},{!! $fri13[2] !!}],
+                    [{!! $fri14[0] !!},{!! $fri14[1] !!},{!! $fri14[2] !!}],],
                 dataLabels: {
                     enabled: true,
                     color: '#000000'
@@ -392,7 +425,7 @@
                 labels: ["Rute 10", "Rute 11", "Rute 12", "Rute 13", "Rute 14"],
                 datasets: [{
                     label: 'Antall dropp per rute',
-                    data: [12, 19, 13, 15, 12],
+                    data: [{!! $ant10 !!}, {!! $ant11 !!}, {!! $ant12 !!}, {!! $ant13 !!}, {!! $ant14 !!}],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
@@ -439,6 +472,7 @@
                 @foreach($route->stops as $stop)
                 new google.maps.LatLng({!! $stop->workshop->lat !!}, {!! $stop->workshop->lng !!}),
 
+
                 @endforeach
                 @endforeach
             ];
@@ -456,37 +490,14 @@
 
 
 
-            var from{{ $stop->id }} = {lat:{!! $stop->workshop->lat !!}, lng:{!! $stop->workshop->lng !!}};
-
-            var content{{ $stop->id }} = '<div id="content">'+
-                '<div id="siteNotice">'+
-                '</div>'+
-                '<h4 id="firstHeading" class="firstHeading">{!! $stop->workshop->name !!}</h4>'+
-                '<div id="bodyContent">'+
-                '<h5><a target="_blank" href="https://www.google.com/maps?saddr=My+Location&daddr={!! $stop->workshop->adr !!}&destination_place_id={!! $stop->workshop->place_id !!}&travelmode=driving">' +
-                '                Veibeskrivelse <i class="icon car"></i></a></h5>'+
-                '</div>'+
-                '</div>';
-
-            var infowindow{{ $stop->id }} = new google.maps.InfoWindow({
-                content: content{{ $stop->id }}
-            });
-
-            // The marker, positioned at Uluru
-            var marker{{ $stop->id }} = new google.maps.Marker({position: from{{ $stop->id }}, map: map, label:'{{ $stop->route_position }}'});
-
-
-
-            loc{{ $stop->id }} = new google.maps.LatLng(marker{{ $stop->id }}.position.lat(), marker{{ $stop->id }}.position.lng());
+            loc{{ $stop->id }} = new google.maps.LatLng({lat:{!! $stop->workshop->lat !!}, lng:{!! $stop->workshop->lng !!}});
 
 
 
             bounds.extend(loc{{ $stop->id }});
 
 
-            marker{{ $stop->id }}.addListener('click', function() {
-                infowindow{{ $stop->id }}.open(map, marker{{ $stop->id }});
-            });
+
             @endforeach
             @endforeach
 
@@ -496,8 +507,8 @@
             map.panToBounds(bounds);
 
 
-            var trafficLayer = new google.maps.TrafficLayer();
-            trafficLayer.setMap(map);
+          //  var trafficLayer = new google.maps.TrafficLayer();
+            //trafficLayer.setMap(map);
 
 
 
