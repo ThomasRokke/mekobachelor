@@ -52,4 +52,8 @@ class UserController extends Controller
 
 
     }
+
+    public function getCreateUser(){
+        return view('users.createuser');
+    }
 }

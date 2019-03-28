@@ -64,7 +64,7 @@
 
 @section('content')
 
-  
+
 
     <div class="ui middle aligned center aligned grid" style="margin-top:50px">
         <div class="column column-spesific" style="margin:15px !important;">
@@ -116,7 +116,7 @@
             </form>
 
             <div class="ui message">
-                Husker du passordet? <a href="{{ route('register') }}">Logg inn</a>
+                Husker du passordet? <a href="{{ route('login') }}">Logg inn</a>
             </div>
 
 

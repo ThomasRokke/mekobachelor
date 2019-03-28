@@ -166,7 +166,7 @@
 
             <div class="main-content">
 
-                <a href="{{ route('proto.protoworkshopcreate') }}" class="ui positive basic button right floated small" >
+                <a href="{{ route('createuser') }}" class="ui positive basic button right floated small" >
                     <i class="icon add"></i>
                     Opprett ny bruker
                 </a>

@@ -145,7 +145,10 @@
                         <div class="content">
                             <a class="header">{{ $user->name  }}</a>
                             <div class="meta">
+                                <span class="date"><i class="icon mail"></i> {{ $user->email }}</span><br>
+
                                 <span class="date"><i class="icon users"></i> Admin</span>
+
                             </div>
 
                         </div>

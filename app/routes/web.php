@@ -141,6 +141,8 @@ Route::get('/myprofile', 'UserController@getMyProfile')->name('myprofile');
 
 Route::get('/users', 'UserController@getRoles')->name('proto.protoroles');
 
+Route::get('/createuser', 'UserController@getCreateUser')->name('createuser');
+
 // Set role - paramters are userid and roleid
 Route::post('/setrole', 'UserController@setRole')->name('setrole');
 
