@@ -2,11 +2,100 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Order;
+use App\Route;
 use App\RouteTimes;
+use App\User;
+use App\Workshop;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class RouteTimesController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
+    public function getRouteTimes(Request $request){
+
+        $rtimes = RouteTimes::all();
+        return view('routes.routetimes')->with(compact('rtimes'));
+    }
+
+    public function getEditRouteTimes(Request $request){
+
+        $routetime = RouteTimes::find($request->id);
+        return view('routes.editroutetimes')->with(compact('routetime'));
+    }
+
+    public function getCreateRouteTimes(){
+        return view('routes.createroutetimes');
+    }
+
+    public function postcreateroutetime(Request $r){
+        $r->validate([
+            'route' => 'required',
+            'time' => 'required',
+            'from_time' => 'required',
+            'to_time' => 'required',
+
+
+        ]);
+
+
+        $rt = new RouteTimes();
+
+        $rt->route = $r->route;
+        $rt->time = $r->time;
+        $rt->from_time = $r->from_time;
+        $rt->to_time = $r->to_time;
+
+        $rt->save();
+
+        return redirect(route('routetimes'));
+    }
+
+    public function deleteroutetimes(Request $r){
+        $rt = RouteTimes::find($r->routetimeid);
+
+        if(!empty($rt)){
+            $rt->destroy($r->routetimeid);
+
+            $rt->save();
+
+            return redirect(route('routetimes'));
+
+        }else{
+            return redirect(route('routetimes'));
+        }
+
+    }
+
+    public function postroutetimeedit(Request $r){
+
+        $rt = RouteTimes::find($r->routetimeid);
+
+        $rt->route = $r->route;
+        $rt->time = $r->time;
+        $rt->from_time = $r->from_time;
+        $rt->to_time = $r->to_time;
+
+        $rt->save();
+
+        return redirect(route('routetimes'));
+
+
+    }
+
+
 
 
     public function timeseed(){
@@ -41,80 +130,5 @@ class RouteTimesController extends Controller
         $routeTimes = RouteTimes::all();
         dd($routeTimes);
 
-    }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\RouteTimes  $routeTimes
-     * @return \Illuminate\Http\Response
-     */
-    public function show(RouteTimes $routeTimes)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\RouteTimes  $routeTimes
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(RouteTimes $routeTimes)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\RouteTimes  $routeTimes
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, RouteTimes $routeTimes)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\RouteTimes  $routeTimes
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(RouteTimes $routeTimes)
-    {
-        //
     }
 }

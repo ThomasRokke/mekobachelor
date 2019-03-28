@@ -4,10 +4,13 @@
         <i class="home icon"></i> Hjem
     </a>
 
-    <a href="{{ route('proto.prototest') }}" class="item {{ \Request::is('prototest') ? 'active' : null }}">
+    @if(Auth::check() && Auth::user()->level() >= 2)
+
+
+    <a href="{{ route('routes') }}" class="item {{ \Request::is('routes') ? 'active' : null }}">
         <i class="table layout icon a"></i> Ruter
     </a>
-    <a href="{{ route('proto.protoworkshop') }}" class="item {{ \Request::is('protoworkshops') ? 'active' : null }}">
+    <a href="{{ route('proto.protoworkshop') }}" class="item {{ \Request::is('workshops') ? 'active' : null }}">
         <i class="wrench icon"></i> Verksteder
     </a>
 
@@ -19,19 +22,20 @@
         <i class="sort numeric down icon"></i> Prioriter
     </a>
 
-    <a href="{{ route('getmap') }}" class="item {{ \Request::is('map') ? 'active' : null }}">
+    <a href="{{ route('dashboard') }}" class="item {{ \Request::is('dashboard') ? 'active' : null }}">
         <i class="chart line icon"></i> Statistikk
     </a>
 
-    <a href="{{ route('proto.protoroles') }}" class="item {{ \Request::is('protoroles') ? 'active' : null }}">
+    <a href="{{ route('proto.protoroles') }}" class="item {{ \Request::is('users') ? 'active' : null }}">
         <i class="users icon"></i> Brukere
     </a>
 
 
-    <a href="{{ route('getorders') }}" class="item {{ \Request::is('orders') ? 'active' : null }}">
+    <a href="{{ route('dataexport') }}" class="item {{ \Request::is('dataexport') ? 'active' : null }}">
         <i class="database icon"></i> Data
     </a>
 
+    @endif
 
 
     <a href="{{ route('myprofile') }} " class="item {{ \Request::is('myprofile') ? 'active' : null }}">

@@ -23,9 +23,6 @@
                     .removeClass('disabled');
 
 
-                $('.ui.dropdown')
-                    .dropdown()
-                ;
 
 
 
@@ -108,12 +105,6 @@
             width: 100%;
 
         }
-
-
-        .roles-dropdown-fix-icon{
-            padding-top: 0!important;
-            padding-bottom: 0!important;
-        }
     </style>
 
 
@@ -154,104 +145,136 @@
                 }
 
             } );
+
+            $('.ui.form')
+                .form({
+                    fields: {
+                        name: {
+                            identifier: 'name',
+                            rules: [
+                                {
+                                    type   : 'empty',
+                                    prompt : 'Please enter your name'
+                                }
+                            ]
+                        },
+                        skills: {
+                            identifier: 'skills',
+                            rules: [
+                                {
+                                    type   : 'minCount[2]',
+                                    prompt : 'Please select at least two skills'
+                                }
+                            ]
+                        },
+                        gender: {
+                            identifier: 'gender',
+                            rules: [
+                                {
+                                    type   : 'empty',
+                                    prompt : 'Please select a gender'
+                                }
+                            ]
+                        },
+                        username: {
+                            identifier: 'username',
+                            rules: [
+                                {
+                                    type   : 'empty',
+                                    prompt : 'Please enter a username'
+                                }
+                            ]
+                        },
+                        password: {
+                            identifier: 'password',
+                            rules: [
+                                {
+                                    type   : 'empty',
+                                    prompt : 'Please enter a password'
+                                },
+                                {
+                                    type   : 'minLength[6]',
+                                    prompt : 'Your password must be at least {ruleValue} characters'
+                                }
+                            ]
+                        },
+                        terms: {
+                            identifier: 'terms',
+                            rules: [
+                                {
+                                    type   : 'checked',
+                                    prompt : 'You must agree to the terms and conditions'
+                                }
+                            ]
+                        }
+                    }
+                })
+            ;
+
         } );
     </script>
 @endsection
 
 @section('content')
 
-    <main style="margin-bottom: 40vh;">
+    <main style="margin-bottom: 30vh;">
 
-        <div class="ui segment container" style="margin-top:80px;" >
+        <div class="ui text  container" style="margin-top:80px;" >
 
-        <div class="main-content">
+            <div class="main-content">
 
-            <a href="{{ route('proto.protoworkshopcreate') }}" class="ui positive basic button right floated small" >
-                <i class="icon add"></i>
-                Opprett ny bruker
-            </a>
-            <h4 class="ui horizontal divider header clearing">
-                <i class="wrench icon"></i>
-                Brukere
-            </h4>
-
-            <table id="example" class="ui celled table" style="width:100%">
-                <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Navn</th>
-                    <th>E-post</th>
-                    <th>Rolle</th>
-                    <th>Handlinger</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($users as $u)
-
-                        @php
-                            $role = '';
-
-                            $level = $u->level();
-
-                           switch ($level) {
-                            case 1:
-                                $role = 'User';
-                                break;
-                             case 3:
-                                $role = 'Office';
-                                break;
-                            case 5:
-                            $role = 'Admin';
-                            break;
-
-                            default:
-                                $role = 'unkown';
-                           }
-
-                        @endphp
-                    <tr>
-                        <td>{{ $u->id }}</td>
-                        <td>{{ $u->name }}</td>
-                        <td>{{ $u->email }}</td>
-                        <td>
-                            <div class="ui left pointing dropdown icon">
-                                {{ $role }} <i class="caret down icon"></i>
-                                <div class="menu">
-                                    <div class="ui right search icon input ">
-                                        <i class="search icon roles-dropdown-fix-icon"></i>
-                                        <input type="text" name="search" placeholder="Søk etter rolle..">
-                                    </div>
-                                    @foreach($roles as $role)
-                                    <a class="item">
-                                        <div class="ui green empty circular label"></div>
-                                        {{ $role->name }}
-                                    </a>
-                                    @endforeach
-
-                                </div>
-                            </div>
-                        </td>
-
-s
-                        <td><i class="icon caret down"></i></td>
-                    </tr>
-                @endforeach
-                </tbody>
-                <tfoot>
-                <tr>
-                    <th>Kundenummer</th>
-                    <th>Firmanavn</th>
-                    <th>Adresse</th>
-                    <th>Rolle</th>
-                    <th>Handlinger</th>
-                </tr>
-                </tfoot>
-            </table>
+                <div class="ui horizontal divider">Opprett rutetid <i class="icon clock"></i></div>
+                <form method="POST" action="{{ route('postcreateroutetime') }}" class="ui form segment">
+                    @csrf
 
 
+                    <input type="hidden" name="routetimeid" >
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Rute</label>
+
+                            <input type="number" name="route" placeholder="10" >
+                        </div>
+                        <div class="field">
+                            <label>Klokken</label>
+                            <input placeholder="4001..." name="time" type="time">
+                        </div>
+
+                    </div>
+
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Fra tid</label>
+
+                            <input type="time" name="from_time" placeholder="10" >
+                        </div>
+                        <div class="field">
+                            <label>Til tid</label>
+                            <input placeholder="4001..." name="to_time" type="time" >
+                        </div>
+
+                    </div>
+
+
+                    <div class="ui basic positive submit button">Lagre rute &nbsp;<i class="icon edit"></i></div>
+                    <div class="ui error message"></div>
+                </form>
+
+
+            </div>
         </div>
-        </div>
+
+
 
     </main>
+
+
+
+
+@endsection
+
+
+@section('bottom-scripts')
+
 
 @endsection

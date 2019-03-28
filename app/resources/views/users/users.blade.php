@@ -23,6 +23,9 @@
                     .removeClass('disabled');
 
 
+                $('.ui.dropdown')
+                    .dropdown()
+                ;
 
 
 
@@ -105,6 +108,12 @@
             width: 100%;
 
         }
+
+
+        .roles-dropdown-fix-icon{
+            padding-top: 0!important;
+            padding-bottom: 0!important;
+        }
     </style>
 
 
@@ -151,7 +160,7 @@
 
 @section('content')
 
-    <main style="margin-bottom: 30vh;">
+    <main style="margin-bottom: 40vh;">
 
         <div class="ui segment container" style="margin-top:80px;" >
 
@@ -159,53 +168,94 @@
 
                 <a href="{{ route('proto.protoworkshopcreate') }}" class="ui positive basic button right floated small" >
                     <i class="icon add"></i>
-                    Legg til ny
+                    Opprett ny bruker
                 </a>
                 <h4 class="ui horizontal divider header clearing">
                     <i class="wrench icon"></i>
-                    Verksteder
+                    Brukere
                 </h4>
 
                 <table id="example" class="ui celled table" style="width:100%">
                     <thead>
                     <tr>
-                        <th>Kundenummer</th>
-                        <th>Firmanavn</th>
-                        <th>Rute</th>
-                        <th>Adresse</th>
-
-                        <th>Prioritert</th>
-                        <th>Posisjon</th>
+                        <th>Id</th>
+                        <th>Navn</th>
+                        <th>E-post</th>
+                        <th>Rolle</th>
                         <th>Handlinger</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($workshops as $w)
-                        <tr>
-                            <td><a href="{{ route('proto.prototest', ['workshop_id' => $w->workshop_id]) }}">{{ $w->workshop_id }}</a></td>
-                            <td>{{ $w->name }}</td>
-                            <td>{{ $w->route }}</td>
-                            <td>{{ $w->adr }}</td>
+                    @foreach($users as $u)
 
-                            <td>{{ ($w->prioritized === 1) ? 'Ja' : '' }}</td>
-                            <td>{{ $w->position }}</td>
+                        @php
+                            $role = '';
+
+                            $level = $u->level();
+
+                           switch ($level) {
+                            case 1:
+                                $role = 'User';
+                                break;
+                             case 3:
+                                $role = 'Office';
+                                break;
+                            case 5:
+                            $role = 'Admin';
+                            break;
+
+                            default:
+                                $role = 'unkown';
+                           }
+
+                        @endphp
+                        <tr>
+                            <td>{{ $u->id }}</td>
+                            <td>{{ $u->name }}</td>
+                            <td>{{ $u->email }}</td>
                             <td>
-                                <div class="menu">
-                                    <a href="{{ route('editworkshop', ['workshop_id' => $w->id]) }}" class="item"><i class="icon edit"></i>Rediger</a>
+                                <div class="ui left pointing dropdown icon">
+                                    {{ $role }}
+
+
+                                    @if(Auth::check() && Auth::user()->hasRole('admin'))
+                                        <i class="caret down icon"></i>
+                                        <div class="menu">
+                                            <div class="ui right search icon input ">
+                                                <i class="search icon roles-dropdown-fix-icon"></i>
+                                                <input type="text" name="search" placeholder="Søk etter rolle..">
+                                            </div>
+                                            @foreach($roles as $role)
+                                                <a class="item" onclick="event.preventDefault();
+                                                        document.getElementById('{{ $u->id . $role->id }}').submit();">
+                                                    <div class="ui green empty circular label"></div>
+                                                    {{ $role->name }}
+                                                </a>
+                                                <form id="{{ $u->id . $role->id }}" action="{{ route('setrole') }}" method="POST" style="display: none">
+                                                    @csrf
+                                                    <input type="hidden" name="user_id" value="{{ $u->id }}">
+                                                    <input type="hidden" name="role_id" value="{{ $role->id }}">
+                                                </form>
+
+                                            @endforeach
+
+                                        </div>
+                                    @endif
+
                                 </div>
                             </td>
+
+
+                            <td><i class="icon caret down"></i></td>
                         </tr>
                     @endforeach
                     </tbody>
                     <tfoot>
                     <tr>
-                        <th>Kundenummer</th>
-                        <th>Firmanavn</th>
-                        <th>Rute</th>
-                        <th>Adresse</th>
-
-                        <th>Prioritert</th>
-                        <th>Posisjon</th>
+                        <th>Id</th>
+                        <th>Navn</th>
+                        <th>E-post</th>
+                        <th>Rolle</th>
                         <th>Handlinger</th>
                     </tr>
                     </tfoot>
@@ -214,8 +264,6 @@
 
             </div>
         </div>
-
-
 
     </main>
 

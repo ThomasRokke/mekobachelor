@@ -12,22 +12,223 @@
 |
 */
 
-Route::get('/routetimes', 'HomeController@getRoutetimes')->name('routetimes');
 
-Route::get('/editroutetimes', 'HomeController@getEditRouteTimes')->name('editroutetimes');
+/*
+|--------------------------------------------------------------------------
+| Dashboard routes
+|--------------------------------------------------------------------------
+|
+| This section contains the dashboard routes for the dashboard and
+| dataexport functionality
+| The given routes is used by Office and Administration
+|
+*/
 
-Route::get('/createroutetimes', 'HomeController@getCreateRouteTimes')->name('createroutetimes');
 
-Route::post('/createroutetimes', 'HomeController@postcreateroutetime')->name('postcreateroutetime');
+Route::get('/dashboard', 'AnalyticsController@getDashboard')->name('dashboard');
+Route::get('/dataexport', 'AnalyticsController@getDataexport')->name('dataexport');
 
-Route::post('/deleteroutetimes', 'HomeController@deleteroutetimes')->name('deleteroutetimes');
 
-Route::post('/postroutetimeedit', 'HomeController@postroutetimeedit')->name('postroutetimeedit');
+//-------END OF SECTION-----------------------------------------------------
 
-Route::get('/myprofile', 'HomeController@getMyProfile')->name('myprofile');
 
-Route::get('/map', 'HomeController@getMap')->name('getmap');
+/*
+|--------------------------------------------------------------------------
+| Routes routes
+|--------------------------------------------------------------------------
+|
+| This section contains the dashboard routes for the dashboard and
+| dataexport functionality
+| The given routes is used by Office and Administration
+|
+*/
 
+Route::get('/routes', 'RouteController@getRoutes')->name('routes');
+
+Route::post('/postroute', 'RouteController@postRoute')->name('office.postroute');
+
+Route::post('/posthente', 'RouteController@postHente')->name('office.posthente');
+
+//Check if the workshop number exists and what name it has
+Route::get('/getworkshopinfo', 'RouteController@getWorkshopInfo');
+
+//set driver for route
+Route::get('/setdriver', 'RouteController@setDriver')->name('setdriver');
+
+Route::get('/setactive', 'RouteController@setActive')->name('setactive');
+
+Route::get('/setinactive', 'RouteController@setInactive')->name('setinactive');
+
+//Edit order
+Route::get('/editorder', 'RouteController@getEdit')->name('getedit');
+Route::post('/postedit', 'RouteController@postEdit')->name('postedit');
+
+
+//-------END OF SECTION-----------------------------------------------------
+
+
+/*
+|--------------------------------------------------------------------------
+|  RouteTimes
+|--------------------------------------------------------------------------
+|
+| This section contains the dashboard routes for the dashboard and
+| dataexport functionality
+| The given routes is used by Office and Administration
+|
+*/
+
+
+Route::get('/routetimes', 'RouteTimesController@getRoutetimes')->name('routetimes');
+
+Route::get('/editroutetimes', 'RouteTimesController@getEditRouteTimes')->name('editroutetimes');
+
+Route::get('/createroutetimes', 'RouteTimesController@getCreateRouteTimes')->name('createroutetimes');
+
+Route::post('/createroutetimes', 'RouteTimesController@postcreateroutetime')->name('postcreateroutetime');
+
+Route::post('/deleteroutetimes', 'RouteTimesController@deleteroutetimes')->name('deleteroutetimes');
+
+Route::post('/postroutetimeedit', 'RouteTimesController@postroutetimeedit')->name('postroutetimeedit');
+
+Route::get('/timeseed', 'RouteTimesController@timeseed');
+
+
+//-------END OF SECTION-----------------------------------------------------
+
+
+/*
+|--------------------------------------------------------------------------
+| Workshop routes
+|--------------------------------------------------------------------------
+|
+| This section contains the dashboard routes for the dashboard and
+| dataexport functionality
+| The given routes is used by Office and Administration
+|
+*/
+
+Route::get('/workshops', 'WorkshopController@getWorkshops')->name('proto.protoworkshop');
+Route::get('/workshops/create', 'WorkshopController@getWorkshopCreate')->name('proto.protoworkshopcreate');
+Route::post('/workshops/create', 'WorkshopController@storeCreateWorkshop')->name('office.storecreate');
+
+Route::get('/workshop/edit', 'WorkshopController@getEditWorkshop')->name('editworkshop');
+Route::post('/workshop/edit', 'WorkshopController@postworkshopedit')->name('postworkshopedit');
+
+//Search workshops ajax
+Route::get('/searchworkshops', 'WorkshopController@searchWorkshops');
+
+//Sortert rekkefølge
+Route::get('/prioritize', 'WorkshopController@prioritize')->name('prioritize');
+Route::post('/prioritize', 'WorkshopController@priopost')->name('priopost');
+
+
+//-------END OF SECTION-----------------------------------------------------
+
+
+/*
+|--------------------------------------------------------------------------
+|  User &roles routes
+|--------------------------------------------------------------------------
+|
+| This section contains the dashboard routes for the dashboard and
+| dataexport functionality
+| The given routes is used by Office and Administration
+|
+*/
+
+Route::get('/myprofile', 'UserController@getMyProfile')->name('myprofile');
+
+Route::get('/users', 'UserController@getRoles')->name('proto.protoroles');
+
+// Set role - paramters are userid and roleid
+Route::post('/setrole', 'UserController@setRole')->name('setrole');
+
+
+
+//-------END OF SECTION-----------------------------------------------------
+
+
+/*
+|--------------------------------------------------------------------------
+|  Drivers routes
+|--------------------------------------------------------------------------
+|
+| This section contains the dashboard routes for the dashboard and
+| dataexport functionality
+| The given routes is used by Office and Administration
+|
+*/
+
+//route-preview
+Route::get('/route-preview', 'DriverController@getRoutePreview')->name('transport.route-preview');
+
+//route-endkm
+
+//route-startkm
+Route::get('/route-startkm', 'DriverController@getRouteStartKm') ->name('transport.route-startkm');
+Route::post('/route-startkm', 'DriverController@setRouteStartKm') ->name('transport.route-setstartkm');
+
+//Route-endKm
+Route::get('/route-endkm', 'DriverController@getRouteEndKm')->name('transport.route-endkm');
+
+Route::post('/route-endkm', 'DriverController@setRouteEndKm')->name('transport.route-setendkm');
+//route-report
+
+Route::get('/route-report', 'DriverController@getRouteReport')->name('transport.route-report');
+
+//route-drive
+Route::get('/route-drive', 'DriverController@getRouteDrive')->name('transport.route-drive');
+
+Route::get('/optimize', 'DriverController@optimize')->name('optimize');
+
+
+Route::post('/markdel', 'DriverController@markdelivered')->name('markdelivered');
+Route::post('/undokdel', 'DriverController@undodelivered')->name('undodelivered');
+
+
+
+
+
+
+
+//-------END OF SECTION-----------------------------------------------------
+
+
+
+/*
+|--------------------------------------------------------------------------
+|  Other routes
+|--------------------------------------------------------------------------
+|
+| This section contains the dashboard routes for the dashboard and
+| dataexport functionality
+| The given routes is used by Office and Administration
+|
+*/
+
+Auth::routes();
+
+//Force login if you are not before
+Route::get('/', 'HomeController@index')->name('home');
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+//search autocomplete
+Route::get('/autocomplete/{session}/{query}', 'HomeController@searchGoogleAutocomplete');
+//search places api
+Route::get('/searchplacesapi', 'HomeController@searchplacesapi');
+
+
+//-------END OF SECTION-----------------------------------------------------
+
+
+
+
+
+
+
+/*
 //Ordre status. Søk opp et ordrenummer og få informasjon om det.
 Route::get('/orderstatus', 'HomeController@getOrderStatus')->name('orderstatus');
 
@@ -35,28 +236,20 @@ Route::get('/orderstatus', 'HomeController@getOrderStatus')->name('orderstatus')
 Route::get('/prototest', 'HomeController@getPrototest')->name('proto.prototest');
 
 
-//Edit order
-Route::get('/editorder', 'HomeController@getEdit')->name('getedit');
-Route::post('/postedit', 'HomeController@postEdit')->name('postedit');
+
 
 Route::get('/prototest2', 'HomeController@getPrototest2')->name('proto.prototest2');
 
 Route::get('/protohome', 'HomeController@getPrototestHome')->name('proto.prototesthome');
 
-Route::get('/protoworkshops', 'HomeController@getProtoWorkshops')->name('proto.protoworkshop');
-Route::get('/protoworkshopscreate', 'HomeController@getProtoWorkshopCreate')->name('proto.protoworkshopcreate');
-
-Route::get('/editworkshop', 'HomeController@getEditWorkshop')->name('editworkshop');
-Route::post('/postworkshopedit', 'HomeController@postworkshopedit')->name('postworkshopedit');
-
-Route::get('/protoroles', 'HomeController@getProtoRoles')->name('proto.protoroles');
 
 
-Route::get('/orders', 'HomeController@getOrders')->name('getorders');
 
-//Search workshops ajax
-Route::get('/searchworkshops', 'HomeController@searchWorkshops');
+*/
 
+
+
+/*
 
 Route::get('/boot', function(){
    return view('boostraptesting');
@@ -67,12 +260,7 @@ Route::get('/thomas', function(){
    return view('thomas');
 });
 
-Auth::routes();
 
-//Force login if you are not before
-Route::get('/', 'HomeController@index')->name('home');
-
-Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::get('/proto', function(){
@@ -88,31 +276,8 @@ Route::get('/drivestart', function(){
 })->name('drivestart');
 
 
-Route::get('/timeseed', 'RouteTimesController@timeseed');
-
-//home
-//Route::get('/home', 'HomeController@getTransportHome')->name('transport.home');
-
-//route-preview
-Route::get('/route-preview', 'HomeController@getRoutePreview')->name('transport.route-preview');
-
-//route-endkm
-
-//route-startkm
-Route::get('/route-startkm', 'HomeController@getRouteStartKm') ->name('transport.route-startkm');
-Route::post('/route-startkm', 'HomeController@setRouteStartKm') ->name('transport.route-setstartkm');
-
-//Route-endKm
-Route::get('/route-endkm', 'HomeController@getRouteEndKm')->name('transport.route-endkm');
-
-Route::post('/route-endkm', 'HomeController@setRouteEndKm')->name('transport.route-setendkm');
-//route-report
 
 
-Route::get('/route-report', 'HomeController@getRouteReport')->name('transport.route-report');
-
-//route-drive
-Route::get('/route-drive', 'HomeController@getRouteDrive')->name('transport.route-drive');
 
 //end Transport routes
 
@@ -124,65 +289,37 @@ Route::get('/attachuser/{id}', 'HomeController@attachUser')->name('setuser');
 
 //Roles test attaching office role
 Route::get('/attachoffice/{id}', 'HomeController@attachOffice')->name('setoffice');
+*/
 
-// Set role - paramters are userid and roleid
-Route::post('/setrole', 'HomeController@setRole')->name('setrole');
 
 /*
  *  Office roles
  * */
 
+/*
 Route::get('/userroles', 'HomeController@userRoles')->name('office.userroles');
 
 Route::get('/edituser/{id}', 'HomeController@editUser')->name('office.edituser');
 
 Route::post('/storeedituser', 'HomeController@storeEditUser')->name('office.storeedituser');
 
+*/
 /*
  * Workshops
  * */
 
-Route::get('/workshops', 'HomeController@getWorkshops')->name('office.workshops');
+//Route::get('/workshops', 'HomeController@getWorkshops')->name('office.workshops');
 
-Route::get('/workshops/create', 'HomeController@getCreateWorkshops')->name('office.workshops.create');
+//Route::get('/workshops/create', 'HomeController@getCreateWorkshops')->name('office.workshops.create');
 
-Route::post('/workshops/create', 'HomeController@storeCreate')->name('office.storecreate');
+//
 
-//search autocomplete
-Route::get('/autocomplete/{session}/{query}', 'HomeController@searchGoogleAutocomplete');
-//search places api
-Route::get('/searchplacesapi', 'HomeController@searchplacesapi');
+
 
 
 /*
  *  Office routes
  * */
 
-Route::get('/routes', 'HomeController@getRoutes')->name('office.routes');
+//Route::get('/routes', 'HomeController@getRoutes')->name('office.routes');
 
-Route::post('/postroute', 'HomeController@postRoute')->name('office.postroute');
-
-Route::post('/posthente', 'HomeController@postHente')->name('office.posthente');
-
-//Check if the workshop number exists and what name it has
-Route::get('/getworkshopinfo', 'HomeController@getWorkshopInfo');
-
-//set driver for route
-Route::get('/setdriver', 'HomeController@setDriver')->name('setdriver');
-
-Route::get('/setactive', 'HomeController@setActive')->name('setactive');
-
-Route::get('/setinactive', 'HomeController@setInactive')->name('setinactive');
-
-
-Route::get('/optimize', 'HomeController@optimize')->name('optimize');
-
-
-Route::post('/markdel', 'HomeController@markdelivered')->name('markdelivered');
-Route::post('/undokdel', 'HomeController@undodelivered')->name('undodelivered');
-
-
-
-//Sortert rekkefølge
-Route::get('/prioritize', 'HomeController@prioritize')->name('prioritize');
-Route::post('/prioritize', 'HomeController@priopost')->name('priopost');
