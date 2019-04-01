@@ -96,6 +96,14 @@ class HomeController extends Controller
     }
 
 
+    public function wtest(){
+        $stops = Stop::all();
+        $workshops = Workshop::paginate(10);
+
+
+        return view('pages.wtest')->with(compact('stops', 'workshops'));
+    }
+
 
 
 

@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use DateTime;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use GuzzleHttp\Client;
 
 class DriverController extends Controller
 {

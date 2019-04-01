@@ -228,6 +228,7 @@ Route::get('/searchplacesapi', 'HomeController@searchplacesapi');
 //-------END OF SECTION-----------------------------------------------------
 
 
+Route::get('/wtest', 'HomeController@wtest');
 
 
 
