@@ -137,21 +137,30 @@
 
                 </div>
 
-                <h4 class="ui horizontal divider header">
-                    <i class="car icon"></i>
-                    Du har kjørt {{ $route->kmend - $route->kmstart }}km
-                </h4>
-
                 @php
                     use Illuminate\Support\Carbon;
                     $start  = new Carbon($route->started_time);
                     $end    = new Carbon($route->finished_time);
 
                 @endphp
+
+                <h4 class="ui horizontal divider header">
+                    <i class="exchange icon"></i>
+                    {{ date('H:i:s', strtotime($start)) }} - {{ date('H:i:s', strtotime($end)) }}
+                </h4>
+
+
+                <h4 class="ui horizontal divider header">
+                    <i class="car icon"></i>
+                    Du har kjørt {{ $route->kmend - $route->kmstart }}km
+                </h4>
+
+
                 <h4 class="ui horizontal divider header">
                     <i class="clock icon"></i>
                     {{ $start->diff($end)->format('%ht %imin %ssec') }}
                 </h4>
+
 
                 <a href="{{ route('home') }}" class="fluid big ui button ui blue button"><i class="icon home"></i> Til hjemsiden</a>
 

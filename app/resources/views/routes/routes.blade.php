@@ -613,14 +613,22 @@
                                                 $gotCash = false;
                                                 $totalCash = 0;
                                                 $amountOfCashOrders = 0;
-                                                    foreach($stop->orders as $o){
-                                                        if($o->amount !== null){
-                                                            $totalCash = $totalCash + $o->amount;
+
+                                                foreach($route->stops as $stop){
+                                                foreach($stop->orders as $o){
+
+
+                                                        if($o['amount'] !== null){
+                                                       $totalCash = $totalCash + $o->amount;
                                                             $amountOfCashOrders++;
                                                             $gotCash = true;
                                                         }
 
                                                 }
+                                                }
+
+
+
 
                                             @endphp
 
