@@ -70,6 +70,7 @@ class AnalyticsController extends Controller
 
         $routes = Route::where('date', '>', date('Y/m/d', strtotime('- '.$time.' days')))->where('finished', 1)->get();
 
+
         $mon10 = [0, 0, 0];
         $mon11 = [1, 0, 0];
         $mon12 = [2, 0, 0];

@@ -10,6 +10,7 @@ use App\Stop;
 use App\User;
 use App\Workshop;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -27,6 +28,11 @@ class RouteController extends Controller
 
 
     public function getRoutes(Request $request){
+
+        //If the user is over level 2 - aka office
+        if(Auth::user()->level() < 2) {
+            return response('Unauthorized.', 401);
+        }
 
         if(!empty($request->date) && $request->date !== "null"){
             $date = $request->date;
