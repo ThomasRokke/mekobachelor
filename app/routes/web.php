@@ -230,6 +230,8 @@ Route::get('/searchplacesapi', 'HomeController@searchplacesapi');
 
 Route::get('/wtest', 'HomeController@wtest');
 
+//Roles test attaching admin role
+Route::get('/attachadmin/{id}', 'UserController@attachAdmin')->name('setadmin');
 
 
 
@@ -287,8 +289,7 @@ Route::get('/drivestart', function(){
 
 //end Transport routes
 
-//Roles test attaching admin role
-Route::get('/attachadmin/{id}', 'HomeController@attachAdmin')->name('setadmin');
+
 
 //Roles test attaching user role
 Route::get('/attachuser/{id}', 'HomeController@attachUser')->name('setuser');

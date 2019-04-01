@@ -99,4 +99,17 @@ class UserController extends Controller
         $request->session()->flash('regconfirm', $request->email.' har blitt endret.');
         return redirect(route('proto.protoroles'));
     }
+
+    public function attachAdmin($id){
+        $user = User::find($id);
+
+        $user->detachAllRoles();
+        //attach admin role
+        $user->attachRole(1);
+
+
+        if ($user->hasRole('admin')) { // you can pass an id or slug
+            dd('user is now admin');
+        }
+    }
 }
