@@ -23,7 +23,11 @@
                     .removeClass('disabled');
 
 
-
+//Init the dropdowns used.
+                $('.ui.dropdown')
+                    .dropdown({
+                        clearable: true
+                    });
 
 
             });
@@ -192,13 +196,9 @@
                             <div class="field">
                                 <select name="route" class="ui search dropdown" id="route">
                                     <option value="">Velg rute</option>
-                                    <option {{ ($order->stop->route->route === '10') ? 'selected' : '' }} value="10">10</option>
-                                    <option {{ ($order->stop->route->route === '11') ? 'selected' : '' }} value="11">11</option>
-                                    <option {{ ($order->stop->route->route === '12') ? 'selected' : '' }} value="12">12</option>
-                                    <option {{ ($order->stop->route->route === '13') ? 'selected' : '' }} value="13">13</option>
-                                    <option {{ ($order->stop->route->route === '14') ? 'selected' : '' }} value="14">14</option>
+
                                     @foreach($route_routes as $t)
-                                        <option value="{{ $t->route }}">{{ $t->route }}</option>
+                                        <option {{ ($order->stop->route->route == $t->route) ? 'selected' : '' }} value="{{ $t->route }}">{{ $t->route }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -212,14 +212,10 @@
                                     <div class="field">
                                         <select name="time" class="ui search dropdown" id="time">
                                             <option value="">Velg tid</option>
-                                            <option {{ ($order->stop->route->time === '07:30:00') ? 'selected' : '' }}  value="07:30">07:30</option>
-                                            <option {{ ($order->stop->route->time === '08:00:00') ? 'selected' : '' }} value="08:00">08:00</option>
-                                            <option {{ ($order->stop->route->time === '09:00:00') ? 'selected' : '' }} value="09:00">09:00</option>
-                                            <option {{ ($order->stop->route->time === '10:00:00') ? 'selected' : '' }} value="10:00">10:00</option>
-                                            <option {{ ($order->stop->route->time === '12:00:00') ? 'selected' : '' }} value="12:00">12:00</option>
-                                            <option {{ ($order->stop->route->time === '13:00:00') ? 'selected' : '' }} value="13:00">13:00</option>
-                                            <option {{ ($order->stop->route->time === '14:00:00') ? 'selected' : '' }} value="14:00">14:00</option>
-                                            <option {{ ($order->stop->route->time === '17:30:00') ? 'selected' : '' }} value="17:30">17:30</option>
+                                            @foreach($route_times as $t)
+                                                <option {{ ($order->stop->route->time == $t->time) ? 'selected' : '' }} value="{{ $t->time }}">{{ $t->time }}</option>
+                                            @endforeach
+
                                         </select>
                                     </div>
                                     <div class="field">

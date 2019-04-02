@@ -459,26 +459,20 @@
 
                                 <div class="three fields">
                                     <div class="field">
-                                        <select name="route" class="ui search dropdown">
+                                        <select name="route" class="ui search dropdown" id="route">
                                             <option value="">Velg rute</option>
-                                            <option value="10">10</option>
-                                            <option value="11">11</option>
-                                            <option value="12">12</option>
-                                            <option value="13">13</option>
-                                            <option value="14">14</option>
+                                            @foreach($route_routes as $t)
+                                                <option value="{{ $t->route }}">{{ $t->route }}</option>
+                                            @endforeach
+
                                         </select>
                                     </div>
                                     <div class="field">
-                                        <select name="time" class="ui search dropdown">
+                                        <select name="time" class="ui search dropdown" id="time">
                                             <option value="">Velg tid</option>
-                                            <option value="07:30">07:30</option>
-                                            <option value="08:00">08:00</option>
-                                            <option value="09:00">09:00</option>
-                                            <option value="10:00">10:00</option>
-                                            <option value="12:00">12:00</option>
-                                            <option value="13:00">13:00</option>
-                                            <option value="14:00">14:00</option>
-                                            <option value="17:30">17:30</option>
+                                            @foreach($route_times as $t)
+                                                <option value="{{ date('H:i', strtotime($t->time)) }}">{{ date('H:i', strtotime($t->time)) }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="field">
