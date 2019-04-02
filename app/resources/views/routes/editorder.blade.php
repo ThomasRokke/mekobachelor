@@ -121,6 +121,10 @@
         }
 
     </style>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/no.js"></script>
 @endsection
 
 
@@ -219,7 +223,7 @@
                                         </select>
                                     </div>
                                     <div class="field">
-                                        <input name="date" type="date" value="{{ $order->stop->route->date }}" placeholder="Dato" id="date" oninvalid="this.setCustomValidity('Dato må spesifiseres')">
+                                       <input name="date" type="text" id="flatpickr" value="{{ $order->stop->route->date }}">
                                     </div>
 
                                     <div class="field">
@@ -265,4 +269,21 @@
             </div>
         </div>
     </main>
+@endsection
+
+
+@section('bottom-scripts')
+    <script>
+        var flat = flatpickr("#flatPickr", {
+
+
+
+        });
+
+        flatpickr('#flatpickr', {
+            "locale": "no"
+        });
+
+
+    </script>
 @endsection

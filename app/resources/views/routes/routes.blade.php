@@ -389,7 +389,7 @@
                                         </select>
                                     </div>
                                     <div class="field">
-                                        <input name="date" type="date" placeholder="Dato" id="date" oninvalid="this.setCustomValidity('Dato må spesifiseres')">
+                                        <input name="date" type="text" placeholder="Dato" id="flatpickr" oninvalid="this.setCustomValidity('Dato må spesifiseres')">
                                     </div>
                                 </div>
                                 <div class="three fields">
@@ -476,7 +476,8 @@
                                         </select>
                                     </div>
                                     <div class="field">
-                                        <input name="date" type="date" placeholder="Dato">
+                                        <input name="date" type="text" placeholder="Dato" id="flatpickr" oninvalid="this.setCustomValidity('Dato må spesifiseres')">
+
                                     </div>
                                 </div>
 
@@ -858,6 +859,14 @@
             },
             "locale": "no"
 
+        });
+
+        flatpickr('#flatpickr', {
+            "locale": "no"
+        });
+
+        flatpickr('#flatpickr2', {
+            "locale": "no"
         });
 
 
