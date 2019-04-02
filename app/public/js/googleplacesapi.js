@@ -132,7 +132,7 @@
 
                                     }
 
-                                    fromResults.append('<a   onclick="chooseFrom('+nameOnclick +","+placeID +","+ isAddress+')" class="list-group-item"><b><img src="'+data['results'][i]['icon']+'" width="20" height="20" alt=""> '+data['results'][i]['name']+'</b>, '+data['results'][i]['formatted_address']+'</a>')
+                                    fromResults.append('<a onclick="chooseFrom('+nameOnclick +","+placeID +","+ isAddress+')" class="list-group-item"><b><img src="'+data['results'][i]['icon']+'" width="20" height="20" alt=""> '+data['results'][i]['name']+'</b>, '+data['results'][i]['formatted_address']+'</a>')
 
                                     anyResults = true;
 

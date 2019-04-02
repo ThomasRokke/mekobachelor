@@ -228,7 +228,9 @@ Route::get('/searchplacesapi', 'HomeController@searchplacesapi');
 //-------END OF SECTION-----------------------------------------------------
 
 
-Route::get('/wtest', 'HomeController@wtest');
+Route::get('/wtest', 'HomeController@wtest')->name('wtest');
+Route::get('/wteststart', 'HomeController@wtestStart');
+Route::get('/wtestsecond', 'HomeController@wtestSecond')->name('wtestsecond');
 
 //Roles test attaching admin role
 Route::get('/attachadmin/{id}', 'UserController@attachAdmin')->name('setadmin');

@@ -104,6 +104,15 @@ class HomeController extends Controller
         return view('pages.wtest')->with(compact('stops', 'workshops'));
     }
 
+    public function wtestStart(){
+        return view('pages.wteststart');
+    }
+
+
+    public function wtestSecond(){
+        return view('pages.wsecond');
+    }
+
 
 
 

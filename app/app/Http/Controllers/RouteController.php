@@ -45,6 +45,8 @@ class RouteController extends Controller
         //Results will be in the lines of 08:00:00, 09:00:00, 10:00:00 etc.
         $route_times = DB::table('route_times')->select('time')->distinct()->orderBy('time')->get();
 
+        $route_routes = DB::table('route_times')->select('route')->distinct()->orderBy('route')->get();
+
 
         $timesArray = $route_times->toArray();
 
@@ -54,6 +56,7 @@ class RouteController extends Controller
 
             array_push($routeObjects, Route::where('date',  $date)->where('time', $t->time)->get());
         }
+
 
 
 
@@ -111,7 +114,10 @@ class RouteController extends Controller
 
 
 
-        return view('routes.routes')->with(compact('routeObjects', 'route_times', 'routes', 'drivers', 'driversStatus', 'halvsju', 'atte', 'ti', 'tolv', 'ett', 'to', 'kveld', 'date', 'orders', 'workshop_id', 'workshops'));
+
+
+
+        return view('routes.routes')->with(compact('routeObjects', 'route_times', 'route_routes', 'routes', 'drivers', 'driversStatus', 'halvsju', 'atte', 'ti', 'tolv', 'ett', 'to', 'kveld', 'date', 'orders', 'workshop_id', 'workshops'));
     }
 
     public function postRoute(Request $request){
@@ -542,10 +548,13 @@ class RouteController extends Controller
 
     public function getEdit(Request $request){
 
+        $route_times = DB::table('route_times')->select('time')->distinct()->orderBy('time')->get();
+
+        $route_routes = DB::table('route_times')->select('route')->distinct()->orderBy('route')->get();
         $order = Order::where('ordernumber', $request->id)->first();
 
 
-        return view('routes.editorder')->with(compact('order'));
+        return view('routes.editorder')->with(compact('order', 'route_times', 'route_routes'));
     }
     public function postEdit(Request $request){
 

@@ -185,6 +185,7 @@ class DriverController extends Controller
 
         $stop->deliver_time = new DateTime('now');
 
+
         $stop->save();
 
 

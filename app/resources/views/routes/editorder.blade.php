@@ -197,6 +197,9 @@
                                     <option {{ ($order->stop->route->route === '12') ? 'selected' : '' }} value="12">12</option>
                                     <option {{ ($order->stop->route->route === '13') ? 'selected' : '' }} value="13">13</option>
                                     <option {{ ($order->stop->route->route === '14') ? 'selected' : '' }} value="14">14</option>
+                                    @foreach($route_routes as $t)
+                                        <option value="{{ $t->route }}">{{ $t->route }}</option>
+                                    @endforeach
                                 </select>
                             </div>
 
