@@ -777,7 +777,14 @@
                                                 <div class="description">Kjører <a><b>rute {{ $driver->route }}</b></a></div>
                                                 <div class="description">Startet: <i class="icon clock outline"></i>{{ date('H:i',strtotime($driver->created_at)) }}</div>
                                                 @if($driver->optimized_time !== null)
-                                                <div class="description">Tilbake: <i class="icon clock outline"></i>{{ date('H:i',strtotime($driver->optimized_time)) }}**</div>
+                                                    @if($driver->lunch_break === 1)
+
+                                                        <div class="description">Tilbake: <i class="icon clock outline"></i>{{ date('H:i', strtotime('+30 minutes', strtotime($driver->optimized_time))) }}**</div>
+
+                                                    @else
+                                                        <div class="description">Tilbake: <i class="icon clock outline"></i>{{ date('H:i',strtotime($driver->optimized_time)) }}**</div>
+
+                                                    @endif
                                                 @endif
                                                 @php
                                                     $driverRoute = $driver;

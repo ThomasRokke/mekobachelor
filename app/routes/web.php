@@ -193,6 +193,11 @@ Route::post('/undokdel', 'DriverController@undodelivered')->name('undodelivered'
 
 
 
+Route::post('/setlunch', 'DriverController@setLunch')->name('setlunch');
+Route::post('/undolunch', 'DriverController@undoLunch')->name('undolunch');
+
+
+
 
 
 

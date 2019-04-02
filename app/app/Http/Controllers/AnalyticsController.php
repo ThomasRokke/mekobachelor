@@ -28,25 +28,26 @@ class AnalyticsController extends Controller
 
         $weekday = date('w', strtotime($date));
 
+
         $returnString = null;
         switch ($weekday) {
-            case "0":
+            case "1":
                 $returnString = 'mon';
                 break;
 
-            case "1":
+            case "2":
                 $returnString = 'tue';
                 break;
 
-            case "2":
+            case "3":
                 $returnString = 'wen';
                 break;
 
-            case "3":
+            case "4":
                 $returnString = 'thu';
                 break;
 
-            case "4":
+            case "5":
                 $returnString = 'fri';
                 break;
 
@@ -68,7 +69,7 @@ class AnalyticsController extends Controller
 
 
 
-        $routes = Route::where('date', '>', date('Y/m/d', strtotime('- '.$time.' days')))->where('finished', 1)->get();
+        $routes = Route::where('date', '>=', date('Y/m/d', strtotime('- '.$time.' days')))->where('finished', 1)->get();
 
 
         $mon10 = [0, 0, 0];
@@ -136,8 +137,11 @@ class AnalyticsController extends Controller
                     case 10:
                         $ant10++;
                         $weekday = $this->weekday($r->date);
+
+
                         if($weekday !== null) {
                             ${$weekday . '10'}[2] = ${$weekday . '10'}[2] + 1;
+
                         }
 
                         break;

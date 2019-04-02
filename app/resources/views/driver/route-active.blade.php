@@ -301,10 +301,46 @@
 
 
             <div class="ui segment">
-                <div class="animated bounceInUp" id="map" style="width: 100%; height: 400px;">
+                <div class="animated bounceInUp" id="map" style="width: 100%; height: 600px;">
                 </div>
 
             </div>
+
+            @if($route->lunch_break === 0)
+                <form method="POST" action="{{ route('setlunch', ['route_id' => $route->id]) }}">
+
+                    @csrf
+
+                    <button type="submit" class="fluid ui basic positive button big"><i class="icon food"></i>Merk av for utelunsj</button>
+
+                </form>
+
+
+            @else
+                <div class="ui icon message positive">
+                    <i class="food icon"></i>
+                    <div class="content">
+                        <div class="header">
+                            Du har merket av for utelunsj.
+                        </div>
+                        <p> 30 minutter er trekket fra tidsberegningen.</p>
+                    </div>
+                </div>
+
+                <div class="ui divider">
+                </div>
+
+                <form method="POST" action="{{ route('undolunch', ['route_id' => $route->id]) }}">
+
+                    @csrf
+
+                    <button type="submit" class="fluid ui basic button negative big"><i class="icon food"></i>Angre utelunsj.</button>
+
+                </form>
+
+            @endif
+
+
         </div>
 
 
@@ -356,10 +392,11 @@
             });
             // The marker, positioned at Uluru
             var marker{{ $stop->id }} = new google.maps.Marker({position: from{{ $stop->id }}, map: map, icon: {
-                    url: 'http://maps.google.com/mapfiles/kml/paddle/{{ $stop->route_position }}.png', // url
-                    scaledSize: new google.maps.Size(38, 38), // scaled size
 
-                }, animation: google.maps.Animation.DROP,});
+                    url: 'http://maps.google.com/mapfiles/kml/paddle/ylw-blank.png',
+                    scaledSize: new google.maps.Size(48, 48), // scaled size
+
+                }, label: '{{ $stop->route_position }}'  , animation: google.maps.Animation.DROP,});
 
             @else
 
@@ -378,11 +415,7 @@
             });
 
             @if($stop->route_position !== null)
-            var marker{{ $stop->id }} = new google.maps.Marker({position: from{{ $stop->id }}, map: map, icon: {
-                        url: 'http://maps.google.com/mapfiles/kml/paddle/{{ $stop->route_position }}.png', // url
-                        scaledSize: new google.maps.Size(32, 32), // scaled size
-
-                    }});
+            var marker{{ $stop->id }} = new google.maps.Marker({position: from{{ $stop->id }}, map: map, label: '{{ $stop->route_position }}'  , });
             @else
             var marker{{ $stop->id }} = new google.maps.Marker({position: from{{ $stop->id }}, map: map, icon: {
                         url: 'http://maps.google.com/mapfiles/kml/paddle/red-circle.png', // url

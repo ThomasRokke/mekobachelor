@@ -124,6 +124,9 @@ class DriverController extends Controller
 
         $diffInMinutes = $optTime->diffInMinutes($now, false);
 
+        if($route->lunch_break === 1){
+            $diffInMinutes = $diffInMinutes - 30;
+        }
 
 
         $route->finished = 1;
@@ -404,6 +407,26 @@ class DriverController extends Controller
         $stop->deliver_time = null;
 
         $stop->save();
+
+        return redirect()->back();
+    }
+
+    public function setLunch(Request $request){
+        $route = Route::find($request->route_id);
+
+        $route->lunch_break = 1;
+
+        $route->save();
+
+        return redirect()->back();
+    }
+
+    public function undoLunch(Request $request){
+        $route = Route::find($request->route_id);
+
+        $route->lunch_break = 0;
+
+        $route->save();
 
         return redirect()->back();
     }
