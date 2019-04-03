@@ -4,6 +4,8 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/app/tests" isTestSource="true" packagePrefix="Tests\" />
       <sourceFolder url="file://$MODULE_DIR$/app/app" isTestSource="false" packagePrefix="App\" />
+      <excludeFolder url="file://$MODULE_DIR$/app/vendor/balping/json-raw-encoder" />
+      <excludeFolder url="file://$MODULE_DIR$/app/vendor/consoletvs/charts" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/jeremykenedy/laravel-roles" />
     </content>
     <orderEntry type="inheritedJdk" />

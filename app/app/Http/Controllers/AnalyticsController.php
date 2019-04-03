@@ -7,9 +7,12 @@ use App\Charts\SampleChart;
 use App\Order;
 use App\Route;
 use App\Stop;
+use App\User;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AnalyticsController extends Controller
 {
@@ -59,6 +62,10 @@ class AnalyticsController extends Controller
     }
 
     public function getDashboard(Request $request){
+        if(Auth::user()->level() < 2) {
+            return response('Unauthorized.', 401);
+        }
+
 
         if(empty($request->time)){
             $time = "7";
@@ -66,10 +73,32 @@ class AnalyticsController extends Controller
             $time = $request->time;
         }
 
+        $route_number = null;
+        if(!empty($request->route)){
+            $route_number = $request->route;
+        }
+
+        $driver = User::find($request->driver_id);
+
+        $routes = null;
+        if($driver !== null){
+            if($route_number === null){
+                $routes = Route::where('date', '>=', date('Y/m/d', strtotime('- '.$time.' days')))->where('finished', 1)->where('driver_id', '=', $driver->id)->get();
+
+            }else{
+                $routes = Route::where('date', '>=', date('Y/m/d', strtotime('- '.$time.' days')))->where('finished', 1)->where('driver_id', '=', $driver->id)->where('route', '=', $route_number)->get();
+
+            }
+        }
+        elseif ($driver === null && $route_number !== null) {
+            $routes = Route::where('date', '>=', date('Y/m/d', strtotime('- '.$time.' days')))->where('finished', 1)->where('route', '=', $route_number)->get();
+
+        }else{
+            $routes = Route::where('date', '>=', date('Y/m/d', strtotime('- '.$time.' days')))->where('finished', 1)->get();
+        }
 
 
 
-        $routes = Route::where('date', '>=', date('Y/m/d', strtotime('- '.$time.' days')))->where('finished', 1)->get();
 
 
         $mon10 = [0, 0, 0];
@@ -114,7 +143,7 @@ class AnalyticsController extends Controller
         $ant13 = 0;
         $ant14 = 0;
 
-
+        $totalRoutes = count($routes);
         foreach($routes as $r){
 
             $startTime = Carbon::parse($r->started_time);
@@ -130,7 +159,7 @@ class AnalyticsController extends Controller
             $totalKM += $r->kmend - $r->kmstart; //Get routes KM
 
             $stopsArr = $r->stops;
-            $stops += sizeof($stops); //Get amount of stops
+            $stops += sizeof($stopsArr); //Get amount of stops
 
             foreach($stopsArr as $s){
                 switch ($r->route) {
@@ -223,10 +252,12 @@ class AnalyticsController extends Controller
 
 
 
+        $route_routes = DB::table('route_times')->select('route')->distinct()->orderBy('route')->get();
+
+        $users = User::all();
 
 
-
-        return view( 'analytics.dashboard')->with(compact('routes', 'activeCount', 'chart', 'orders', 'stops', 'totalKM', 'totalHours', 'totalMinutes',
+        return view( 'analytics.dashboard')->with(compact('routes', 'totalRoutes', 'users', 'route_number', 'driver', 'route_routes', 'activeCount', 'chart', 'orders', 'stops', 'totalKM', 'totalHours', 'totalMinutes',
             'ant10', 'ant11', 'ant12', 'ant13', 'ant14', 'time', 'mon10', 'mon11','mon12', 'mon13', 'mon14',
             'tue10', 'tue11','tue12', 'tue13', 'tue14', 'wen10', 'wen11','wen12', 'wen13', 'wen14', 'thu10', 'thu11','thu12', 'thu13', 'thu14', 'fri10', 'fri11','fri12', 'fri13', 'fri14'
             ));

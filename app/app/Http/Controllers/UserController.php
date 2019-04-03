@@ -60,10 +60,18 @@ class UserController extends Controller
     }
 
     public function getCreateUser(){
+        if(Auth::user()->level() < 4) {
+            return response('Unauthorized.', 401);
+        }
         return view('users.createuser');
     }
 
     public function getEditUser(Request $request){
+        //If the user is over level 4 - aka admin
+        if(Auth::user()->level() < 4) {
+            return response('Unauthorized.', 401);
+        }
+
         $user = User::find($request->user_id);
         return view('users.edituser')->with(compact('user'));
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 
 use App\Workshop;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -29,11 +30,19 @@ class WorkshopController extends Controller
     }
 
     public function getWorkshopCreate(){
+        //If the user is over level 4 - aka admin
+        if(Auth::user()->level() < 4) {
+            return response('Unauthorized.', 401);
+        }
         return view('workshops.workshopscreate');
     }
 
     public function storeCreateWorkshop(Request $request)
     {
+        //If the user is over level 4 - aka admin
+        if(Auth::user()->level() < 4) {
+            return response('Unauthorized.', 401);
+        }
 
         $request->validate([
             'workshop_id' => 'required|unique:workshops|max:6|min:6',
@@ -62,6 +71,10 @@ class WorkshopController extends Controller
 
 
     public function getEditWorkshop(Request $request){
+        //If the user is over level 4 - aka admin
+        if(Auth::user()->level() < 4) {
+            return response('Unauthorized.', 401);
+        }
         $w = Workshop::find($request->workshop_id);
 
         return view('workshops.editworkshop')->with(compact('w'));

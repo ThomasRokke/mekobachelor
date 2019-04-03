@@ -177,6 +177,8 @@
       <path value="$PROJECT_DIR$/vendor/symfony/process" />
       <path value="$PROJECT_DIR$/vendor/jakub-onderka/php-console-highlighter" />
       <path value="$PROJECT_DIR$/app/vendor/jeremykenedy/laravel-roles" />
+      <path value="$PROJECT_DIR$/app/vendor/consoletvs/charts" />
+      <path value="$PROJECT_DIR$/app/vendor/balping/json-raw-encoder" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.1" />
