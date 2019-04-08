@@ -100,6 +100,14 @@
                             <input type="password" name="password" placeholder="Passord">
                         </div>
                     </div>
+
+                    <div class="field">
+                        <div class="ui checkbox ">
+                            <input type="checkbox" name="remember">
+                            <label>Husk meg?</label>
+                        </div>
+
+                    </div>
                     <input type="submit" value="Logg inn" class="ui fluid large  submit button">
                 </div>
 
@@ -107,9 +115,7 @@
 
             </form>
 
-            <div class="ui message">
-                Ny bruker? <a href="{{ route('register') }}">Registrer bruker</a>
-            </div>
+
             <div class="ui message">
                 Glemt passord? <a href="{{ route('password.request') }}">Tilbakestill passord</a>
             </div>

@@ -133,6 +133,23 @@
         }
 
 
+        @if(\Illuminate\Support\Facades\Auth::user()->designmode === 1)
+
+        .item.title .content{
+            margin: 5px 0 5px 0;
+            font-size:1.4em!important;
+        }
+
+        .checkbox{
+            font-size: 1.4em!important;
+        }
+
+        .btn-size{
+            font-size: 1.28571429rem !important;
+        }
+
+        @else
+
         .item.title .content{
             margin: 5px 0 5px 0;
         }
@@ -140,6 +157,8 @@
         .ui.fitted.divider{
             margin: 5px 0 5px 0;
         }
+
+        @endif
 
         .dots-max-width{
             width: 100%!important;
@@ -176,7 +195,7 @@
         <div class="ui container" style="margin-top:80px;">
             <div class="ui segment">
 
-                <a href="{{ route('transport.route-endkm', ['id' => $route->id])  }}" class="fluid ui button negative">Stopp kjøring</a>
+                <a href="{{ route('transport.route-endkm', ['id' => $route->id])  }}" class="fluid ui button negative btn-size">Stopp kjøring</a>
 
                 <div class="ui divider"></div>
 
@@ -227,7 +246,11 @@
                                             {{ $order->amount }}kr
                                         @endif
                                         @if($order->ordernumber <= 6000 && $order->ordernumber >= 2000)
-                                            <strong>Henteordre</strong>
+                                            <i class="exclamation triangle icon"></i><strong>Henteordre</strong>
+                                        @endif
+
+                                        @if(!empty($order->pickupcomment))
+                                            <i class="comment alternate outline icon"></i> {{ $order->pickupcomment }} <i class="comment alternate outline icon"></i>
                                         @endif
                                     </label>
                                 </div>
@@ -260,7 +283,11 @@
                                                 {{ $order->amount }}kr
                                             @endif
                                             @if($order->ordernumber <= 6000 && $order->ordernumber >= 2000)
-                                                <strong>Henteordre</strong>
+                                                <i class="exclamation triangle icon"></i><strong>Henteordre</strong>
+                                            @endif
+
+                                            @if(!empty($order->pickupcomment))
+                                                <i class="comment alternate outline icon"></i> {{ $order->pickupcomment }} <i class="comment alternate outline icon"></i>
                                             @endif
                                         </label>
                                     </div>
@@ -390,13 +417,28 @@
             var infowindow{{ $stop->id }} = new google.maps.InfoWindow({
                 content: content{{ $stop->id }}
             });
-            // The marker, positioned at Uluru
-            var marker{{ $stop->id }} = new google.maps.Marker({position: from{{ $stop->id }}, map: map, icon: {
 
-                    url: 'http://maps.google.com/mapfiles/kml/paddle/ylw-blank.png',
-                    scaledSize: new google.maps.Size(48, 48), // scaled size
+                @if($stop->delivered === 1)
+                // The marker, positioned at Uluru
+                var marker{{ $stop->id }} = new google.maps.Marker({position: from{{ $stop->id }}, map: map, icon: {
 
-                }, label: '{{ $stop->route_position }}'  , animation: google.maps.Animation.DROP,});
+                        url: 'http://maps.google.com/mapfiles/kml/paddle/grn-blank.png',
+                        scaledSize: new google.maps.Size(48, 48), // scaled size
+
+                    }, label: '{{ $stop->route_position }}'  , animation: google.maps.Animation.DROP,});
+
+                @else
+                    // The marker, positioned at Uluru
+                    var marker{{ $stop->id }} = new google.maps.Marker({position: from{{ $stop->id }}, map: map, icon: {
+
+                            url: 'http://maps.google.com/mapfiles/kml/paddle/ylw-blank.png',
+                            scaledSize: new google.maps.Size(48, 48), // scaled size
+
+                        }, label: '{{ $stop->route_position }}'  , animation: google.maps.Animation.DROP,});
+
+
+                @endif
+
 
             @else
 

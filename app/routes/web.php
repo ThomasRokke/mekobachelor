@@ -64,6 +64,12 @@ Route::get('/editorder', 'RouteController@getEdit')->name('getedit');
 Route::post('/postedit', 'RouteController@postEdit')->name('postedit');
 
 
+Route::post('/deleteorder', 'RouteController@deleteorder')->name('deleteorder');
+
+Route::post('/markorderdelivered', 'RouteController@markorderdelivered')->name('markorderdelivered');
+Route::post('/undoorderdelivered', 'RouteController@undoorderdelivered')->name('undoorderdelivered');
+
+
 //-------END OF SECTION-----------------------------------------------------
 
 
@@ -92,6 +98,8 @@ Route::post('/deleteroutetimes', 'RouteTimesController@deleteroutetimes')->name(
 Route::post('/postroutetimeedit', 'RouteTimesController@postroutetimeedit')->name('postroutetimeedit');
 
 Route::get('/timeseed', 'RouteTimesController@timeseed');
+
+
 
 
 //-------END OF SECTION-----------------------------------------------------
@@ -148,6 +156,16 @@ Route::post('/edituser', 'UserController@postEdituser')->name('user.postedituser
 
 // Set role - paramters are userid and roleid
 Route::post('/setrole', 'UserController@setRole')->name('setrole');
+
+Route::get('/changepassword', 'UserController@getChangePassword')->name('changepassword');
+Route::post('/changepassword', 'UserController@postChangePassword')->name('postchangepassword');
+
+
+Route::get('/changeemail', 'UserController@getChangeEmail')->name('changeemail');
+Route::post('/changeemail', 'UserController@postChangeEmail')->name('postchangeemail');
+
+Route::post('/setlargemode', 'UserController@setLargeMode')->name('setlargemode');
+Route::post('/setsmallmode', 'UserController@setSmallMode')->name('setsmallmode');
 
 
 

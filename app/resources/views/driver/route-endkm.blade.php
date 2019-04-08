@@ -84,8 +84,8 @@
     <main style="margin-bottom: 60vh;">
         <div class="ui container" style="margin-top:80px;">
             <div class="ui segment">
-                <h4 class="text-center">Fyll inn antall kilometer ved stopp</h4>
-                <p class="text-center">Kilometer start: <strong>{{ $route->kmstart }}</strong> </p>
+                <h2 class="text-center">Fyll inn antall kilometer ved stopp</h2>
+                <h4 class="text-center">Kilometer start: <strong>{{ $route->kmstart }}</strong> </h4>
 
                 <form method="post" action="{{ route('transport.route-setendkm', ['id' => $route->id]) }}">
                     @csrf

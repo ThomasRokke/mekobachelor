@@ -117,6 +117,17 @@
             padding-top: 0!important;
             padding-bottom: 0!important;
         }
+
+        @if(\Illuminate\Support\Facades\Auth::user()->designmode === 1)
+
+
+            .content{
+                        font-size: 1.4em!important;
+                    }
+
+
+        @endif
+
     </style>
 
 
@@ -135,9 +146,9 @@
                         <div class="blurring dimmable image">
                             <div class="ui dimmer">
                                 <div class="content">
-                                    <div class="center">
+                                    <!--<div class="center">
                                         <div class="ui inverted button"><i class="icon upload"></i> Endre bilde</div>
-                                    </div>
+                                    </div>-->
                                 </div>
                             </div>
                             <img src="https://semantic-ui.com/images/avatar/large/elliot.jpg">
@@ -147,15 +158,52 @@
                             <div class="meta">
                                 <span class="date"><i class="icon mail"></i> {{ $user->email }}</span><br>
 
-                                <span class="date"><i class="icon users"></i> Admin</span>
+                                @php
+                                    $role = '';
+
+                                    $level = $user->level();
+
+                                   switch ($level) {
+                                    case 1:
+                                        $role = 'Sjåfør';
+                                        break;
+                                     case 3:
+                                        $role = 'Kjørekontor';
+                                        break;
+                                    case 5:
+                                    $role = 'Administrasjon';
+                                    break;
+
+                                    default:
+                                        $role = 'unkown';
+                                   }
+
+                                @endphp
+                                <span class="date"><i class="icon users"></i> {{ $role }}</span>
+
+                                <div class="ui divider"></div>
+                                <div class="ui buttons">
+                                    <form action="{{ route('setsmallmode', ['user_id' => \Illuminate\Support\Facades\Auth::user()->id ]) }}" method="POST" class="">
+                                        @csrf
+                                        <button class="ui button {{ (\Illuminate\Support\Facades\Auth::user()->designmode == 0)  ? 'positive' : '' }}">Liten tekst</button>
+                                    </form>
+
+                                    <div  class="or" data-text="&"></div>
+
+                                    <form action="{{ route('setlargemode', ['user_id' => \Illuminate\Support\Facades\Auth::user()->id ]) }}" method="POST" class="">
+                                        @csrf
+                                        <button class="ui {{ (\Illuminate\Support\Facades\Auth::user()->designmode == 1)  ? 'positive' : '' }} button">Stor tekst</button>
+                                    </form>
+
+                                </div>
 
                             </div>
 
                         </div>
                         <div class="extra content">
                             <div class="ui list">
-                                <a class="item">Endre passord</a>
-                                <a class="item">Endre tilknyttet epost</a>
+                                <a href="{{ route('changepassword') }}" class="item">Endre passord</a>
+                                <a href="{{ route('changeemail') }}" class="item">Endre tilknyttet epost</a>
                             </div>
                         </div>
                     </div>

@@ -190,14 +190,28 @@
                             rules: [
                                 {
                                     type   : 'empty',
-                                    prompt : 'Please enter a password'
+                                    prompt : 'Vennligst oppgi et nytt passord'
                                 },
                                 {
                                     type   : 'minLength[6]',
-                                    prompt : 'Your password must be at least {ruleValue} characters'
+                                    prompt : 'Det nye passordet må være minst {ruleValue} karakterer'
                                 }
                             ]
                         },
+                        password_confirmaiton: {
+                            identifier: 'password_confirmation',
+                            rules: [
+                                {
+                                    type   : 'empty',
+                                    prompt : 'Vennligst gjenta nytt passord'
+                                },
+                                {
+                                    type   : 'minLength[6]',
+                                    prompt : 'Gjenta nytt passord må være minst {ruleValue} karakterer'
+                                }
+                            ]
+                        },
+
                         terms: {
                             identifier: 'terms',
                             rules: [
@@ -217,86 +231,81 @@
 
 @section('content')
 
-    <main >
+    <main style="margin-bottom: 30vh;">
 
-        <div class="ui text  container" style="margin-top:40px;" >
+        <div class="ui text  container" style="margin-top:80px;" >
 
             <div class="main-content">
 
-                <div class="ui horizontal divider">Registrer nytt verksted <i class="icon wrench"></i></div>
-                <form method="POST" action="{{ route('office.storecreate') }}" class="ui form segment">
+                <div class="ui horizontal divider">Endre passord <i class="icon user"></i></div>
+
+                @if(session('regconfirm'))
+                    <div class="ui success message transition">
+                        <i class="close icon"></i>
+                        <div class="header">
+                            {{ Session::get('regconfirm') }}
+                        </div>
+                    </div>
+                @endif
+
+                @if(session('negative'))
+                    <div class="ui error message transition">
+                        <i class="close icon"></i>
+                        <div class="header">
+                            {{ Session::get('negative') }}
+                        </div>
+                    </div>
+                @endif
+
+                <form method="POST" action="{{ route('postchangepassword') }}" class="ui form segment">
                     @csrf
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="lock icon"></i>
+                            <input type="password" name="old_password" placeholder="Gammel passord" value="{{ old('old_password') }}">
+                        </div>
+                    </div>
                     <div class="two fields">
                         <div class="field">
-                            <label>Kundenummer</label>
-                            <input placeholder="4001..." name="workshop_id" type="text">
+                            <div class="ui left icon input">
+                                <i class="lock icon"></i>
+                                <input type="password" name="password" placeholder="Nytt passord" value="{{ old('password') }}">
+                            </div>
                         </div>
+
                         <div class="field">
-                            <label>Rute</label>
-
-                            <input type="number" name="route" placeholder="10">
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label>Verkstednavn</label>
-
-                        <input type="text" name="name" placeholder="Stovnerbrua Servicesenter">
-                    </div>
-                    <div class="field">
-                        <label>Lokasjon</label>
-                        <div id="searchIcon"  class="ui icon input ">
-                            <input type="text" id="from" placeholder="Søk i Google sin database...">
-                            <i class="search icon"></i>
-                        </div>
-
-
-                        <div id="fromDelete"  style="margin-top:10px; display: none" onclick="deleteFrom()" class="ui button basic"><i class="icon trash"></i> Fjern valg</div>
-
-                        <input type="hidden" name="fromID" id="fromID" value="">
-                        <input type="hidden" name="adr" id="adr" value="">
-                        <input type="hidden" name="lat" id="lat" value="">
-                        <input type="hidden" name="lng" id="lng" value="">
-
-
-                        <div id="fromAppend" class="ui relaxed divided list">
-
-
-                        </div>
-
-                        <div id="fromAdr" style="display: none">
-                            <div class="ui positive message">
-                                <i class="check icon"></i>
-                                Du har nå låst inn valget knyttet til lokasjon. Det er fortsatt mulig å angre ved å trykke
-                                <a onclick="deleteFrom()">her</a>
-                            </div>
-                            <div class="ui dividing header">
-                                <i class="map marker alternate icon"></i>
-                                <div class="content">
-                                    <span id="fromName"></span>
-                                    <div id="fromAdrFull" class="sub header">Trondheimsveien 27, 0560</div>
-
-
-                                </div>
-                                <i class="info icon"></i>
-                                <div class="content">
-                                    <div class="sub header">Lengdegrader: <span id="latspan"></span></div>
-                                    <div class="sub header">Breddegrader: <span id="lngspan"></span></div>
-
-
-                                </div>
-
+                            <div class="ui left icon input">
+                                <i class="lock icon"></i>
+                                <input type="password" name="password_confirmation" placeholder="Gjenta nytt passord">
                             </div>
                         </div>
+                    </div>
+
+                    <div class="two fields">
+                        <div class="field">
+                            <div class="ui basic positive submit button">Lagre nytt passord <i class="icon send"></i></div>
+                        </div>
+
 
                     </div>
 
 
-
-
-                    <div class="ui basic positive submit button">Legg til verksted <i class="icon send"></i></div>
                     <div class="ui error message"></div>
                 </form>
+                @if ($errors->any())
 
+                    <div class="ui error message">
+                        <i class="close icon"></i>
+                        <div class="header">
+                            Feilmelding:
+                        </div>
+                        <ul class="list">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
             </div>
         </div>

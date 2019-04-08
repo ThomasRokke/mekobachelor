@@ -1,4 +1,4 @@
-<footer style="margin-top:920px">
+<footer style="margin-top:500px">
     <div class="ui inverted vertical footer segment">
         <div class="ui center aligned container">
 

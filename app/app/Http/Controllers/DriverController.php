@@ -244,6 +244,7 @@ class DriverController extends Controller
 
 
 
+
         $lastPrioStop = $route->stops->where('route_position', '!==', null)->sortBy('route_position')->last();
 
         $prevPrioExits = false;
@@ -317,7 +318,9 @@ class DriverController extends Controller
 
 
 
-        $amount = $amount - 1;
+       // $amount = $amount - 1;
+
+        //dd($responseDecodet['routes'][0]['legs']);
 
         $totalDuration = 0;
 
@@ -349,7 +352,11 @@ class DriverController extends Controller
                         $stop->route_position = 1 +  $i;
                     }
 
+
+
                     $stop->save();
+
+
 
 
                 }else{

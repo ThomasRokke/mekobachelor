@@ -99,6 +99,9 @@
             text-overflow: ellipsis;
             width: 100%;
         }
+
+
+
     </style>
 @endsection
 @section('content')
@@ -108,7 +111,7 @@
 
 
 
-                <h4 class="text-center">Fyll inn antall kilometer ved start</h4>
+                <h2 class="text-center">Fyll inn antall kilometer ved start</h2>
 
                 <form method="post" action="{{ route('transport.route-setstartkm') }}">
                     @csrf

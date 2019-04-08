@@ -141,7 +141,7 @@ class RouteController extends Controller
 
         }
         //22:32:33
-        $timeStamp = date('H:i:s'); //'08:32:33'; //
+        $timeStamp =  date('H:i:s'); //'17:32:33';
 
 
 
@@ -183,7 +183,14 @@ class RouteController extends Controller
                 $time = $timeObj->time;
                 $timeSet = true;
 
-                $date = \Carbon\Carbon::tomorrow()->format('Y/m/d');
+                $dayNumber = date('w', strtotime($date));
+
+                if($dayNumber > 5){
+                    $date = \Carbon\Carbon::parse('next monday')->format('Y/m/d');
+                }else{
+                    $date = \Carbon\Carbon::tomorrow()->format('Y/m/d');
+                }
+
                 $dateSet = true;
 
             }
@@ -218,7 +225,14 @@ class RouteController extends Controller
 
             }else{
 
-                $date = \Carbon\Carbon::tomorrow()->format('Y/m/d');
+                $dayNumber = date('w', strtotime($date));
+
+                if($dayNumber > 5){
+                    $date = \Carbon\Carbon::parse('next monday')->format('Y/m/d');
+                }else{
+                    $date = \Carbon\Carbon::tomorrow()->format('Y/m/d');
+                }
+
                 $dateSet = true;
 
             }
@@ -259,6 +273,7 @@ class RouteController extends Controller
         }
 
 
+
         $o = new Order;
         $o->ordernumber = $request->ordernumber;
         $o->stop_id = $s->id;
@@ -266,6 +281,12 @@ class RouteController extends Controller
         $o->amount = $amount;
         $o->amount_comment = $amountComment;
         $o->kkode = $kkodeBolean;
+
+        //Check if comment exits and add it if we got it.
+        if(!empty($request->comment)){
+            $o->pickupcomment = $request->comment;
+        }
+
         $o->save();
 
 
@@ -445,6 +466,12 @@ class RouteController extends Controller
         $o->amount = $amount;
         $o->amount_comment = $amountComment;
         $o->kkode = $kkodeBolean;
+
+        //Check if comment exits and add it if we got it.
+        if(!empty($request->comment)){
+            $o->pickupcomment = $request->comment;
+        }
+
         $o->save();
 
 
@@ -597,6 +624,7 @@ class RouteController extends Controller
             $order->workshop_id = $w->workshop_id;
             $order->stop_id = $s->id;
             $order->workshop_id = $request->workshop_id;
+            $order->pickupcomment = $request->comment;
 
 
             $order->save();
@@ -695,5 +723,61 @@ class RouteController extends Controller
 
         return redirect(route('routes', ['date' => $r->date]));
 
+    }
+
+    public function deleteorder(Request $request){
+
+
+        $order = Order::find($request->order_id);
+
+        if(empty($order)){
+            return back();
+        }
+        $stop = $order->stop;
+
+        $route = $stop->route;
+
+        Order::destroy($order->id);
+
+        if(Stop::find($stop->id)->orders->count() == 0){
+            Stop::destroy($stop->id);
+        }
+
+        if(Route::find($route->id)->stops->count() == 0){
+            Route::destroy($route->id);
+
+        }
+
+        $request->session()->flash('regconfirm', 'Ordren ble slettet.');
+        return redirect(route('routes'));
+
+    }
+
+
+    public function markorderdelivered(Request $request){
+        $order = Order::find($request->order_id);
+
+        $order->delivered = 1;
+
+
+        $order->save();
+
+
+        $request->session()->flash('regconfirm', 'Ordren ble merket som levert.');
+        return back();
+
+
+    }
+    public function undoorderdelivered(Request $request){
+        $order = Order::find($request->order_id);
+
+        $order->delivered = 0;
+
+
+        $order->save();
+
+
+        $request->session()->flash('regconfirm', 'Ordren ble merket som ikke levert.');
+        return back();
     }
 }

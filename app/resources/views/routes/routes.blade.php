@@ -370,6 +370,16 @@
 
                             </div>
                             <div class="content">
+                                <div class="field">
+                                    <div class="field">
+                                        <div class="ui icon input">
+                                            <input name="comment" class="fluid" type="text" placeholder="Skriv en beskjed til sjåføren..">
+
+                                            <i class="comment alternate outline icon"></i>
+                                        </div>
+
+                                    </div>
+                                </div>
                                 <div class="three fields">
                                     <div class="field">
                                         <select name="route" class="ui search dropdown" id="route">
@@ -455,6 +465,19 @@
                                 <input class="ui  basic button positive" type="submit" value="Registrer ordre" placeholder="Last Name">
                             </div>
                         </div>
+
+
+                        <div class="field">
+                            <div class="field">
+                                <div class="ui icon input">
+                                    <input name="comment" class="fluid" type="text" placeholder="Skriv en beskjed til sjåføren..">
+
+                                    <i class="comment alternate outline icon"></i>
+                                </div>
+
+                            </div>
+                        </div>
+
                         <div class="ui  order">
 
                                 <div class="three fields">
@@ -577,15 +600,20 @@
                                                                         <div class="content" style="padding:5px 10px 5px 10px">
 
                                                                         @if($order->ordernumber <= 6000 && $order->ordernumber >= 2000)
-                                                                                <div onclick="window.location.href='{{ route('getedit', ['id' => $order->ordernumber]) }}'" class="header activating element" data-title="Henteordre!" data-content="Husk å ta med henteordren"> <i class="icon  {{ ($order->delivered === 1) ? 'green box icon ' : 'orange box icon' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
+                                                                                <div onclick="window.location.href='{{ route('getedit', ['id' => $order->ordernumber]) }}'" class="header activating element" data-title="Henteordre!" data-content="Husk å ta med henteordren.  {{ (!empty($order->pickupcomment)) ? 'Beskjed: '.$order->pickupcomment : '' }}">  @if(!empty($order->pickupcomment)) <i class="comment alternate outline icon"></i> @endif    <i class="icon  {{ ($order->delivered === 1) ? 'green box icon ' : 'orange box icon' }}"></i>   {{ $order->ordernumber }} &nbsp;</div>
 
                                                                         @else
                                                                             @if($order->amount === null)
-                                                                                <div onclick="window.location.href='{{ route('getedit', ['id' => $order->ordernumber]) }}'" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check square outline' : 'orange cogs circle' }}"></i>{{ $order->ordernumber }} &nbsp; @if($order->kkode === 1)<span style="color:red" class=" activating element" data-title="K-KODE" data-content="Dette er en bestilling.">K</span>@endif</div>
-                                                                            <!--<div onclick="editOrder({{ $order->ordernumber }})" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check circle ' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }} &nbsp;</div>
-                                                               -->
+                                                                                @if(!empty($order->pickupcomment))
+                                                                                        <div onclick="window.location.href='{{ route('getedit', ['id' => $order->ordernumber]) }}'" class="header activating element" data-title="Beskjed: {{ ($order->kkode === 1) ? 'OG K-KODE!' : '' }}" data-content="{{ $order->pickupcomment }}"> <i class="comment alternate outline icon"></i> <i class="icon  {{ ($order->delivered === 1) ? 'green check square outline' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }}  @if($order->kkode === 1)<span style="color:red">K</span>@endif &nbsp;</div>
+
+                                                                                    @else
+                                                                                        <div onclick="window.location.href='{{ route('getedit', ['id' => $order->ordernumber]) }}'" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check square outline' : 'orange cogs circle' }}"></i>{{ $order->ordernumber }} &nbsp; @if($order->kkode === 1)<span style="color:red" class=" activating element" data-title="K-KODE" data-content="Dette er en bestilling. {{ (!empty($order->pickupcomment)) ? 'Beskjed: '.$order->pickupcomment : '' }}">K</span>@endif</div>
+
+
+                                                                                    @endif
                                                                             @else
-                                                                                <div onclick="window.location.href='{{ route('getedit', ['id' => $order->ordernumber]) }}'" class="header activating element" data-title="OBS! KONTANT {{ ($order->kkode === 1) ? 'OG K-KODE!' : '' }}" data-content="{{ $order->amount }} kr"> <i class="icon  {{ ($order->delivered === 1) ? 'green money bill alternate outline icon ' : 'orange money bill alternate outline icon' }}"></i>  {{ $order->ordernumber }} @if($order->kkode === 1)<span style="color:red">K</span>@endif &nbsp;</div>
+                                                                                <div onclick="window.location.href='{{ route('getedit', ['id' => $order->ordernumber]) }}'" class="header activating element" data-title="OBS! KONTANT {{ ($order->kkode === 1) ? 'OG K-KODE!' : '' }}" data-content="{{ $order->amount }} kr. {{ (!empty($order->pickupcomment)) ? 'Beskjed: '.$order->pickupcomment : '' }}"> <i class="icon  {{ ($order->delivered === 1) ? 'green money bill alternate outline icon ' : 'orange money bill alternate outline icon' }}"></i>  {{ $order->ordernumber }} @if($order->kkode === 1)<span style="color:red">K</span>@endif &nbsp;</div>
 
                                                                             @endif
                                                                         @endif
@@ -770,7 +798,7 @@
 
                                             @if($driver->started === 1)
                                                 <div class="description">Kjører <a><b>rute {{ $driver->route }}</b></a></div>
-                                                <div class="description">Startet: <i class="icon clock outline"></i>{{ date('H:i',strtotime($driver->created_at)) }}</div>
+                                                <div class="description">Startet: <i class="icon clock outline"></i>{{ date('H:i',strtotime($driver->started_time)) }}</div>
                                                 @if($driver->optimized_time !== null)
                                                     @if($driver->lunch_break === 1)
 

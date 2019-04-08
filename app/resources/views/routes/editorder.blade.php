@@ -132,137 +132,189 @@
 
     <main style="margin-bottom: 60vh;">
         <div class="ui container" style="margin-top:80px;">
-            <div class="ui segment">
 
-                @if(session('regconfirm'))
-                    <div class="ui success message transition">
-                        <i class="close icon"></i>
-                        <div class="header">
-                            {{ Session::get('regconfirm') }}
-                        </div>
+
+            @if(session('regconfirm'))
+                <div class="ui success message transition">
+                    <i class="close icon"></i>
+                    <div class="header">
+                        {{ Session::get('regconfirm') }}
                     </div>
-                @endif
-
-                @if(session('negative'))
-                    <div class="ui error message transition">
-                        <i class="close icon"></i>
-                        <div class="header">
-                            {{ Session::get('negative') }}
-                        </div>
-                    </div>
-                @endif
-
-                @if ($errors->any())
-
-                    <div class="ui error message">
-                        <i class="close icon"></i>
-                        <div class="header">
-                            Feilmelding:
-                        </div>
-                        <ul class="list">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-                <div class="ui top attached tabular menu">
-                    <a class="active item" data-tab="first"><i class="icon edit"></i> Rediger ordre</a>
-                    <!--<a class="item" data-tab="third">Hente</a>-->
                 </div>
-                <div class="ui bottom attached active tab segment" data-tab="first">
+            @endif
 
-                    <form method="POST" action="{{ route('postedit') }}" class="ui form order error" >
+            @if(session('negative'))
+                <div class="ui error message transition">
+                    <i class="close icon"></i>
+                    <div class="header">
+                        {{ Session::get('negative') }}
+                    </div>
+                </div>
+            @endif
+
+            @if ($errors->any())
+
+                <div class="ui error message">
+                    <i class="close icon"></i>
+                    <div class="header">
+                        Feilmelding:
+                    </div>
+                    <ul class="list">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            <div class="ui top attached tabular menu">
+                <a class="active item" data-tab="first"><i class="icon edit"></i> Rediger ordre</a>
+                <!--<a class="item" data-tab="third">Hente</a>-->
+            </div>
+            <div class="ui bottom attached active tab segment" data-tab="first">
+
+                <form method="POST" action="{{ route('postedit') }}" class="ui form order error" >
+                    @csrf
+                    <div class="three fields">
+                        <div class="field">
+                            <div class="ui corner labeled input">
+                                <input class="ui" id="kundenummer"  type="number" max="999999" min="100000"  value="{{ $order->workshop_id }}" name="workshop_id" placeholder="Kundenummer" autocomplete="off">
+                                <div class="ui corner label">
+                                    <i class="asterisk icon red"></i>
+                                </div>
+                            </div>
+                            <div style="display: none" id="kundenummer-label" class="ui pointing label">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui corner labeled input">
+                                <input type="text" name="ordernumber" value="{{ $order->ordernumber }}"  placeholder="Ordrenummer">
+                                <input type="hidden" name="old_ordernumber" value="{{ $order->ordernumber }}">
+                                <input type="hidden" name="old_stop" value="{{ $order->stop->id }}">
+                                <input type="hidden" name="old_route" value="{{ $order->stop->route->id }}">
+                                <div class="ui corner label">
+                                    <i class="asterisk icon red"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <select name="route" class="ui search dropdown" id="route">
+                                <option value="">Velg rute</option>
+
+                                @foreach($route_routes as $t)
+                                    <option {{ ($order->stop->route->route == $t->route) ? 'selected' : '' }} value="{{ $t->route }}">{{ $t->route }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="ui  order">
+
+                        <div class="content">
+                            <div class="three fields">
+
+                                <div class="field">
+                                    <select name="time" class="ui search dropdown" id="time">
+                                        <option value="">Velg tid</option>
+                                        @foreach($route_times as $t)
+                                            <option {{ ($order->stop->route->time == $t->time) ? 'selected' : '' }} value="{{ $t->time }}">{{ $t->time }}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                                <div class="field">
+                                    <input name="date" type="text" id="flatpickr" value="{{ $order->stop->route->date }}">
+                                </div>
+
+                                <div class="field">
+                                    <!-- Add positive class on valid validation -->
+                                    <input class="ui  basic button positive fluid" type="submit" value="Lagre endringer" placeholder="Last Name">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="field">
+                                    <div class="ui icon input">
+                                        <input name="comment" class="fluid" type="text" value="{{ $order->pickupcomment }}" placeholder="Skriv en beskjed til sjåføren..">
+
+                                        <i class="comment alternate outline icon"></i>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="three fields">
+                                <div class="field">
+                                    <div class="ui kontant test toggle checkbox" style="margin-left:100px; !important; margin-top:5px !important;">
+                                        <input  type="checkbox" {{ ($order->amount != null) ? 'checked' : '' }}>
+                                    </div>
+                                    <div class="ui below pointing label">
+                                        Skal det betales med kort eller kontant?
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui corner labeled input">
+                                        <input type="text" name="amount" placeholder="sum" id="sum" value="{{ $order->amount }}"  {{ ($order->amount != null) ? '' : 'disabled' }}>
+                                        <div style="display: none"  id="input-required-disabled" class="ui corner label input-label-enabled">
+                                            <i class="asterisk icon red"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui test toggle checkbox kkode" style="margin-left:70px; !important; margin-top:5px !important;">
+                                        <input name="kkode"  type="checkbox" {{ (!empty($order->kkode)) ? 'checked' : '' }}>
+                                    </div>
+                                    <br>
+                                    <div class="ui below pointing label">
+                                        Er den en K-Kode? (Bestilling)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </form>
+                <!-- Form end -->
+
+                <div class="ui divider">
+
+                </div>
+            @if($order->delivered === 1)
+                <!--<form method="POST" action="{{ route('undoorderdelivered') }}" class="ui form">
                         @csrf
-                        <div class="three fields">
-                            <div class="field">
-                                <div class="ui corner labeled input">
-                                    <input class="ui" id="kundenummer"  type="number" max="999999" min="100000"  value="{{ $order->workshop_id }}" name="workshop_id" placeholder="Kundenummer" autocomplete="off">
-                                    <div class="ui corner label">
-                                        <i class="asterisk icon red"></i>
-                                    </div>
-                                </div>
-                                <div style="display: none" id="kundenummer-label" class="ui pointing label">
-                                </div>
-                            </div>
-                            <div class="field">
-                                <div class="ui corner labeled input">
-                                    <input type="text" name="ordernumber" value="{{ $order->ordernumber }}"  placeholder="Ordrenummer">
-                                    <input type="hidden" name="old_ordernumber" value="{{ $order->ordernumber }}">
-                                    <input type="hidden" name="old_stop" value="{{ $order->stop->id }}">
-                                    <input type="hidden" name="old_route" value="{{ $order->stop->route->id }}">
-                                    <div class="ui corner label">
-                                        <i class="asterisk icon red"></i>
-                                    </div>
-                                </div>
-                            </div>
+                        <input type="hidden" name="order_id" value="{{ $order->id }}">
+                        <button type="submit" class="ui basic outline negative button">
+                            <i class="undo icon"></i>
+                            Angre levering
+                        </button>
 
-                            <div class="field">
-                                <select name="route" class="ui search dropdown" id="route">
-                                    <option value="">Velg rute</option>
+                    </form> -->
 
-                                    @foreach($route_routes as $t)
-                                        <option {{ ($order->stop->route->route == $t->route) ? 'selected' : '' }} value="{{ $t->route }}">{{ $t->route }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+            @else
+                <!--   <form method="POST" action="{{ route('markorderdelivered') }}" class="ui form">
+                        @csrf
+                        <input type="hidden" name="order_id" value="{{ $order->id }}">
+                        <button type="submit" class="ui basic outline positive button">
+                            <i class="check green icon"></i>
+                            Merk som levert.
+                        </button>
 
-                        </div>
-                        <div class="ui  order">
+                    </form> -->
+                @endif
 
-                            <div class="content">
-                                <div class="three fields">
 
-                                    <div class="field">
-                                        <select name="time" class="ui search dropdown" id="time">
-                                            <option value="">Velg tid</option>
-                                            @foreach($route_times as $t)
-                                                <option {{ ($order->stop->route->time == $t->time) ? 'selected' : '' }} value="{{ $t->time }}">{{ $t->time }}</option>
-                                            @endforeach
 
-                                        </select>
-                                    </div>
-                                    <div class="field">
-                                       <input name="date" type="text" id="flatpickr" value="{{ $order->stop->route->date }}">
-                                    </div>
 
-                                    <div class="field">
-                                        <!-- Add positive class on valid validation -->
-                                        <input class="ui  basic button positive fluid" type="submit" value="Lagre endringer" placeholder="Last Name">
-                                    </div>
-                                </div>
-                                <div class="three fields">
-                                    <div class="field">
-                                        <div class="ui kontant test toggle checkbox" style="margin-left:100px; !important; margin-top:5px !important;">
-                                            <input  type="checkbox" {{ ($order->amount != null) ? 'checked' : '' }}>
-                                        </div>
-                                        <div class="ui below pointing label">
-                                            Skal det betales med kort eller kontant?
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <div class="ui corner labeled input">
-                                            <input type="text" name="amount" placeholder="sum" id="sum" value="{{ $order->amount }}"  {{ ($order->amount != null) ? '' : 'disabled' }}>
-                                            <div style="display: none"  id="input-required-disabled" class="ui corner label input-label-enabled">
-                                                <i class="asterisk icon red"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <div class="ui test toggle checkbox kkode" style="margin-left:70px; !important; margin-top:5px !important;">
-                                            <input name="kkode"  type="checkbox" {{ (!empty($order->kkode)) ? 'checked' : '' }}>
-                                        </div>
-                                        <br>
-                                        <div class="ui below pointing label">
-                                            Er den en K-Kode? (Bestilling)
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                    <!-- Form end -->
-                </div>
+
+
+                <form method="POST" action="{{ route('deleteorder') }}" class="ui form">
+                    @csrf
+                    <input type="hidden" name="order_id" value="{{ $order->id }}">
+                    <button type="submit" class="ui basic outline negative button">
+                        <i class="trash alternate icon"></i>
+                        Slett
+                    </button>
+
+                </form>
 
 
 

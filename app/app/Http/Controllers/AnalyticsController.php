@@ -9,6 +9,7 @@ use App\Route;
 use App\Stop;
 use App\User;
 use Carbon\Carbon;
+use Countable;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -143,7 +144,8 @@ class AnalyticsController extends Controller
         $ant13 = 0;
         $ant14 = 0;
 
-        $totalRoutes = count($routes);
+
+        $totalRoutes = is_array($routes) || $routes instanceof Countable ? count($routes) : 0;
         foreach($routes as $r){
 
             $startTime = Carbon::parse($r->started_time);
@@ -159,7 +161,10 @@ class AnalyticsController extends Controller
             $totalKM += $r->kmend - $r->kmstart; //Get routes KM
 
             $stopsArr = $r->stops;
-            $stops += sizeof($stopsArr); //Get amount of stops
+
+            $stops += is_array($stopsArr) || $stopsArr instanceof Countable ? count($stopsArr) : 0;
+
+
 
             foreach($stopsArr as $s){
                 switch ($r->route) {
@@ -212,7 +217,8 @@ class AnalyticsController extends Controller
 
                 }
                 $ordersArr = $s->orders;
-                $orders += sizeof($ordersArr); //Get amount of orders
+
+                $orders += is_array($ordersArr) || $ordersArr instanceof Countable ? count($ordersArr) : 0;
 
             }
 
@@ -260,7 +266,7 @@ class AnalyticsController extends Controller
         return view( 'analytics.dashboard')->with(compact('routes', 'totalRoutes', 'users', 'route_number', 'driver', 'route_routes', 'activeCount', 'chart', 'orders', 'stops', 'totalKM', 'totalHours', 'totalMinutes',
             'ant10', 'ant11', 'ant12', 'ant13', 'ant14', 'time', 'mon10', 'mon11','mon12', 'mon13', 'mon14',
             'tue10', 'tue11','tue12', 'tue13', 'tue14', 'wen10', 'wen11','wen12', 'wen13', 'wen14', 'thu10', 'thu11','thu12', 'thu13', 'thu14', 'fri10', 'fri11','fri12', 'fri13', 'fri14'
-            ));
+        ));
     }
 
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 
 use App\User;
+use Illuminate\Support\Facades\Hash;
 use jeremykenedy\LaravelRoles\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -120,4 +121,83 @@ class UserController extends Controller
             dd('user is now admin');
         }
     }
+
+    public function getChangePassword(Request $request){
+        return view('users.changepassword');
+    }
+
+    public function postChangePassword(Request $request){
+
+        $user = Auth::user();
+
+        //Check if old password is correct
+        if(Hash::check($request->old_password, $user->password)){
+
+            //Check if new password and repeat password is the same
+            if($request->password === $request->password_confirmation){
+                $user->password = Hash::make($request->password);
+                $user->save();
+
+                $request->session()->flash('regconfirm', 'Passordet ble endret.');
+                return back();
+            }else{
+                $request->session()->flash('negative', 'Det nye passordet og gjenta passord er ikke like.');
+                return back()->withInput();
+            }
+        }else{
+            $request->session()->flash('negative', 'Det gamle passordet er feil.');
+            return back()->withInput();
+        }
+
+
+    }
+
+
+    public function getChangeEmail(Request $request){
+        return view('users.changeemail');
+    }
+
+    public function postChangeEmail(Request $request){
+
+        $user = Auth::user();
+
+        $emailInUse = User::where('email', '=', $request->new_email)->first();
+
+        if(empty($emailInUse)){
+
+            $user->email = $request->new_email;
+            $user->save();
+
+            $request->session()->flash('regconfirm', 'E-post ble endret.');
+            return back();
+        }else{
+            $request->session()->flash('negative', 'Den nye eposten er allerede i bruk.');
+            return back();
+        }
+
+
+
+    }
+
+    public function setLargeMode(Request $request){
+        $user = User::find($request->user_id);
+
+        $user->designmode = 1;
+        $user->save();
+
+        return back();
+    }
+
+    public function setSmallMode(Request $request){
+        $user = User::find($request->user_id);
+
+        $user->designmode = 0;
+        $user->save();
+
+        return back();
+    }
+
+
+
+
 }

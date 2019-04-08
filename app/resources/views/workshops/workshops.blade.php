@@ -151,9 +151,9 @@
 
 @section('content')
 
-    <main style="margin-bottom: 30vh;">
+    <main>
 
-        <div class="ui segment container" style="margin-top:80px;" >
+        <div class="ui segment container" style="margin-top:40px;" >
 
             <div class="main-content">
 

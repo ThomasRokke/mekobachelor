@@ -6,7 +6,6 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use jeremykenedy\LaravelRoles\Models\Role;
@@ -35,17 +34,6 @@ class RegisterController extends Controller
      */
     protected $redirectTo = '/users';
 
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     //This method overrides the default Laravel register method. I have done this to prevent autologin after user registration.
     public function register(Request $request)
     {
@@ -59,6 +47,15 @@ class RegisterController extends Controller
             ?: redirect($this->redirectPath());
     }
 
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     /**
      * Get a validator for an incoming registration request.

@@ -152,7 +152,7 @@
                     'copy', 'csv', 'excel'
                 ],
                 "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-                'pageLength': 500000,
+                'pageLength': 10,
 
             } );
         } );
@@ -161,7 +161,7 @@
 
 @section('content')
 
-    <main style="margin-bottom: 30vh; margin-top:100px">
+    <main style="margin-bottom: 30vh; margin-top:20px">
 
 
 
