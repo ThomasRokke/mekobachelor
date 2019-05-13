@@ -179,7 +179,7 @@
 
 
 
-
+                        <th>Rute ID</th>
                         <th>Ordernummer</th>
                         <th>Kundenummer</th>
                         <th>Kundenavn</th>
@@ -202,7 +202,7 @@
                         <th>Driver</th>
                         <th>Lat</th>
                         <th>Lng</th>
-                        <th>Rute ID</th>
+
                     </tr>
                     </thead>
                     <tbody>
@@ -210,6 +210,7 @@
 
                     @foreach($orders as $order)
                         <tr>
+                            <td>{{ $order->stop->route->id }}</td>
                             <td>{{ $order->ordernumber }}</td>
                             <td>{{ $order->workshop_id }}</td>
                             <td>{{ $order->stop->workshop->name }}</td>
@@ -233,7 +234,7 @@
 
                             <td>{{ $order->stop->workshop->lat }}</td>
                             <td>{{ $order->stop->workshop->lng }}</td>
-                            <td>{{ $order->stop->route->id }}</td>
+
 
 
 

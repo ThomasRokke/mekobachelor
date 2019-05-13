@@ -143,7 +143,8 @@
         <div class="ui segment">
             <div class="ui five statistics">
                 <div class="statistics">
-                    <div class="ui floating dropdown  search icon labeled bg-white">
+
+                    <div class="ui floating icon basic dropdown">
                         <i class="calendar icon"></i>
                         <span class="text">Siste {{ $time }} dager</span>
                         <div class="menu">
@@ -152,66 +153,33 @@
                             <a href="{{ route('dashboard', ['time' => 14]) }}" class="item">Siste 14 dager</a>
                             <a href="{{ route('dashboard', ['time' => 30]) }}" class="item">Siste 30 dager</a>
                             <a href="{{ route('dashboard', ['time' => 60]) }}" class="item">Siste 60 dager</a>
+                            <a href="{{ route('dashboard', ['time' => 90]) }}" class="item">Siste 90 dager</a>
+
                         </div>
                     </div>
 
+                    <div class="ui divider"></div>
 
 
-                    <h4 id="more-info-btn" class="ui divider horizontal"><i class="icon plus"></i></h4>
-
-
-                    <div id="more-info-wrapper" style="{{ (empty($route_number) && empty($driver)) ? 'display: none' : '' }}">
-                        <div class="ui floating icon basic dropdown">
-                            <i class="user icon"></i>
-                            <span class="text">{{ (!empty($driver)) ? $driver->name : 'Velg bruker' }}</span>
-                            <div class="menu">
-                                <div class="header">
-                                    <i class="user icon"></i>
-                                    Velg bruker
-                                </div>
-                                <a href="{{ route('dashboard') }}" class="item">
-                                    Alle brukere.
-                                </a>
-                                @if(Auth::check() && Auth::user()->hasRole('admin'))
-                                    @foreach($users as $u)
-                                        <a href="{{ route('dashboard', (!empty($route_number)) ?['driver_id' => $u->id, 'route' => $route_number] : ['driver_id' => $u->id]) }}" class="item">
-                                            {{ $u->name }}
-                                        </a>
-                                    @endforeach
-                                @else
-                                    <a href="{{ route('dashboard', (!empty($route_number)) ?['driver_id' => \Illuminate\Support\Facades\Auth::user()->id, 'route' => $route_number] : ['driver_id' => \Illuminate\Support\Facades\Auth::user()->id]) }}" class="item">
-                                        {{ \Illuminate\Support\Facades\Auth::user()->name }}
-                                    </a>
-                                @endif
-
+                    <div class="ui floating icon basic dropdown">
+                        <i class="hand pointer outline icon"></i>
+                        <span class="text">{{ (!empty($route_number)) ? $route_number : 'Velg rute' }}</span>
+                        <div class="menu">
+                            <div class="header">
+                                <i class="hand pointer outline icon"></i>
+                                Velg rute
                             </div>
-                        </div>
-
-                        <div class="ui divider"></div>
-
-                        <div class="ui floating icon basic dropdown">
-                            <i class="user icon"></i>
-                            <span class="text">{{ (!empty($route_number)) ? $route_number : 'Velg rute' }}</span>
-                            <div class="menu">
-                                <div class="header">
-                                    <i class="user icon"></i>
-                                    Velg bruker
-                                </div>
-                                <a href="{{ route('dashboard') }}" class="item">
-                                    Alle ruter
+                            <a href="{{ route('dashboard') }}" class="item">
+                                Alle ruter
+                            </a>
+                            @foreach($route_routes as $r)
+                                <a href="{{ route('dashboard', (!empty($driver)) ?['driver_id' => $driver->id, 'route' => $r->route] : ['route' => $r->route]) }}" class="item">
+                                    {{ $r->route }}
                                 </a>
-                                @foreach($route_routes as $r)
-                                    <a href="{{ route('dashboard', (!empty($driver)) ?['driver_id' => $driver->id, 'route' => $r->route] : ['route' => $r->route]) }}" class="item">
-                                        {{ $r->route }}
-                                    </a>
-                                @endforeach
+                            @endforeach
 
-                            </div>
                         </div>
-
-                        <div class="ui divider"></div>
                     </div>
-
 
                 </div>
 

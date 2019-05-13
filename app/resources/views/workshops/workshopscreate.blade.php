@@ -223,24 +223,57 @@
 
             <div class="main-content">
 
+                @if(session('regconfirm'))
+                    <div class="ui success message transition">
+                        <i class="close icon"></i>
+                        <div class="header">
+                            {{ Session::get('regconfirm') }}
+                        </div>
+                    </div>
+                @endif
+
+                @if(session('negative'))
+                    <div class="ui error message transition">
+                        <i class="close icon"></i>
+                        <div class="header">
+                            {{ Session::get('negative') }}
+                        </div>
+                    </div>
+                @endif
+
+                @if ($errors->any())
+
+                    <div class="ui error message">
+                        <i class="close icon"></i>
+                        <div class="header">
+                            Feilmelding:
+                        </div>
+                        <ul class="list">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 <div class="ui horizontal divider">Registrer nytt verksted <i class="icon wrench"></i></div>
                 <form method="POST" action="{{ route('office.storecreate') }}" class="ui form segment">
                     @csrf
                     <div class="two fields">
                         <div class="field">
                             <label>Kundenummer</label>
-                            <input placeholder="4001..." name="workshop_id" type="text">
+                            <input placeholder="4001..." name="workshop_id" value="{{ old('workshop_id') }}" type="text">
                         </div>
                         <div class="field">
                             <label>Rute</label>
 
-                            <input type="number" name="route" placeholder="10">
+                            <input type="number" name="route" value="{{ old('route') }}" placeholder="10">
                         </div>
                     </div>
                     <div class="field">
                         <label>Verkstednavn</label>
 
-                        <input type="text" name="name" placeholder="Stovnerbrua Servicesenter">
+                        <input type="text" name="name" value="{{ old('name') }}" placeholder="Stovnerbrua Servicesenter">
                     </div>
                     <div class="field">
                         <label>Lokasjon</label>

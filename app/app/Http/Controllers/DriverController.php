@@ -22,6 +22,18 @@ class DriverController extends Controller
         $this->middleware('auth');
     }
 
+    public function isUpdated(Request $request){
+        $route = Route::where('driver_id', Auth::user()->id)->where('active', 1)->first();
+
+        if(!empty($route)){
+            return response()
+                ->json(['status' => 1]);
+        }else{
+            return response()
+                ->json(['status' => 0]);
+        }
+    }
+
     public function getRoutePreview(){
 
         //Set route position based on
@@ -87,7 +99,40 @@ class DriverController extends Controller
 
         $route->save();
 
-        return redirect(route('transport.route-drive'));
+
+        $amountPrio = 0;
+        $amountDelivered = 0;
+        $lastPos = 0;
+        $otherExits = false;
+        foreach($route->stops as $s){
+            if($s->workshop->prioritized !== null || $s->route_position !== null ){
+
+                $lastPos = $s->route_position;
+                $amountPrio++; //Amount of prioritized
+
+                if($s->delivered === 1){
+                    $lastPos = $s->route_position;
+                    $amountDelivered++;
+                }
+            }else{
+                //If the stops has not being delivered yet.
+                if($s->delivered === 0){
+                    $otherExits = true;
+                }
+
+            }
+        }
+
+
+
+        //If you have delivered all the prioritized orders and if others exits. Run the optimization algorithm
+        if($amountDelivered === $amountPrio && $otherExits){
+            return redirect(route('optimize', ['route_id' => $route->id]));
+        }else{
+            return redirect(route('transport.route-drive'));
+        }
+
+
     }
 
     public function getRouteDrive(){
@@ -117,7 +162,17 @@ class DriverController extends Controller
     }
 
     public function setRouteEndKm(Request $request){
+
         $route = Route::find($request->id);
+
+
+        //if endkm is smaller than startkm
+        if($request->kmend < $route->kmstart){
+
+            $request->session()->flash('negative', 'Sluttkilometerstanden kan IKKE være mindre enn startkilometerstanden. Vennligst skriv inn på nytt.');
+            return back();
+        }
+
 
         $optTime = Carbon::parse($route->optimized_time);
         $now = Carbon::now();
@@ -211,7 +266,11 @@ class DriverController extends Controller
                     $amountDelivered++;
                 }
             }else{
-                $otherExits = true;
+                //If the stops has not being delivered yet.
+                if($s->delivered === 0){
+                    $otherExits = true;
+                }
+
             }
         }
 
@@ -259,7 +318,9 @@ class DriverController extends Controller
 
 
 
-        $stops = $route->stops->where('route_position', '===', null);
+        $stops = $route->stops->where('route_position', '===', null)->where('delivered', '===', 0);
+
+
 
         $countStops = count($stops);
 
@@ -269,7 +330,6 @@ class DriverController extends Controller
 
         foreach($stops as $stop){
             array_push($stopArray, $stop->workshop->adr, $stop);
-            //$stopArray[$i] = [$stops[$i]->workshop->adr, $stops[$i]];
         }
 
 
@@ -320,7 +380,9 @@ class DriverController extends Controller
 
        // $amount = $amount - 1;
 
-        //dd($responseDecodet['routes'][0]['legs']);
+        //dd($responseDecodet['routes'][0]['legs'])
+        //
+        //  ;
 
         $totalDuration = 0;
 

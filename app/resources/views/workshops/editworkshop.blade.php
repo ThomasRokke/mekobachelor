@@ -223,6 +223,39 @@
 
             <div class="main-content">
 
+                @if(session('regconfirm'))
+                    <div class="ui success message transition">
+                        <i class="close icon"></i>
+                        <div class="header">
+                            {{ Session::get('regconfirm') }}
+                        </div>
+                    </div>
+                @endif
+
+                @if(session('negative'))
+                    <div class="ui error message transition">
+                        <i class="close icon"></i>
+                        <div class="header">
+                            {{ Session::get('negative') }}
+                        </div>
+                    </div>
+                @endif
+
+                @if ($errors->any())
+
+                    <div class="ui error message">
+                        <i class="close icon"></i>
+                        <div class="header">
+                            Feilmelding:
+                        </div>
+                        <ul class="list">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 <div class="ui horizontal divider">Rediger verksted <i class="icon wrench"></i></div>
                 <form method="POST" action="{{ route('postworkshopedit') }}" class="ui form segment">
                     @csrf

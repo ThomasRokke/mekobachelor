@@ -101,6 +101,12 @@
                         </div>
                     </div>
 
+
+                    <input type="submit" value="Logg inn" class="ui fluid large  submit button">
+
+
+                    <div class="ui divider"></div>
+
                     <div class="field">
                         <div class="ui checkbox ">
                             <input type="checkbox" name="remember">
@@ -108,7 +114,6 @@
                         </div>
 
                     </div>
-                    <input type="submit" value="Logg inn" class="ui fluid large  submit button">
                 </div>
 
                 <div class="ui error message"></div>

@@ -207,4 +207,51 @@
             async defer></script>
 
 
+    <script>
+
+                @if(!$any)
+
+
+                var n = false;
+
+                @else
+
+
+                var n = true;
+
+
+                @endif
+            var timeoutID = setInterval(function () {
+                if (n) {
+                    clearInterval(timeoutID);
+                }
+
+            if(!n){
+                console.log('Forespørsel til server om ny ordre har kommet.');
+                var url = "http://localhost:8000/isupdated";
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    dataType:'json',
+                    success: function(data){
+
+
+                        console.log(data['status']);
+
+                        if(data['status'] === 1){
+                            n = true;
+                            location.reload(true);
+
+                        }
+
+
+                    }
+                });
+            }
+
+        }, 10000)
+
+    </script>
+
+
 @endsection

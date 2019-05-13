@@ -26,6 +26,13 @@ class RouteController extends Controller
         $this->middleware('auth');
     }
 
+    public function displayRoute(Request $request){
+        $route = Route::find($request->route_id);
+
+
+        return view('routes.visrute')->with(compact('route'));
+    }
+
 
     public function getRoutes(Request $request){
 
@@ -291,6 +298,285 @@ class RouteController extends Controller
 
 
         $sessionString = "Ordren ble lagt til på rute ".$r->route. " klokken ". $r->time. " den " . date('d M', strtotime($date)) . ". Ordrenummeret er: ".$o->ordernumber;
+
+        //dd($sessionString);
+
+        $request->session()->flash('regconfirm', $sessionString);
+        return redirect(route('routes'));
+
+
+    }
+
+    public function postmultiroute(Request $request){
+
+        $request->validate([
+            'workshop_id' => 'required|exists:workshops|max:8|min:6',
+        ]);
+
+        //check if the ordernumber is taken
+
+        $ordArray = [];
+        $takenArray = [];
+
+        if(!empty($request->ord1)){
+            $ord = Order::where('ordernumber', $request->ord1)->first();
+            if(!empty($ord)){
+                //Add the ordrnumber to 'taken array'
+                array_push($takenArray, $request->ord1);
+            }else{
+                array_push($ordArray, $request->ord1);
+            }
+        }
+
+        if(!empty($request->ord2)){
+            $ord = Order::where('ordernumber', $request->ord2)->first();
+            if(!empty($ord)){
+                //Add the ordrnumber to 'taken array'
+                array_push($takenArray, $request->ord2);
+            }else{
+                array_push($ordArray, $request->ord2);
+            }
+        }
+
+        if(!empty($request->ord3)){
+            $ord = Order::where('ordernumber', $request->ord3)->first();
+            if(!empty($ord)){
+                //Add the ordrnumber to 'taken array'
+                array_push($takenArray, $request->ord3);
+            }else{
+                array_push($ordArray, $request->ord3);
+            }
+        }
+
+        if(!empty($request->ord4)){
+            $ord = Order::where('ordernumber', $request->ord4)->first();
+            if(!empty($ord)){
+                //Add the ordrnumber to 'taken array'
+                array_push($takenArray, $request->ord4);
+            }else{
+                array_push($ordArray, $request->ord4);
+            }
+        }
+
+        if(!empty($request->ord5)){
+            $ord = Order::where('ordernumber', $request->ord5)->first();
+            if(!empty($ord)){
+                //Add the ordrnumber to 'taken array'
+                array_push($takenArray, $request->ord5);
+            }else{
+                array_push($ordArray, $request->ord5);
+            }
+        }
+
+        if(!empty($request->ord6)){
+            $ord = Order::where('ordernumber', $request->ord6)->first();
+            if(!empty($ord)){
+                //Add the ordrnumber to 'taken array'
+                array_push($takenArray, $request->ord6);
+            }else{
+                array_push($ordArray, $request->ord6);
+            }
+        }
+
+        //If the order has already been taken
+        if(!empty($takenArray)){
+
+            $ordersString = "";
+
+            foreach($takenArray as $t){
+                $ordersString .= $t . ", ";
+            }
+
+
+            $flashString = "Ordren(e): ". $ordersString;
+            $request->session()->flash('negative', $flashString . "er allerede registrert. Vennligst send inn skjema på nytt uten dem.");
+            return back()->withInput();
+        }
+
+
+
+        if(empty($ordArray)){
+
+            $request->session()->flash('negative', 'Du må skrive inn minst ett ordrenummer');
+            return back()->withInput();
+        }
+        //Remove duplicate values
+        $uniqueOrdArray = array_unique($ordArray);
+
+
+
+
+        $route = null;
+        $routeSet = false;
+        //If the user have specified the route
+        if(!empty($request->route)){
+            $route = $request->route;
+            $routeSet = true;
+            //Else - give the default route specified in the workshop table.
+        }else{
+            $workshop = Workshop::where('workshop_id', '=', $request->workshop_id)->first();
+            $route = $workshop->route;
+
+
+        }
+        //22:32:33
+        $timeStamp =  date('H:i:s'); //'17:32:33';
+
+
+
+        //Set the time if it have not yet been specified
+        $timeSet = false;
+        $time = null;
+
+
+        $date = null;
+        $dateSet = false;
+        if(!empty($request->time)){
+            $time = $request->time;
+            $timeSet = true;
+
+
+        }else{
+
+
+            //TODO: Set the timestamp to current time - manually set it for testing purposes.
+
+
+
+            $response = RouteTimes::where('route', '=', $route)
+                ->where('from_time', '<=', $timeStamp)
+                ->where('to_time', '>=', $timeStamp)
+                ->first();
+
+            //If there is any response within the daily timespans.
+            if(!empty($response)){
+                $time = $response->time;
+                $timeSet = true;
+                $date = date('Y/m/d'); // set to todays date
+                $dateSet = true;
+            }else{
+                $timeObj = RouteTimes::where('route', '=', $route)
+                    ->orderBy('time', 'ASC')
+                    ->first();
+
+                $time = $timeObj->time;
+                $timeSet = true;
+
+                $dayNumber = date('w', strtotime($date));
+
+                if($dayNumber > 5){
+                    $date = \Carbon\Carbon::parse('next monday')->format('Y/m/d');
+                }else{
+                    $date = \Carbon\Carbon::tomorrow()->format('Y/m/d');
+                }
+
+                $dateSet = true;
+
+            }
+
+        }
+        //time is now set
+
+
+
+
+        $date = null;
+        $dateSet = false;
+        if(!empty($request->date)){
+            $date = $request->date;
+            $dateSet = true;
+        }else{
+
+            $newTime = new \Carbon\Carbon($time, 'Europe/London');
+
+            $newTime = $newTime->subMinutes(15);
+
+            $newTime = $newTime->format('H:i');
+
+            $timeLimit = $newTime;
+
+            //If there is any response within the daily timespans.
+            //if(Carbon::now()->lessThan($timeLimit)){
+            if($timeStamp  <= $timeLimit){
+
+                $date = date('Y/m/d'); // set to todays date
+                $dateSet = true;
+
+            }else{
+
+                $dayNumber = date('w', strtotime($date));
+
+                if($dayNumber > 5){
+                    $date = \Carbon\Carbon::parse('next monday')->format('Y/m/d');
+                }else{
+                    $date = \Carbon\Carbon::tomorrow()->format('Y/m/d');
+                }
+
+                $dateSet = true;
+
+            }
+
+        }
+
+
+
+
+        if(!empty($request->amount)){
+            $amount = $request->amount;
+            $amountComment = $request->amountcomment;
+
+        }else{
+            $amount = null;
+            $amountComment = null;
+        }
+
+        $wid = $request->workshop_id;
+
+        //TODO: Perform a check if there there is any active route that this stop could be put in.
+
+        $r = Route::firstOrCreate(['date' => $date, 'route' => $route, 'time' => $time]);
+
+        $w = Workshop::where('workshop_id', $wid)->first();
+
+
+
+        $s = Stop::firstOrCreate(['route_id' => $r->id, 'workshop_id' => $wid]);
+
+        $kkodeBolean = 0;
+        //Check if the order is K-Kode - is a boolean.
+        if(!empty($request->kkode)){
+            $kkode= $request->kkode;
+            if($kkode === "on"){
+                $kkodeBolean = 1;
+            }
+        }
+
+
+
+        $ordString = "";
+        foreach ($uniqueOrdArray as $ord){
+            $o = new Order;
+            $o->ordernumber = $ord;
+            $o->stop_id = $s->id;
+            $o->workshop_id = $wid;
+            $o->amount = $amount;
+            $o->amount_comment = $amountComment;
+            $o->kkode = $kkodeBolean;
+
+            //Check if comment exits and add it if we got it.
+            if(!empty($request->comment)){
+                $o->pickupcomment = $request->comment;
+            }
+
+            $o->save();
+
+            $ordString .= $ord .", ";
+        }
+
+
+
+
+        $sessionString = "Ordrene: " .$ordString. " ble lagt til på rute ".$r->route. " klokken ". $r->time. " den " . date('d M', strtotime($date)) . ". Ordrenummeret er: ".$o->ordernumber;
 
         //dd($sessionString);
 

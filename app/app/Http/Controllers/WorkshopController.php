@@ -38,10 +38,13 @@ class WorkshopController extends Controller
         $request->validate([
             'workshop_id' => 'required|unique:workshops|max:6|min:6',
             'name' => 'required',
+            'route' => 'required',
+            'place_id' => 'required'
             //'lat' => 'required',
             //'lng' => 'required'
 
         ]);
+
 
         //create new workshop instance
         $w = new Workshop;
@@ -68,6 +71,16 @@ class WorkshopController extends Controller
     }
 
     public function postworkshopedit(Request $request){
+
+        $request->validate([
+            'workshop_id' => 'required|unique:workshops|max:6|min:6',
+            'name' => 'required',
+            'route' => 'required',
+            'fromID' => 'required'
+            //'lat' => 'required',
+            //'lng' => 'required'
+
+        ]);
         //create new workshop instance
         $w = Workshop::find($request->wid);
         $w->workshop_id = $request->workshop_id;

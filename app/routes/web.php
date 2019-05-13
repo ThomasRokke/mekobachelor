@@ -47,6 +47,9 @@ Route::get('/routes', 'RouteController@getRoutes')->name('routes');
 
 Route::post('/postroute', 'RouteController@postRoute')->name('office.postroute');
 
+Route::post('/postmultiroute', 'RouteController@postmultiroute')->name('office.postmultiroute');
+
+
 Route::post('/posthente', 'RouteController@postHente')->name('office.posthente');
 
 //Check if the workshop number exists and what name it has
@@ -68,6 +71,9 @@ Route::post('/deleteorder', 'RouteController@deleteorder')->name('deleteorder');
 
 Route::post('/markorderdelivered', 'RouteController@markorderdelivered')->name('markorderdelivered');
 Route::post('/undoorderdelivered', 'RouteController@undoorderdelivered')->name('undoorderdelivered');
+
+//Display route
+Route::get('/visrute', 'RouteController@displayRoute')->name('visrute');
 
 
 //-------END OF SECTION-----------------------------------------------------
@@ -214,6 +220,8 @@ Route::post('/undokdel', 'DriverController@undodelivered')->name('undodelivered'
 Route::post('/setlunch', 'DriverController@setLunch')->name('setlunch');
 Route::post('/undolunch', 'DriverController@undoLunch')->name('undolunch');
 
+Route::get('/isupdated', 'DriverController@isUpdated')->name('isupdated');
+
 
 
 
@@ -239,6 +247,8 @@ Auth::routes();
 
 //Force login if you are not before
 Route::get('/', 'HomeController@index')->name('home');
+
+Route::get('/about', 'HomeController@getAbout')->name('about');
 
 Route::get('/home', 'HomeController@index')->name('home');
 

@@ -21,6 +21,7 @@
                             console.log(result['wid']);
                             console.log(response);
                             $("#hente-wid").val(result['wid']);
+                            $("#hente-wid2").val(result['wid']);
                             return true;
                         }
                     })
@@ -29,13 +30,16 @@
                 $('.menu .item')
                     .tab();
 
+
+
+
                 //Init accordion.
                 $('.ui.accordion')
                     .accordion({
                         animateChildren: false //Set to false because
                     });
 
-                //Make the message box that appear on successfull insert be closable
+                //Make the message dolly that appear on successfull insert be closable
                 $('.message .close')
                     .on('click', function() {
                         $(this)
@@ -333,6 +337,7 @@
                 @endif
                 <div class="ui top attached tabular menu">
                     <a class="active item" data-tab="first">Ordre</a>
+                    <a class="item" data-tab="second">Flere ordre</a>
                     <a class="item" data-tab="third">Hente</a>
                 </div>
                 <div class="ui bottom attached active tab segment" data-tab="first">
@@ -433,6 +438,144 @@
                     </form>
                     <!-- Form end -->
                 </div>
+                <div class="ui bottom attached tab segment" data-tab="second">
+                    <form method="POST" action="{{ route('office.postmultiroute') }}" class="ui form order error" >
+                        @csrf
+                        <div class="three fields">
+                            <div class="field">
+                                <div class="ui search">
+                                    <div class="ui icon input">
+                                        <input class="prompt" type="text" placeholder="Søk blandt verksteder...">
+                                        <i class="search icon"></i>
+                                    </div>
+
+                                    <div class="results"></div>
+                                </div>
+
+
+
+
+
+                            </div>
+                            <div class="field">
+                                <div class="ui corner labeled input">
+                                    <input id="hente-wid" placeholder="Kundenummer" type="text"  name="workshop_id" value="{{ old('workshop_id') }}">
+                                    <div class="ui corner label">
+                                        <i class="asterisk icon red"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="three fields">
+
+                            <div class="field">
+                                <div class="ui icon input">
+                                    <input name="ord1" class="fluid" type="number" value="{{ old('ord1') }}" placeholder="Ordrenummer">
+
+                                    <i class="file icon"></i>
+                                </div>
+
+                            </div>
+                            <div class="field">
+                                <div class="ui icon input">
+                                    <input name="ord2" class="fluid" type="number" value="{{ old('ord2') }}" placeholder="Ordrenummer">
+
+                                    <i class="file icon"></i>
+                                </div>
+
+                            </div>
+                            <div class="field">
+                                <div class="ui icon input">
+                                    <input name="ord3" class="fluid" type="number" value="{{ old('ord3') }}" placeholder="Ordrenummer">
+
+                                    <i class="file icon"></i>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="three fields">
+
+                            <div class="field">
+                                <div class="ui icon input">
+                                    <input name="ord4" class="fluid" type="number" value="{{ old('ord4') }}" placeholder="Ordrenummer">
+
+                                    <i class="file icon"></i>
+                                </div>
+
+                            </div>
+                            <div class="field">
+                                <div class="ui icon input">
+                                    <input name="ord5" class="fluid" type="number" value="{{ old('ord5') }}" placeholder="Ordrenummer">
+
+                                    <i class="file icon"></i>
+                                </div>
+
+                            </div>
+                            <div class="field">
+                                <div class="ui icon input">
+                                    <input name="ord6" class="fluid" type="number" value="{{ old('ord6') }}" placeholder="Ordrenummer">
+
+                                    <i class="file icon"></i>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+                        <div class="field">
+                            <div class="field">
+                                <div class="ui icon input">
+                                    <input name="comment" class="fluid" type="text" value="{{ old('comment') }}" placeholder="Skriv en beskjed til sjåføren..">
+
+                                    <i class="comment alternate outline icon"></i>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="ui  order">
+
+                            <div class="three fields">
+                                <div class="field">
+                                    <select name="route" class="ui search dropdown" id="route">
+                                        <option value="">Velg rute</option>
+                                        @foreach($route_routes as $t)
+                                            <option value="{{ $t->route }}">{{ $t->route }}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                                <div class="field">
+                                    <select name="time" class="ui search dropdown" id="time">
+                                        <option value="">Velg tid</option>
+                                        @foreach($route_times as $t)
+                                            <option value="{{ date('H:i', strtotime($t->time)) }}">{{ date('H:i', strtotime($t->time)) }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="field">
+                                    <input name="date" type="text" placeholder="Dato" id="flatpickr" oninvalid="this.setCustomValidity('Dato må spesifiseres')">
+
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="field">
+                            <!-- Add positive class on valid validation -->
+                            <input class="ui  basic button positive fluid" type="submit" value="Registrer ordre" placeholder="Last Name">
+                        </div>
+
+
+
+                    </form>
+                    <!-- Form end -->
+                </div>
                 <div class="ui bottom attached tab segment" data-tab="third">
                     <form method="POST" action="{{ route('office.posthente') }}" class="ui form order error" >
                         @csrf
@@ -454,7 +597,7 @@
                             </div>
                             <div class="field">
                                 <div class="ui corner labeled input">
-                                    <input id="hente-wid" placeholder="Kundenummer" type="text"  name="workshop_id" value="">
+                                    <input id="hente-wid2" placeholder="Kundenummer" type="text"  name="workshop_id" value="">
                                     <div class="ui corner label">
                                         <i class="asterisk icon red"></i>
                                     </div>
@@ -578,20 +721,7 @@
                                                         <div class="content">
                                                             <div class="header">
                                                                 {{ $stop->workshop->name }} <span style="color:grey; font-size:0.8em">{{ $stop->workshop->workshop_id }}</span>
-                                                                <!--<span class="right floated">
-                      <div class="ui dropdown">
-                        <div class="text">1</div>
-                        <i class="dropdown icon"></i>
-                        <div class="menu">
-                          <div class="item">
-                            1
-                          </div>
-                          <div class="item">
-                            2
-                          </div>
-                        </div>
-                      </div>
-                    </span>-->
+
                                                             </div>
                                                             <!-- Set to active to display -->
                                                             <div class="ui list horizontal attached">
@@ -600,15 +730,15 @@
                                                                         <div class="content" style="padding:5px 10px 5px 10px">
 
                                                                         @if($order->ordernumber <= 6000 && $order->ordernumber >= 2000)
-                                                                                <div onclick="window.location.href='{{ route('getedit', ['id' => $order->ordernumber]) }}'" class="header activating element" data-title="Henteordre!" data-content="Husk å ta med henteordren.  {{ (!empty($order->pickupcomment)) ? 'Beskjed: '.$order->pickupcomment : '' }}">  @if(!empty($order->pickupcomment)) <i class="comment alternate outline icon"></i> @endif    <i class="icon  {{ ($order->delivered === 1) ? 'green box icon ' : 'orange box icon' }}"></i>   {{ $order->ordernumber }} &nbsp;</div>
+                                                                                <div onclick="window.location.href='{{ route('getedit', ['id' => $order->ordernumber]) }}'" class="header activating element" data-title="Henteordre!" data-content="Husk å ta med henteordren.  {{ (!empty($order->pickupcomment)) ? 'Beskjed: '.$order->pickupcomment : '' }}">  @if(!empty($order->pickupcomment)) <i class="comment alternate outline icon"></i> @endif    <i class="icon  {{ ($order->delivered === 1) ? 'green dolly icon ' : 'orange dolly icon' }}"></i>   {{ $order->ordernumber }} &nbsp;</div>
 
                                                                         @else
                                                                             @if($order->amount === null)
                                                                                 @if(!empty($order->pickupcomment))
-                                                                                        <div onclick="window.location.href='{{ route('getedit', ['id' => $order->ordernumber]) }}'" class="header activating element" data-title="Beskjed: {{ ($order->kkode === 1) ? 'OG K-KODE!' : '' }}" data-content="{{ $order->pickupcomment }}"> <i class="comment alternate outline icon"></i> <i class="icon  {{ ($order->delivered === 1) ? 'green check square outline' : 'orange cogs circle' }}"></i>  {{ $order->ordernumber }}  @if($order->kkode === 1)<span style="color:red">K</span>@endif &nbsp;</div>
+                                                                                        <div onclick="window.location.href='{{ route('getedit', ['id' => $order->ordernumber]) }}'" class="header activating element" data-title="Beskjed: {{ ($order->kkode === 1) ? 'OG K-KODE!' : '' }}" data-content="{{ $order->pickupcomment }}"> <i class="comment alternate outline icon"></i> <i class="icon  {{ ($order->delivered === 1) ? 'green check ' : 'orange file alternate outline' }}"></i>  {{ $order->ordernumber }}  @if($order->kkode === 1)<span style="color:red">K</span>@endif &nbsp;</div>
 
                                                                                     @else
-                                                                                        <div onclick="window.location.href='{{ route('getedit', ['id' => $order->ordernumber]) }}'" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check square outline' : 'orange cogs circle' }}"></i>{{ $order->ordernumber }} &nbsp; @if($order->kkode === 1)<span style="color:red" class=" activating element" data-title="K-KODE" data-content="Dette er en bestilling. {{ (!empty($order->pickupcomment)) ? 'Beskjed: '.$order->pickupcomment : '' }}">K</span>@endif</div>
+                                                                                        <div onclick="window.location.href='{{ route('getedit', ['id' => $order->ordernumber]) }}'" class="header"> <i class="icon  {{ ($order->delivered === 1) ? 'green check ' : 'orange file alternate outline' }}"></i>{{ $order->ordernumber }} &nbsp; @if($order->kkode === 1)<span style="color:red" class=" activating element" data-title="K-KODE" data-content="Dette er en bestilling. {{ (!empty($order->pickupcomment)) ? 'Beskjed: '.$order->pickupcomment : '' }}">K</span>@endif</div>
 
 
                                                                                     @endif
@@ -670,7 +800,7 @@
                                                             </div>
                                                         @elseif($route->active === 1)
                                                             <div class="ui animated fade button basic orange" tabindex="0">
-                                                                <div class="visible content"><i class="spinner loading icon"></i> Aktiv</div>
+                                                                <div class="visible content"><i class="shipping fast icon"></i> Aktiv</div>
                                                                 <div class="hidden content">
                                                                     Gjør inaktiv
                                                                 </div>
@@ -703,7 +833,7 @@
 
                                                     </a>
 
-                                                    <a class="item"><i class="clock outline layout icon" ></i> {{ ($route->started === 1) ? $route->started_time  : '?' }} - {{ ($route->finished === 1) ? $route->finished_time  : '?' }} </a>
+                                                    <a href="{{ route('visrute', ['route_id' => $route->id]) }}" class="item link"><i class="info circle icon" ></i>Vis detaljer</a>
                                                 </div>
                                             @else
 
@@ -727,7 +857,7 @@
                                                         </div>
                                                     @elseif($route->active === 1)
                                                         <div class="ui animated fade button basic orange" tabindex="0">
-                                                            <div class="visible content"><i class="spinner loading icon"></i> Aktiv</div>
+                                                            <div class="visible content"><i class="shipping fast icon"></i> Aktiv</div>
                                                             <div class="hidden content">
                                                                 Gjør inaktiv
                                                             </div>
@@ -755,7 +885,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <a class="item"><i class="clock outline layout icon" ></i> {{ ($route->started === 1) ? $route->started_time  : '?' }} - {{ ($route->finished === 1) ? $route->finished_time  : '?' }} </a>
+                                                <a href="{{ route('visrute', ['route_id' => $route->id]) }}" class="item link"><i class="info circle icon" ></i>Vis detaljer</a>
+
                                             </div>
                                             @endif
                                         </div>
@@ -767,6 +898,10 @@
 
                 @endforeach
 
+
+
+
+                <div class="ui divider"></div>
 
 
             </div><!-- End main content -->
@@ -876,6 +1011,8 @@
             <!-- right rail end -->
         </div>
     </div>
+
+
 @endsection
 
 @section('bottom-scripts')

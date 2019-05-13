@@ -102,6 +102,15 @@
 
                     </button>
 
+                    @if(session('negative'))
+                        <div class="ui error message transition">
+                            <i class="close icon"></i>
+                            <div class="header">
+                                {{ Session::get('negative') }}
+                            </div>
+                        </div>
+                    @endif
+
                 </form>
 
 
