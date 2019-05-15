@@ -264,8 +264,10 @@ class AnalyticsController extends Controller
         $gjTimeFromOpt = 0;
 
         if($totalRoutes !== 0){
+            dd('aa');
             $gjTimeFromOpt = $totalDiffFromOpt / $totalRoutes;
         }
+
 
 
 
