@@ -146,8 +146,35 @@ class AnalyticsController extends Controller
 
         $antHenteOrdre = 0;
 
+        $totalDiffFromOpt = 0;
+
         $totalRoutes = is_array($routes) || $routes instanceof Countable ? count($routes) : 0;
         foreach($routes as $r){
+
+             $time_diff = $r->time_diff;
+
+            $operator = substr($time_diff, 0, 1);
+
+            if($operator === "-"){
+
+               // dd('minus');
+                $last2chars = substr($time_diff, -2);
+                $toSubtract = (int) $last2chars;
+                $totalDiffFromOpt =- $toSubtract;
+
+            }else{
+            //    dd('plus');
+
+                //get two last characters of string
+                $last2chars = substr($time_diff, -2);
+                $toAdd = (int) $last2chars;
+                $totalDiffFromOpt =+ $toAdd;
+
+            }
+
+
+
+
 
             $startTime = Carbon::parse($r->started_time);
             $stopTime = Carbon::parse($r->finished_time);
@@ -233,6 +260,18 @@ class AnalyticsController extends Controller
             }
 
         }
+
+        $gjTimeFromOpt = 0;
+
+        if($totalRoutes !== 0){
+            $gjTimeFromOpt = $totalDiffFromOpt / $totalRoutes;
+        }
+
+
+
+
+
+
         $totalHours = floor($totalTime / 60);
         $totalMinutes = $totalTime % 60;
 
@@ -274,7 +313,7 @@ class AnalyticsController extends Controller
         $users = User::all();
 
 
-        return view( 'analytics.dashboard')->with(compact('routes','antHenteOrdre', 'totalRoutes', 'users', 'route_number', 'driver', 'route_routes', 'activeCount', 'chart', 'orders', 'stops', 'totalKM', 'totalHours', 'totalMinutes',
+        return view( 'analytics.dashboard')->with(compact('routes','antHenteOrdre', 'gjTimeFromOpt', 'totalRoutes', 'users', 'route_number', 'driver', 'route_routes', 'activeCount', 'chart', 'orders', 'stops', 'totalKM', 'totalHours', 'totalMinutes',
             'ant10', 'ant11', 'ant12', 'ant13', 'ant14', 'time', 'mon10', 'mon11','mon12', 'mon13', 'mon14',
             'tue10', 'tue11','tue12', 'tue13', 'tue14', 'wen10', 'wen11','wen12', 'wen13', 'wen14', 'thu10', 'thu11','thu12', 'thu13', 'thu14', 'fri10', 'fri11','fri12', 'fri13', 'fri14'
         ));

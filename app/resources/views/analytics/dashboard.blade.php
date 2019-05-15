@@ -227,14 +227,14 @@
                     </div>
 
                     <div class="statistic">
-                        <div class="value">{{ $stops }} <span style="font-size: 0.4em">min</span> </div>
+                        <div class="value">{{ round($gjTimeFromOpt,2) }} <span style="font-size: 0.4em">min</span> </div>
                         <div class="label">Gj. diff fra opt. tid</div>
                     </div>
 
 
                     <div class="statistic">
-                        <div class="value">X <span style="font-size: 0.4em">y</span> </div>
-                        <div class="label">Fyll inn KPI</div>
+                        <div class="value">{{ $antHenteOrdre }} <span style="font-size: 0.4em"></span> </div>
+                        <div class="label">Antall henteordre</div>
                     </div>
 
                 </div>
@@ -271,6 +271,7 @@
 
 
         @endsection
+
 
         @section('bottom-scripts')
             <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
