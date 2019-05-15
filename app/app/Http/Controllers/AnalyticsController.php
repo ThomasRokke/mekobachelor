@@ -144,6 +144,7 @@ class AnalyticsController extends Controller
         $ant13 = 0;
         $ant14 = 0;
 
+        $antHenteOrdre = 0;
 
         $totalRoutes = is_array($routes) || $routes instanceof Countable ? count($routes) : 0;
         foreach($routes as $r){
@@ -167,6 +168,15 @@ class AnalyticsController extends Controller
 
 
             foreach($stopsArr as $s){
+
+                //Check henteordre
+                foreach($s->orders as $o){
+                    if($o->ordernumber <= 60000 && $o->ordernumber >= 200){
+                        $antHenteOrdre++;
+                    }
+
+                }
+
                 switch ($r->route) {
                     case 10:
                         $ant10++;
@@ -230,6 +240,7 @@ class AnalyticsController extends Controller
 
 
 
+
         //TODO: Calculate total amount of orders
 
 
@@ -263,7 +274,7 @@ class AnalyticsController extends Controller
         $users = User::all();
 
 
-        return view( 'analytics.dashboard')->with(compact('routes', 'totalRoutes', 'users', 'route_number', 'driver', 'route_routes', 'activeCount', 'chart', 'orders', 'stops', 'totalKM', 'totalHours', 'totalMinutes',
+        return view( 'analytics.dashboard')->with(compact('routes','antHenteOrdre', 'totalRoutes', 'users', 'route_number', 'driver', 'route_routes', 'activeCount', 'chart', 'orders', 'stops', 'totalKM', 'totalHours', 'totalMinutes',
             'ant10', 'ant11', 'ant12', 'ant13', 'ant14', 'time', 'mon10', 'mon11','mon12', 'mon13', 'mon14',
             'tue10', 'tue11','tue12', 'tue13', 'tue14', 'wen10', 'wen11','wen12', 'wen13', 'wen14', 'thu10', 'thu11','thu12', 'thu13', 'thu14', 'fri10', 'fri11','fri12', 'fri13', 'fri14'
         ));
